@@ -12,7 +12,7 @@ from statistics import NormalDist
 import numpy as np
 import pandas as pd
 
-from model import BENCH, P, UNIVERSE, backtest_returns, load_prices, scores, target_weights
+from model import BENCH, CORE, P, UNIVERSE, backtest_returns, load_prices, scores, target_weights
 
 N01 = NormalDist()
 CACHE = "data/prices.csv"
@@ -21,7 +21,9 @@ rng = np.random.default_rng(7)
 
 def prices():
     if os.path.exists(CACHE) and "--refresh" not in sys.argv:
-        return pd.read_csv(CACHE, index_col=0, parse_dates=True)
+        px = pd.read_csv(CACHE, index_col=0, parse_dates=True)
+        if list(px.columns) == UNIVERSE + [BENCH]:  # universe changed -> re-download
+            return px
     px = load_prices()
     os.makedirs("data", exist_ok=True)
     px.to_csv(CACHE)
@@ -118,26 +120,32 @@ def main():
     strat2x = sl(backtest_returns(px, target_weights(px), cost_bps=10))
     sig = sl(backtest_returns(px, target_weights(px, {**P, "use_signal": True})))  # trend+reversal signal model
     raw = sl(backtest_returns(px, target_weights(px, {**P, "vol_target": 9, "regime_scale": 1.0})))
+    hrp = sl(backtest_returns(px, target_weights(px, {**P, "sizing": "hrp"})))  # correlation-aware sizing (correlations.py)
+    core = px[CORE + [BENCH]]
+    prev = sl(backtest_returns(core, target_weights(core, {**P, "vol_target": 0.15})))  # model before 2026-11-18
     rets = (px / px.shift(1) - 1)
     ew = sl(rets[UNIVERSE].mean(axis=1, skipna=True).fillna(0))
     qqq = sl(rets[BENCH].fillna(0))
 
     table = pd.DataFrame({
         "Shipped model (5bp)": stats(strat), "Shipped model (10bp stress)": stats(strat2x),
-        "Signal model (trend+reversal) — rejected": stats(sig), "Inv-vol basket, no risk engine": stats(raw),
-        "Equal-weight buy&hold": stats(ew), "QQQ buy&hold": stats(qqq),
+        "Signal model (trend+reversal) — rejected": stats(sig), "HRP sizing — rejected": stats(hrp),
+        "Previous model (8 names, 15% vol)": stats(prev), "Inv-vol basket, no risk engine": stats(raw),
+        "Equal-weight (daily rebal., no costs)": stats(ew), "QQQ buy&hold": stats(qqq),
     }).T
 
     # --- Proof battery ---
     B = 2000
     idx = stationary_bootstrap_idx(len(strat), B)
-    S_m, S_sig, S_ew = (sharpe_rows(x.values[idx]) for x in (strat, sig, ew))
+    S_m, S_sig, S_ew, S_hrp, S_prev = (sharpe_rows(x.values[idx]) for x in (strat, sig, ew, hrp, prev))
     dd = lambda x: ((c := np.cumprod(1 + x, axis=1)) / np.maximum.accumulate(c, axis=1) - 1).min(axis=1)
     DD_m, DD_ew, DD_q = dd(strat.values[idx]), dd(ew.values[idx]), dd(qqq.values[idx])
     boot = {
         "Model Sharpe 95% CI": np.percentile(S_m, [2.5, 97.5]),
         "P(Model Sharpe <= 0)": (S_m <= 0).mean(),
-        "P(signal model Sharpe >= shipped)": (S_sig - S_m >= 0).mean(),
+        "P(signal model Sharpe <= shipped)": (S_sig - S_m <= 0).mean(),  # small = alternative significantly better
+        "P(HRP Sharpe <= shipped)": (S_hrp - S_m <= 0).mean(),
+        "P(shipped Sharpe <= previous 8-name model)": (S_m - S_prev <= 0).mean(),
         "P(Model Sharpe <= equal-weight)": (S_m - S_ew <= 0).mean(),
         "P(Model MaxDD worse than equal-weight)": (DD_m <= DD_ew).mean(),
         "P(Model MaxDD worse than QQQ)": (DD_m <= DD_q).mean(),
@@ -146,7 +154,8 @@ def main():
     a_q, b_q, t_q = hac_alpha(strat.values, qqq.values)
 
     grid = [dict(vol_target=vt, regime_scale=rs, vol_win=vw, regime_ma=ma)
-            for vt in (0.10, 0.15, 0.20, 0.25) for rs in (0.0, 0.5, 1.0) for vw in (20, 60, 120) for ma in (100, 200)]
+            for vt in (0.10, 0.15, 0.20, 0.25) for rs in (0.0, 0.5, 1.0) for vw in (20, 60, 120) for ma in (100, 200)
+            if not (rs == 1.0 and ma == 100)]  # regime_ma is inert when regime_scale = 1: drop the duplicate columns
     M = np.column_stack([sl(backtest_returns(px, target_weights(px, {**P, **g}))).values for g in grid])
     sr_trials = M.mean(0) / M.std(0)
     dsr, sr0_ann = deflated_sharpe(strat, sr_trials)
@@ -165,7 +174,9 @@ def main():
         "| Test | Result | Pass bar |", "|---|---|---|",
         f"| Bootstrap Sharpe 95% CI (stationary, L=20, B={B}) | [{boot['Model Sharpe 95% CI'][0]:.2f}, {boot['Model Sharpe 95% CI'][1]:.2f}] | lower bound > 0 |",
         f"| P(Sharpe <= 0) | {boot['P(Model Sharpe <= 0)']:.3f} | < 0.05 |",
-        f"| P(signal model Sharpe >= shipped) — would adding the trend+reversal signal help? | {boot['P(signal model Sharpe >= shipped)']:.3f} | < 0.05 to justify adding it |",
+        f"| P(signal model Sharpe <= shipped) — would adding the trend+reversal signal help? | {boot['P(signal model Sharpe <= shipped)']:.3f} | < 0.05 to justify adding it |",
+        f"| P(HRP Sharpe <= shipped) — does correlation-aware sizing help? | {boot['P(HRP Sharpe <= shipped)']:.3f} | < 0.05 to justify it |",
+        f"| P(shipped Sharpe <= previous 8-name, 15%-vol model) | {boot['P(shipped Sharpe <= previous 8-name model)']:.3f} | informational: vol target changes return, not Sharpe |",
         f"| P(Model Sharpe <= equal-weight buy&hold) | {boot['P(Model Sharpe <= equal-weight)']:.3f} | < 0.05 |",
         f"| P(Model max drawdown worse than equal-weight) | {boot['P(Model MaxDD worse than equal-weight)']:.3f} | < 0.05 |",
         f"| P(Model max drawdown worse than QQQ) | {boot['P(Model MaxDD worse than QQQ)']:.3f} | < 0.05 |",
@@ -176,10 +187,12 @@ def main():
         f"| Rank IC, next day | {ic1[0]:.4f} (t = {ic1[1]:.2f}, n = {ic1[2]}) | t > 2 |",
         f"| Rank IC, next 5 days (non-overlapping) | {ic5[0]:.4f} (t = {ic5[1]:.2f}, n = {ic5[2]}) | t > 2 |",
         "\n## Caveats\n",
-        "- Selection bias: these 8 names were chosen *because* they won. Absolute returns are inflated; only the "
-        "comparisons against equal-weight and the inv-vol basket (same names, same bias) are meaningful.",
-        "- SPCX has ~110 days of history and enters only after 60 days; it barely affects these results.",
+        "- Selection bias: these names were chosen knowing they became AI winners (AVGO, AMD, NVDA especially). Absolute "
+        "returns are inflated; only comparisons on the same names (equal-weight, inv-vol basket, HRP) are meaningful.",
+        "- SPCX has ~110 days of history and enters only after 60 days; ANT (Anthropic) has no prices yet and is weight 0.",
         "- Prices are yfinance adjusted closes; fills assumed at the close with flat bp costs.",
+        "- DSR/PBO cover the parameter grid only. The shipped config was also chosen over the signal model, HRP, the "
+        "8-name universe and a 15% vol target, so the true number of trials is larger than the grid's.",
     ]
     os.makedirs("reports", exist_ok=True)
     with open("reports/backtest_results.md", "w", encoding="utf-8") as f:

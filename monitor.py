@@ -1,4 +1,4 @@
-"""One monitoring pass. GitHub Actions runs this every 15 min on weekdays (.github/workflows/monitor.yml).
+"""One monitoring pass. GitHub Actions runs this every 5 min in market hours (.github/workflows/monitor.yml).
 
 - Alerts to Discord: unusual moves (|z| > 2.5 vs 60d vol), bear-marubozu candles (the one pattern that passed
   candles.py), regime flips (QQQ vs 200d MA), and a daily summary with target weights.
@@ -40,10 +40,13 @@ def alpaca(method, path, **kw):
     return r.json() if r.text else None
 
 
-def market_open(now):
+def market_clock(now):
+    """(is_open, minutes to today's close). Alpaca's clock handles holidays and 13:00 half days."""
     if AK:
-        return alpaca("GET", "/clock")["is_open"]  # handles holidays and half days
-    return now.weekday() < 5 and dt.time(9, 30) <= now.time() <= dt.time(16, 0)
+        c = alpaca("GET", "/clock")
+        return c["is_open"], (dt.datetime.fromisoformat(c["next_close"]) - now).total_seconds() / 60
+    close = now.replace(hour=16, minute=0, second=0, microsecond=0)
+    return now.weekday() < 5 and dt.time(9, 30) <= now.time() <= dt.time(16, 0), (close - now).total_seconds() / 60
 
 
 def earnings_soon(sym, today):
@@ -54,20 +57,28 @@ def earnings_soon(sym, today):
         return False  # calendar is flaky; a missing haircut is not worth crashing the run
 
 
-def rebalance(w):
+def rebalance(w, nodata):
     equity = float(alpaca("GET", "/account")["equity"])
     held = {p["symbol"]: float(p["market_value"]) for p in alpaca("GET", "/positions")}
-    diffs = {s: w.get(s, 0) * equity * 0.98 - held.get(s, 0) for s in UNIVERSE}  # 2% cash buffer
+    if stale := sorted(nodata & set(held)):  # a failed download would read as weight 0 -> full sell of a real holding
+        return equity, [f"SKIPPED rebalance: no price data for held {', '.join(stale)}"]
+    diffs = {s: w.get(s, 0) * equity * 0.98 - held.get(s, 0) for s in set(UNIVERSE) | set(held)}  # 2% cash buffer; held names outside the universe get sold
     lines = []
     for s, d in sorted(diffs.items(), key=lambda kv: kv[1]):  # sells first to free cash
-        if abs(d) < max(50, 0.01 * equity):
+        exit_all = s in held and w.get(s, 0) == 0
+        if abs(d) < max(50, 0.01 * equity) and not exit_all:
             continue
         try:
-            alpaca("POST", "/orders", json={"symbol": s, "notional": round(abs(d), 2), "side": "buy" if d > 0 else "sell",
-                                            "type": "market", "time_in_force": "day"})
-            lines.append(f"{'BUY ' if d > 0 else 'SELL'} {s} ${abs(d):,.0f}")
+            if exit_all:  # close by position, not notional: a notional sell of the snapshot value can exceed shares held or leave dust
+                alpaca("DELETE", f"/positions/{s}")
+            else:
+                alpaca("POST", "/orders", json={"symbol": s, "notional": round(abs(d), 2), "side": "buy" if d > 0 else "sell",
+                                                "type": "market", "time_in_force": "day"})
+            lines.append(f"{'BUY ' if d > 0 else 'SELL'} {s} ${abs(d):,.0f}{' (close)' if exit_all else ''}")
         except requests.HTTPError as e:
             lines.append(f"FAILED {s}: {e.response.text[:120]}")
+        except requests.RequestException as e:  # timeout etc.: report and keep going with the other names
+            lines.append(f"FAILED {s}: {type(e).__name__}")
     return equity, lines
 
 
@@ -94,13 +105,21 @@ TRUMP_NOTE = "_Backtest: see reports/trump_results.md._"
 
 
 def main():
+    state = json.load(open(STATE)) if os.path.exists(STATE) else {}
+    try:
+        run(state)
+    finally:  # always save, or a later crash re-sends already-sent alerts / repeats the rebalance next run
+        json.dump(state, open(STATE, "w"), indent=1)
+
+
+def run(state):
     now = dt.datetime.now(NY)
     today = now.date().isoformat()
-    state = json.load(open(STATE)) if os.path.exists(STATE) else {}
     alt_data(state)
-    if not FORCE and not market_open(now):
+    is_open, to_close = market_clock(now)
+    closing = to_close <= 30  # last 30 min of the session, 15:30 normally, 12:30 on half days
+    if not FORCE and not is_open:
         print("market closed")
-        json.dump(state, open(STATE, "w"), indent=1)
         return
 
     state.setdefault("alerted", {})
@@ -109,8 +128,8 @@ def main():
 
     px = yf.download(UNIVERSE + [BENCH], start=(now - dt.timedelta(days=800)).date().isoformat(),
                      auto_adjust=True, progress=False, threads=False)
-    C = px["Close"][UNIVERSE + [BENCH]].dropna(how="all")
-    O, Hh, L = (px[k][UNIVERSE].iloc[-1] for k in ("Open", "High", "Low"))
+    C = px["Close"].reindex(columns=UNIVERSE + [BENCH]).dropna(how="all").ffill()  # a gap in today's partial row would blank that name's vol -> weight 0 -> full sell
+    O, Hh, L = (px[k].reindex(columns=UNIVERSE).iloc[-1] for k in ("Open", "High", "Low"))
     r = C / C.shift(1) - 1
     vol = r.iloc[:-1].tail(P["vol_win"]).std()
     msgs = []
@@ -121,7 +140,7 @@ def main():
             msgs.append(f"⚡ **{s}** {r[s].iloc[-1]:+.2%} today ({z:+.1f}σ vs 60d vol)")
             alerted.append(f"move:{s}")
         rng, body = Hh[s] - L[s], C[s].iloc[-1] - O[s]
-        if rng > 0 and body < 0 and -body >= 0.9 * rng and f"marubozu:{s}" not in alerted and now.time() >= dt.time(15, 30):
+        if rng > 0 and body < 0 and -body >= 0.9 * rng and f"marubozu:{s}" not in alerted and closing:
             msgs.append(f"🕯️ **{s}** forming a bear marubozu. Backtest: next day +0.50% avg vs normal, 57% hit "
                         f"(only pattern of 13 that survived testing — reports/candles_results.md)")
             alerted.append(f"marubozu:{s}")
@@ -132,7 +151,7 @@ def main():
         msgs.append(f"🚦 Regime flip: **{regime}** (QQQ vs 200-day MA). Exposure {'restored' if regime == 'risk-on' else 'halved'}.")
     state["regime"] = regime
 
-    if (now.time() >= dt.time(15, 30) or FORCE) and state.get("rebalanced") != today:
+    if (closing or FORCE) and state.get("rebalanced") != today:
         w = target_weights(C).iloc[-1]
         for s in UNIVERSE:
             if w[s] > 0 and earnings_soon(s, now.date()):
@@ -140,14 +159,16 @@ def main():
         table = "\n".join(f"`{s:5}` {w[s]:6.1%}" for s in UNIVERSE if w[s] > 0)
         summary = f"📊 **Daily target** ({today}, {regime}) — gross {w.sum():.0%}, cash {1 - w.sum():.0%}\n{table}"
         if AK:
-            equity, orders = rebalance(w.to_dict())
+            equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()})
             summary += f"\n🧾 Paper account ${equity:,.0f}\n" + ("\n".join(orders) or "no trades needed")
         msgs.append(summary)
         state["rebalanced"] = today
 
     for m in msgs:
-        discord(m)
-    json.dump(state, open(STATE, "w"), indent=1)
+        try:
+            discord(m)
+        except requests.RequestException as e:  # one failed post must not drop the rest
+            print("discord failed:", e)
 
 
 if __name__ == "__main__":

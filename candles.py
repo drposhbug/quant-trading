@@ -73,7 +73,7 @@ def holm(p):
 
 def main():
     d = ohlc()
-    O, Hh, L, C = (d[k][UNIVERSE] for k in ("Open", "High", "Low", "Close"))
+    O, Hh, L, C = (d[k].reindex(columns=UNIVERSE) for k in ("Open", "High", "Low", "Close"))
     pats = patterns(O, Hh, L, C)
     rows = []
     for h in H:

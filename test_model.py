@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 from backtest import deflated_sharpe, pbo_cscv, prices
-from model import BENCH, P, UNIVERSE, target_weights
+from model import EVENT_CAPS, P, target_weights
 
 px = prices()
 
@@ -16,7 +16,13 @@ for d in px.index[[-400, -150, -20]]:
 # 2. Limits: long-only, no leverage, caps respected.
 w = target_weights(px)
 assert (w >= 0).all().all() and (w.sum(axis=1) <= 1 + 1e-9).all()
-assert (w.drop(columns="SPCX") <= P["cap"] + 1e-12).all().all() and (w["SPCX"] <= P["spcx_cap"] + 1e-12).all()
+for c in w:
+    assert (w[c] <= EVENT_CAPS.get(c, P["cap"]) + 1e-12).all(), c
+assert px["ANT"].notna().any() or (w["ANT"] == 0).all()  # unlisted name (no prices) never trades
+for sz in ("invvol", "hrp"):  # 4. HRP path: same limits, no lookahead
+    d = px.index[-150]
+    hw = target_weights(px.loc[:d], {**P, "sizing": sz}).loc[d]
+    assert np.allclose(target_weights(px, {**P, "sizing": sz}).loc[d], hw, atol=1e-12) and hw.sum() <= 1 + 1e-9
 
 # 3. Stats sanity: pure-noise strategies should look overfit, a real edge should not.
 rng = np.random.default_rng(0)

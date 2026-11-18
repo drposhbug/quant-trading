@@ -11,21 +11,23 @@ methods that punish luck and overfitting, and only ship what survives. Every cla
 
 | Claim | Test | Result |
 |---|---|---|
-| The model has a positive Sharpe | stationary bootstrap, deflated Sharpe | **Pass** (CI 0.65–1.80, DSR 0.999) |
-| The risk engine cuts drawdowns vs buy & hold | bootstrap P(MaxDD worse) | **Pass** (p = 0.003 vs equal-weight, 0.019 vs QQQ) |
-| The parameter choice is not overfit | PBO via CSCV over 72 variants | **Pass, barely** (0.28 < 0.30) |
-| Beats QQQ risk-adjusted | HAC alpha t-stat | **Borderline** (t = 3.02, bar 3.0; inflated by selection bias, §6) |
-| Beats buying the same 8 stocks | bootstrap P(Sharpe ≤ EW), HAC alpha | **Fail** (p = 0.47, t = 1.2) — same Sharpe, half the drawdown |
+| The model has a positive Sharpe | stationary bootstrap, deflated Sharpe | **Pass** (CI 0.72–1.88, DSR 1.000) |
+| The risk engine cuts drawdowns vs buy & hold | bootstrap P(MaxDD worse) | **Pass vs equal-weight** (p = 0.036); **fail vs QQQ** (p = 0.15) since the 25% vol target (was 0.019 at 15%) |
+| The parameter choice is not overfit | PBO via CSCV over 60 distinct variants | **Pass** (0.19 < 0.30) |
+| Beats QQQ risk-adjusted | HAC alpha t-stat | **Pass** (t = 3.83, bar 3.0; inflated by selection bias, §6) |
+| Beats buying the same 12 stocks | bootstrap P(Sharpe ≤ EW), HAC alpha | **Fail** (p = 0.42, t = 1.1) — same Sharpe, ~60% of the drawdown |
+| Correlation-aware sizing (HRP) beats inverse-vol | paired bootstrap | **Fail** (P(HRP ≤ shipped) = 0.70; Sharpe 1.26 vs 1.29) → not used |
+| Correlation structure predicts returns | rank IC + 110 lead-lag pairs, Holm | **Fail** (1 of 118 tests passes; too small to trade) — [correlations_results.md](reports/correlations_results.md) |
 | Trend + reversal signals predict returns | rank IC t-stat, bootstrap vs basket | **Fail** (IC t = 0.7; signal model worse) → removed |
 | Candlestick patterns predict returns | 39 tests, Holm correction, split-sample | **1 of 39 passes** (bear marubozu, +0.50% next day) |
 
 **Plain-English conclusion:** the edge is *risk control*, not *prediction*. You get roughly the same risk-adjusted
-return as holding these stocks, with drawdowns cut from about −49% to about −22%. That is what the research predicted
+return as holding these stocks, with drawdowns cut from about −44% to about −27% (at the 25% vol target; −20% at 15%). That is what the research predicted
 (report §"what actually works").
 
 ## 1. Notation
 
-Prices $P_{i,t}$ for names $i = 1..N$ ($N = 8$), log returns $r_{i,t} = \ln P_{i,t} - \ln P_{i,t-1}$, simple returns
+Prices $P_{i,t}$ for names $i = 1..N$ ($N = 12$ plus ANT once it lists), log returns $r_{i,t} = \ln P_{i,t} - \ln P_{i,t-1}$, simple returns
 $R_{i,t} = P_{i,t}/P_{i,t-1} - 1$. Everything at time $t$ uses data up to and including the close of $t$; positions set
 at close $t$ earn $R_{t+1}$. `test_model.py` checks this mechanically by deleting future data and confirming the weights don't change.
 
@@ -41,7 +43,7 @@ so $RC_i = c\,(1+(N-1)\rho)/\sigma_p$, **the same for every name**. TSLA (~60% v
 so it can't dominate the book. Inverse-vol needs no expected-return estimates, which are the main source of error in
 mean-variance and Kelly (MacLean-Thorp-Ziemba; report §risk).
 
-Caps: $w_i \le 0.25$, and $w_{SPCX} \le 0.05$ (lockup on 2026-12-08, merger event risk, only ~110 days of history).
+Caps: $w_i \le 0.25$, and $w_{SPCX}, w_{ANT} \le 0.05$ (fresh IPOs: SPCX lockup on 2026-12-08, merger event risk, thin history; ANT trades only after 60 days of prices).
 Anything over a cap sits in cash.
 
 ## 3. Volatility targeting
@@ -53,11 +55,11 @@ $$\hat\sigma_{p,t} = \sqrt{w_t^{0\top}\hat\Sigma_t w^0_t}, \qquad k_t = \min\!\l
 **Why it is close to growth-optimal:** the Kelly fraction for an asset with drift $\mu$ and vol $\sigma$ is $f^* = \mu/\sigma^2$.
 If the Sharpe ratio $S = \mu/\sigma$ is roughly stable while vol changes (the empirical regularity behind Moreira-Muir 2017),
 then $f^* = S/\sigma$: **optimal exposure is inversely proportional to vol**, which is exactly $k_t \propto 1/\hat\sigma_{p,t}$.
-$\sigma^* = 15\%$ is a fractional-Kelly choice. With realised Sharpe around 1.2, full Kelly would be about 120% vol, so 15% is roughly 1/8 Kelly.
+$\sigma^* = 25\%$ is a fractional-Kelly choice (raised from 15% on 2026-11-18 to target return). With realised Sharpe around 1.25, full Kelly would be about 125% vol, so 25% is roughly 1/5 Kelly. Above 25% the no-leverage cap ($k_t \le 1$) binds most days and CAGR barely rises (26.2% → 27.1% at 30%).
 Half-Kelly keeps about 75% of growth with far less ruin risk (Ziemba).
 
 **Why it cuts drawdowns:** volatility clusters (GARCH). Crashes arrive in high-vol periods, when $k_t$ is already small.
-The ablation confirms this: max drawdown falls from −47% without the engine to −22% with it, while Sharpe barely moves.
+The ablation confirms this: max drawdown falls from −42% without the engine to −27% with it, while Sharpe barely moves.
 
 ## 4. Regime overlay
 
@@ -70,7 +72,7 @@ The 0.5 is not tuned. The PBO grid tests 0, 0.5 and 1.0 and finds the choice is 
 
 $$R^{net}_{p,t+1} = \sum_i w_{i,t} R_{i,t+1} - c \sum_i |w_{i,t} - w_{i,t-1}|, \quad c = 5\text{ bp (stress: 10 bp)}$$
 
-Mega-cap spreads are about 1–2 bp (report §backtesting), so 5 bp is conservative. Doubling it barely changes Sharpe (1.21 → 1.19),
+Mega-cap spreads are about 1–2 bp (report §backtesting), so 5 bp is conservative. Doubling it barely changes Sharpe (1.29 → 1.27),
 because inverse-vol weights move slowly.
 
 ## 6. The tests
@@ -86,7 +88,7 @@ $$\hat V = (X^\top X)^{-1}\Big[\sum_t u_t^2 x_t x_t^\top + \sum_{l=1}^{5}\big(1-
 
 The pass bar is $t > 3.0$, not 2.0: Harvey-Liu-Zhu (2016) show that after hundreds of published factors, 2.0 lets in mostly false positives.
 
-**Deflated Sharpe ratio (Bailey & López de Prado 2014).** We tried $K = 72$ variants. The best of $K$ noise strategies has an
+**Deflated Sharpe ratio (Bailey & López de Prado 2014).** We tried $K = 60$ distinct variants. The best of $K$ noise strategies has an
 expected Sharpe of
 
 $$SR_0 = \sqrt{V[\widehat{SR}_k]}\Big((1-\gamma)\,\Phi^{-1}(1-\tfrac1K) + \gamma\,\Phi^{-1}(1-\tfrac{1}{Ke})\Big), \quad \gamma \approx 0.5772$$
@@ -108,7 +110,7 @@ $PBO = P(\lambda \le 0)$ is the probability that the in-sample winner is below t
 `test_model.py` checks the implementation: PBO is above 0.3 on pure noise and below 0.1 on a planted edge.
 
 **Information coefficient and the fundamental law.** $IC_t = \text{Spearman}(\text{score}_{\cdot,t}, r_{\cdot,t+1})$. Grinold's law gives
-$IR \approx IC\sqrt{\text{breadth}}$. With $IC = 0.006$ and breadth of 8 names × 252 days, $IR \approx 0.006\sqrt{2016} \approx 0.27$
+$IR \approx IC\sqrt{\text{breadth}}$. With $IC = 0.006$ and breadth of 8 names (original universe) × 252 days, $IR \approx 0.006\sqrt{2016} \approx 0.27$
 *before* costs and estimation noise. Its t-stat (0.7) says even that is indistinguishable from zero. This is why the signals were removed:
 with 8 correlated names, breadth is too small for a weak signal to matter (report §ML).
 
@@ -127,8 +129,8 @@ for $h > 1$, overlapping windows inflate t, which makes the pass bar *easier* to
 
 ## 7. Known biases you should not ignore
 
-1. **Selection bias.** These 8 names were picked because they became the biggest winners of the decade. Absolute returns
-   (18% CAGR) are inflated. Only comparisons between strategies on the *same* names are fair, which is why equal-weight on the same names is the key benchmark.
+1. **Selection bias.** These names were picked because they became the biggest winners of the decade. Absolute returns
+   (26% CAGR) are inflated. Only comparisons between strategies on the *same* names are fair, which is why equal-weight on the same names is the key benchmark.
 2. **Short SPCX history.** About 110 days. It enters only after 60 days and is capped at 5%.
 3. **Close fills.** The model assumes trades fill at the close. Live trading rebalances 0–30 min before the close, which adds tracking noise.
 4. **Regime of the sample.** 2015–2026 was mostly a mega-cap bull market. A long sideways market would hurt the absolute numbers.
