@@ -1,0 +1,30 @@
+"""Self-checks: no lookahead, weight limits, stats math. Run: python test_model.py"""
+import numpy as np
+import pandas as pd
+
+from backtest import deflated_sharpe, pbo_cscv, prices
+from model import BENCH, P, UNIVERSE, target_weights
+
+px = prices()
+
+# 1. No lookahead: weights at date d must not change when data after d is removed.
+for d in px.index[[-400, -150, -20]]:
+    full = target_weights(px).loc[d]
+    cut = target_weights(px.loc[:d]).loc[d]
+    assert np.allclose(full.values, cut.values, atol=1e-12), f"lookahead at {d}"
+
+# 2. Limits: long-only, no leverage, caps respected.
+w = target_weights(px)
+assert (w >= 0).all().all() and (w.sum(axis=1) <= 1 + 1e-9).all()
+assert (w.drop(columns="SPCX") <= P["cap"] + 1e-12).all().all() and (w["SPCX"] <= P["spcx_cap"] + 1e-12).all()
+
+# 3. Stats sanity: pure-noise strategies should look overfit, a real edge should not.
+rng = np.random.default_rng(0)
+noise = rng.normal(0, 0.01, (2000, 40))
+assert pbo_cscv(noise) > 0.3, "PBO should flag noise"
+edge = noise + np.linspace(0, 0.002, 40)  # trial j has a real, monotonic edge
+assert pbo_cscv(edge) < 0.1, "PBO should pass a real edge"
+dsr, _ = deflated_sharpe(pd.Series(noise[:, 0]), noise.mean(0) / noise.std(0))
+assert dsr < 0.95, "DSR should reject noise"
+
+print("all checks passed")
