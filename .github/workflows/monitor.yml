@@ -1,7 +1,11 @@
 name: monitor
 on:
   schedule:
-    - cron: "*/15 13-21 * * 1-5"  # UTC; covers 9:30-16:00 New York in both EST and EDT. monitor.py checks the real market clock.
+    # Every 10 min, 13:30-21:00 UTC Mon-Fri: covers 9:30-16:00 New York in both EST and EDT. monitor.py checks the real market clock.
+    # ponytail: ~46 runs/day = ~1,010 billed min/month of the 2,000 free (private repo). Every 5 min would go over.
+    - cron: "30-59/10 13 * * 1-5"
+    - cron: "*/10 14-20 * * 1-5"
+    - cron: "0 21 * * 1-5"
   workflow_dispatch:
     inputs:
       force:
