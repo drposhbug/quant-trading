@@ -46,3 +46,14 @@ assert "deep" in monitor.drawdown_alert(st, 80_000)
 assert monitor.drawdown_alert(st, 97_000) is None and st["dd_tier"] == 0  # recovered past -5%: re-armed
 assert "review" in monitor.drawdown_alert(st, 89_000)
 print("drawdown checks passed")
+
+# Equity log: one row per day, retries replace.
+import os, tempfile
+monitor.EQUITY_LOG = os.path.join(tempfile.mkdtemp(), "eq.csv")
+monitor.log_equity("2026-11-19", 100000, 0.47, "risk-off")
+monitor.log_equity("2026-11-19", 100100, 0.47, "risk-off")
+monitor.log_equity("2026-11-20", 100500, 0.5, "risk-off")
+import pandas as pd
+lg = pd.read_csv(monitor.EQUITY_LOG)
+assert list(lg.date) == ["2026-11-19", "2026-11-20"] and lg.equity.iloc[0] == 100100, lg
+print("equity log checks passed")

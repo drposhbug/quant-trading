@@ -117,6 +117,18 @@ DD_TIERS = [(-0.10, "review: inside the backtest's normal range (max drawdown -2
                     "scheduled review, after re-running backtest.py — never same-day.")]
 
 
+EQUITY_LOG = "signals/equity_log.csv"
+
+
+def log_equity(day, equity, gross, regime):
+    """Append (date, equity, target gross, regime) once per day; the workflow commits signals/."""
+    rows = pd.read_csv(EQUITY_LOG) if os.path.exists(EQUITY_LOG) else pd.DataFrame(columns=["date", "equity", "gross", "regime"])
+    rows = rows[rows.date != day]  # a retry later the same day replaces the row
+    rows.loc[len(rows)] = [day, round(equity, 2), round(float(gross), 4), regime]
+    os.makedirs("signals", exist_ok=True)
+    rows.to_csv(EQUITY_LOG, index=False)
+
+
 def drawdown_alert(state, equity):
     """Track peak equity; return a message the first time each tier is crossed. Re-arms after recovering to -5%."""
     peak = max(state.get("peak_equity", equity), equity)
@@ -184,6 +196,8 @@ def run(state):
             summary += f"\n🧾 Paper account ${equity:,.0f}\n" + ("\n".join(orders) or "no trades needed")
             if dd_msg := drawdown_alert(state, equity):
                 msgs.append(dd_msg)
+            if closing:  # one row per day at the close rebalance; track.py compares it with the backtest
+                log_equity(today, equity, w.sum(), regime)
         msgs.append(summary)
         # failed/skipped orders retry next run (diffs come from live positions, so fills aren't repeated);
         # a forced midday run must not block the real closing rebalance
