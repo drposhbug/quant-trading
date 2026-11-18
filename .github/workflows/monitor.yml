@@ -1,10 +1,10 @@
 name: monitor
 on:
   schedule:
-    # Every 10 min, 13:30-21:00 UTC Mon-Fri: covers 9:30-16:00 New York in both EST and EDT. monitor.py checks the real market clock.
-    # ponytail: ~46 runs/day = ~1,010 billed min/month of the 2,000 free (private repo). Every 5 min would go over.
-    - cron: "30-59/10 13 * * 1-5"
-    - cron: "*/10 14-20 * * 1-5"
+    # Every 5 min (GitHub's minimum), 13:30-21:00 UTC Mon-Fri: covers 9:30-16:00 New York in both EST and EDT. monitor.py checks the real market clock.
+    # Public repo, so Actions minutes are free. If made private again, drop to every 10 min (2,000 free min/month).
+    - cron: "30-59/5 13 * * 1-5"
+    - cron: "*/5 14-20 * * 1-5"
     - cron: "0 21 * * 1-5"
   workflow_dispatch:
     inputs:
