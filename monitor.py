@@ -1,7 +1,6 @@
 """One monitoring pass. GitHub Actions runs this every 5 min in market hours (.github/workflows/monitor.yml).
 
-- Alerts to Discord: unusual moves (|z| > 2.5 vs 60d vol), bear-marubozu candles (the one pattern that passed
-  candles.py), regime flips (QQQ vs 200d MA), and a daily summary with target weights.
+- Alerts to Discord: unusual moves (|z| > 2.5 vs 60d vol), regime flips (QQQ vs 200d MA), and a daily summary with target weights.
 - Paper trading: once a day in the last 30 min of the session, rebalances an Alpaca PAPER account to the model weights.
 State (what was already alerted / rebalanced) lives in state.json, committed back by the workflow.
 """
@@ -57,12 +56,17 @@ def earnings_soon(sym, today):
         return False  # calendar is flaky; a missing haircut is not worth crashing the run
 
 
+CASH_ETF = "SGOV"  # 0-3 month T-bills: idle cash earns ~the T-bill rate instead of 0
+
+
 def rebalance(w, nodata):
+    alpaca("DELETE", "/orders")  # cancel unfilled orders first, so positions are the whole truth and nothing doubles up
     equity = float(alpaca("GET", "/account")["equity"])
     held = {p["symbol"]: float(p["market_value"]) for p in alpaca("GET", "/positions")}
     if stale := sorted(nodata & set(held)):  # a failed download would read as weight 0 -> full sell of a real holding
         return equity, [f"SKIPPED rebalance: no price data for held {', '.join(stale)}"]
-    diffs = {s: w.get(s, 0) * equity * 0.98 - held.get(s, 0) for s in set(UNIVERSE) | set(held)}  # 2% cash buffer; held names outside the universe get sold
+    w = {**w, CASH_ETF: max(0.0, 1 - sum(w.values()))}  # whatever the model leaves in cash goes to T-bills
+    diffs = {s: w.get(s, 0) * equity * 0.98 - held.get(s, 0) for s in set(UNIVERSE) | set(held) | {CASH_ETF}}  # 2% cash buffer; held names outside the universe get sold
     lines = []
     for s, d in sorted(diffs.items(), key=lambda kv: kv[1]):  # sells first to free cash
         exit_all = s in held and w.get(s, 0) == 0
@@ -94,8 +98,11 @@ def alt_data(state):
         seen = set(state.get("seen_posts", []))
         posts = signals.new_trump_posts(seen)
         for topics, tickers, text, link in ([] if first_run else posts):  # first run: just mark the backlog as seen
-            discord(f"🇺🇸 **Trump post** — {', '.join(topics)} → `{' '.join(tickers)}`\n> {text[:300]}\n{link}\n"
-                    f"{TRUMP_NOTE}")
+            try:  # one failed post must not leave the earlier ones unmarked (they'd be re-sent next run)
+                discord(f"🇺🇸 **Trump post** — {', '.join(topics)} → `{' '.join(tickers)}`\n> {text[:300]}\n{link}\n"
+                        f"{TRUMP_NOTE}")
+            except requests.RequestException as e:
+                print("discord failed:", type(e).__name__)
         state["seen_posts"] = (list(seen) + [p[3] for p in posts])[-500:]
     except Exception as e:
         print("trump feed failed:", e)
@@ -129,7 +136,6 @@ def run(state):
     px = yf.download(UNIVERSE + [BENCH], start=(now - dt.timedelta(days=800)).date().isoformat(),
                      auto_adjust=True, progress=False, threads=False)
     C = px["Close"].reindex(columns=UNIVERSE + [BENCH]).dropna(how="all").ffill()  # a gap in today's partial row would blank that name's vol -> weight 0 -> full sell
-    O, Hh, L = (px[k].reindex(columns=UNIVERSE).iloc[-1] for k in ("Open", "High", "Low"))
     r = C / C.shift(1) - 1
     vol = r.iloc[:-1].tail(P["vol_win"]).std()
     msgs = []
@@ -139,16 +145,11 @@ def run(state):
         if abs(z) > 2.5 and f"move:{s}" not in alerted:
             msgs.append(f"⚡ **{s}** {r[s].iloc[-1]:+.2%} today ({z:+.1f}σ vs 60d vol)")
             alerted.append(f"move:{s}")
-        rng, body = Hh[s] - L[s], C[s].iloc[-1] - O[s]
-        if rng > 0 and body < 0 and -body >= 0.9 * rng and f"marubozu:{s}" not in alerted and closing:
-            msgs.append(f"🕯️ **{s}** forming a bear marubozu. Backtest: next day +0.50% avg vs normal, 57% hit "
-                        f"(only pattern of 13 that survived testing — reports/candles_results.md)")
-            alerted.append(f"marubozu:{s}")
 
     q = C[BENCH]
     regime = "risk-on" if q.iloc[-1] >= q.rolling(P["regime_ma"]).mean().iloc[-1] else "risk-off"
     if state.get("regime") and state["regime"] != regime:
-        msgs.append(f"🚦 Regime flip: **{regime}** (QQQ vs 200-day MA). Exposure {'restored' if regime == 'risk-on' else 'halved'}.")
+        msgs.append(f"🚦 Regime flip: **{regime}** (QQQ vs 200-day MA). Exposure {'restored' if regime == 'risk-on' else 'halved'} at the close rebalance if it holds.")
     state["regime"] = regime
 
     if (closing or FORCE) and state.get("rebalanced") != today:
@@ -162,7 +163,10 @@ def run(state):
             equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()})
             summary += f"\n🧾 Paper account ${equity:,.0f}\n" + ("\n".join(orders) or "no trades needed")
         msgs.append(summary)
-        state["rebalanced"] = today
+        # failed/skipped orders retry next run (diffs come from live positions, so fills aren't repeated);
+        # a forced midday run must not block the real closing rebalance
+        if closing and not (AK and any(o.startswith(("FAILED", "SKIPPED")) for o in orders)):
+            state["rebalanced"] = today
 
     for m in msgs:
         try:
