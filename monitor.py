@@ -168,7 +168,7 @@ def run(state):
         try:
             discord(m)
         except requests.RequestException as e:  # one failed post must not drop the rest
-            print("discord failed:", e)
+            print("discord failed:", type(e).__name__, getattr(e.response, "status_code", ""))  # str(e) can contain the webhook URL (public logs)
 
 
 if __name__ == "__main__":
