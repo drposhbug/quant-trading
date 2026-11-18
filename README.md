@@ -11,6 +11,10 @@ It runs in the cloud on GitHub Actions, sends alerts to Discord and paper-trades
 | `research_notes/` | Raw notes from each research agent |
 | `model.py` | Inverse-vol basket + 25% vol target + QQQ 200d regime overlay |
 | `correlations.py` → `reports/correlations_results.md` | Residual, overnight/intraday, tail-dependence and lead-lag correlation study |
+| `macro.py`, `events_study.py`, `pm_study.py`, `trump_study.py`, `altdata_study.py` | Predictor studies (macro, earnings/calendar, prediction markets, Trump posts, insider/short interest/TSMC). All null; see MATH.md table |
+| `universe_study.py` → `reports/universe_results.md` | Other stocks, bonds, gold, trend ETFs, T-bill cash |
+| `reports/Replicated predictors for tech stocks.md`, `Top traders methods and math.md`, `Trading psychology and behavior.md` | Literature research syntheses |
+| `test_monitor.py` | Rebalance order logic + drawdown alerts against a fake Alpaca |
 | `backtest.py` → `reports/backtest_results.md` | Backtest plus proof battery: bootstrap, HAC alpha, deflated Sharpe, PBO, IC |
 | `candles.py` → `reports/candles_results.md` | 13 candlestick patterns × 3 horizons, Holm-corrected |
 | `monitor.py` + `.github/workflows/monitor.yml` | Runs every 5 min in market hours: Discord alerts and daily paper rebalance |

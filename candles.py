@@ -22,7 +22,9 @@ SPLIT = "2021-01-01"
 
 def ohlc():
     if os.path.exists(CACHE) and "--refresh" not in sys.argv:
-        return pd.read_pickle(CACHE)
+        d = pd.read_pickle(CACHE)
+        if sorted(d["Close"].columns) == sorted(UNIVERSE):  # universe changed -> re-download
+            return d
     d = yf.download(UNIVERSE, start="2014-01-01", auto_adjust=True, progress=False, threads=False)
     os.makedirs("data", exist_ok=True)
     d.to_pickle(CACHE)
@@ -53,11 +55,13 @@ def patterns(O, Hh, L, C):
 
 
 def test(excess, mask):
-    x = excess[mask.fillna(False)].stack().dropna()
+    ev = excess[mask.fillna(False)]
+    x = ev.stack().dropna()
     n = len(x)
     if n < 20:
         return n, np.nan, np.nan, np.nan
-    t = x.mean() / (x.std() / math.sqrt(n))  # shortcut: treats events as independent; overlapping h>1 windows inflate t, Holm offsets some of it
+    d = ev.mean(axis=1).dropna()  # one obs per date: same-day events across correlated names are not independent
+    t = d.mean() / (d.std() / math.sqrt(len(d)))  # shortcut: treats events as independent; overlapping h>1 windows inflate t, Holm offsets some of it
     return n, x.mean(), (x > 0).mean(), t
 
 

@@ -177,7 +177,7 @@ def main():
         f"| P(signal model Sharpe <= shipped) — would adding the trend+reversal signal help? | {boot['P(signal model Sharpe <= shipped)']:.3f} | < 0.05 to justify adding it |",
         f"| P(HRP Sharpe <= shipped) — does correlation-aware sizing help? | {boot['P(HRP Sharpe <= shipped)']:.3f} | < 0.05 to justify it |",
         f"| P(shipped Sharpe <= previous 8-name, 15%-vol model) | {boot['P(shipped Sharpe <= previous 8-name model)']:.3f} | informational: vol target changes return, not Sharpe |",
-        f"| P(Model Sharpe <= equal-weight buy&hold) | {boot['P(Model Sharpe <= equal-weight)']:.3f} | < 0.05 |",
+        f"| P(Model Sharpe <= equal-weight, daily rebal.) | {boot['P(Model Sharpe <= equal-weight)']:.3f} | < 0.05 |",
         f"| P(Model max drawdown worse than equal-weight) | {boot['P(Model MaxDD worse than equal-weight)']:.3f} | < 0.05 |",
         f"| P(Model max drawdown worse than QQQ) | {boot['P(Model MaxDD worse than QQQ)']:.3f} | < 0.05 |",
         f"| Alpha vs equal-weight (HAC t) | {a_ew:.2%}/yr, beta {b_ew:.2f}, t = {t_ew:.2f} | t > 3.0 (Harvey-Liu-Zhu) |",

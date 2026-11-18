@@ -86,6 +86,7 @@ def hrp(cov):
 
 def target_weights(px, p=P):
     """Long-only weights at each close t: base sizing on eligible names, capped, vol-targeted, regime-scaled."""
+    px = px.ffill()  # one missing close would blank that name's 60d vol for 60 days -> weight 0
     names = names_of(px)
     lr = np.log(px).diff()
     s = lr[names]
@@ -119,6 +120,7 @@ def target_weights(px, p=P):
 
 def backtest_returns(px, w, cost_bps=5.0):
     """Daily net returns: weights set at close t earn close t -> t+1. Cost on turnover each side."""
+    px = px.ffill()  # without this a hole books 0% twice and the move across it is lost
     names = names_of(px)
     r = (px[names] / px[names].shift(1) - 1).fillna(0)
     wl = w.shift(1).fillna(0)  # shortcut: ignores intraday drift of weights between rebalances; fine for daily rebalancing

@@ -35,3 +35,14 @@ _, lines = monitor.rebalance({"AAPL": 0.10}, nodata={"ANT", "NVDA"})
 assert not [c for c in calls if c[0] == "POST" or c[1].startswith("/positions/")] and "SKIPPED" in lines[0], lines
 
 print("all checks passed")
+
+# Drawdown tiers: alert once per tier, re-arm after recovery.
+st = {}
+assert monitor.drawdown_alert(st, 100_000) is None
+assert monitor.drawdown_alert(st, 95_000) is None
+assert "-10.0%" in monitor.drawdown_alert(st, 90_000)
+assert monitor.drawdown_alert(st, 89_000) is None  # same tier: no repeat
+assert "deep" in monitor.drawdown_alert(st, 80_000)
+assert monitor.drawdown_alert(st, 97_000) is None and st["dd_tier"] == 0  # recovered past -5%: re-armed
+assert "review" in monitor.drawdown_alert(st, 89_000)
+print("drawdown checks passed")

@@ -33,4 +33,9 @@ assert pbo_cscv(edge) < 0.1, "PBO should pass a real edge"
 dsr, _ = deflated_sharpe(pd.Series(noise[:, 0]), noise.mean(0) / noise.std(0))
 assert dsr < 0.95, "DSR should reject noise"
 
+# 4. One missing close must not zero a name for 60 days.
+holed = px.copy()
+holed.loc[holed.index[-30], "AAPL"] = np.nan
+assert target_weights(holed)["AAPL"].iloc[-29:].gt(0).all(), "missing close zeroed AAPL"
+
 print("all checks passed")

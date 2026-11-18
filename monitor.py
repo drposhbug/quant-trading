@@ -108,7 +108,27 @@ def alt_data(state):
         print("trump feed failed:", e)
 
 
-TRUMP_NOTE = "_Backtest: see reports/trump_results.md._"
+TRUMP_NOTE = "_Context only: 0 of 295 tests found these posts predict daily returns (reports/trump_results.md)._"
+
+# Pre-committed drawdown tiers (reports/Trading psychology and behavior.md): decided now, not mid-drawdown.
+# Alerts only. Cutting risk automatically would be an untested model change; any change goes through backtest.py.
+DD_TIERS = [(-0.10, "review: inside the backtest's normal range (max drawdown -27%). Rule: no action."),
+            (-0.20, "deep: in the worst tail of backtest drawdowns. Rule: decide on lowering vol_target at the next "
+                    "scheduled review, after re-running backtest.py — never same-day.")]
+
+
+def drawdown_alert(state, equity):
+    """Track peak equity; return a message the first time each tier is crossed. Re-arms after recovering to -5%."""
+    peak = max(state.get("peak_equity", equity), equity)
+    state["peak_equity"] = peak
+    dd = round(equity / peak - 1, 6)  # 90k/100k-1 is -0.0999...: round so exact tier hits count
+    if dd > -0.05:
+        state["dd_tier"] = 0
+    tier = sum(dd <= t for t, _ in DD_TIERS)
+    if tier > state.get("dd_tier", 0):
+        state["dd_tier"] = tier
+        return f"📉 **Drawdown {dd:.1%}** from peak ${peak:,.0f} — {DD_TIERS[tier - 1][1]}"
+    return None
 
 
 def main():
@@ -162,6 +182,8 @@ def run(state):
         if AK:
             equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()})
             summary += f"\n🧾 Paper account ${equity:,.0f}\n" + ("\n".join(orders) or "no trades needed")
+            if dd_msg := drawdown_alert(state, equity):
+                msgs.append(dd_msg)
         msgs.append(summary)
         # failed/skipped orders retry next run (diffs come from live positions, so fills aren't repeated);
         # a forced midday run must not block the real closing rebalance

@@ -15,11 +15,18 @@ methods that punish luck and overfitting, and only ship what survives. Every cla
 | The risk engine cuts drawdowns vs buy & hold | bootstrap P(MaxDD worse) | **Pass vs equal-weight** (p = 0.036); **fail vs QQQ** (p = 0.15) since the 25% vol target (was 0.019 at 15%) |
 | The parameter choice is not overfit | PBO via CSCV over 60 distinct variants | **Pass** (0.19 < 0.30) |
 | Beats QQQ risk-adjusted | HAC alpha t-stat | **Pass** (t = 3.83, bar 3.0; inflated by selection bias, §6) |
-| Beats buying the same 12 stocks | bootstrap P(Sharpe ≤ EW), HAC alpha | **Fail** (p = 0.42, t = 1.1) — same Sharpe, ~60% of the drawdown |
+| Beats equal-weighting the same 12 stocks (daily rebalanced) | bootstrap P(Sharpe ≤ EW), HAC alpha | **Fail** (p = 0.42, t = 1.1) — same Sharpe, ~60% of the drawdown |
 | Correlation-aware sizing (HRP) beats inverse-vol | paired bootstrap | **Fail** (P(HRP ≤ shipped) = 0.70; Sharpe 1.26 vs 1.29) → not used |
 | Correlation structure predicts returns | rank IC + 110 lead-lag pairs, Holm | **Fail** (1 of 118 tests passes; too small to trade) — [correlations_results.md](reports/correlations_results.md) |
+| Macro / cross-asset (VIX, rates, dollar, credit, oil, BTC) or buy-the-dip rules predict | HAC t, Holm, split halves | **Fail** (0 of 44) — [macro_results.md](reports/macro_results.md) |
+| Earnings & calendar effects (pre-FOMC, turn-of-month, PEAD, peer spillover) | event study, Holm | **Fail** (0 of 9) — [events_results.md](reports/events_results.md) |
+| Prediction-market odds (Kalshi/Polymarket) lead returns | HAC t, Holm, outlier trim | **Fail** (4 of 113 formal passes, all driven by 2-3 days) — [pm_results.md](reports/pm_results.md) |
+| Trump posts predict returns | placebo-date test, Holm | **Fail** (0 of 295) — [trump_results.md](reports/trump_results.md) |
+| Insider buying, short interest, TSMC monthly sales | event study / rank IC, Holm | **Fail** (0 of 23) — [altdata_results.md](reports/altdata_results.md) |
+| Adding bonds/gold/other stocks beats the shipped universe | paired bootstrap, 12 variants | **Not significant** (best: IEF+GLD P = 0.03 vs bar 0.004); T-bills on idle cash adopted — [universe_results.md](reports/universe_results.md) |
+| Per-stock 200-day exit beats the index-level filter | paired bootstrap | **Fail** (P(≤ shipped) = 0.83; lower CAGR and Sharpe) |
 | Trend + reversal signals predict returns | rank IC t-stat, bootstrap vs basket | **Fail** (IC t = 0.7; signal model worse) → removed |
-| Candlestick patterns predict returns | 39 tests, Holm correction, split-sample | **1 of 39 passes** (bear marubozu, +0.50% next day) |
+| Candlestick patterns predict returns | 39 tests, Holm correction, split-sample | **Fail** (0 of 39 pass) |
 
 **Plain-English conclusion:** the edge is *risk control*, not *prediction*. You get roughly the same risk-adjusted
 return as holding these stocks, with drawdowns cut from about −44% to about −27% (at the 25% vol target; −20% at 15%). That is what the research predicted
@@ -50,7 +57,7 @@ Anything over a cap sits in cash.
 
 Portfolio vol estimate from the 60-day covariance $\hat\Sigma_t$ (annualised):
 
-$$\hat\sigma_{p,t} = \sqrt{w_t^{0\top}\hat\Sigma_t w^0_t}, \qquad k_t = \min\!\left(1, \frac{\sigma^*}{\hat\sigma_{p,t}}\right), \quad \sigma^* = 15\%$$
+$$\hat\sigma_{p,t} = \sqrt{w_t^{0\top}\hat\Sigma_t w^0_t}, \qquad k_t = \min\!\left(1, \frac{\sigma^*}{\hat\sigma_{p,t}}\right), \quad \sigma^* = 25\%$$
 
 **Why it is close to growth-optimal:** the Kelly fraction for an asset with drift $\mu$ and vol $\sigma$ is $f^* = \mu/\sigma^2$.
 If the Sharpe ratio $S = \mu/\sigma$ is roughly stable while vol changes (the empirical regularity behind Moreira-Muir 2017),
@@ -124,8 +131,9 @@ set $\tilde p_{(k)} = \max_{j\le k}\min(1,(m-j+1)p_{(j)})$, and require two thin
 - $\tilde p < 0.05$
 - the same sign before and after 2021 (a discovery/holdout split)
 
-Only the bear marubozu at $h = 1$ passes: +0.50% next day, 57% hit rate, holm-p = 0.03. Its t-stat treats events as independent;
-for $h > 1$, overlapping windows inflate t, which makes the pass bar *easier* to clear. Even so, only 1 of 39 cleared it.
+None pass. The t-stat averages events per date first, because the same down-day hits many correlated names at once;
+counting each name-day as independent had let the bear marubozu ($h = 1$) through (holm-p = 0.03), and it now fails (holm-p = 0.52).
+For $h > 1$, overlapping windows still inflate t, which only makes the bar easier to clear.
 
 ## 7. Known biases you should not ignore
 
