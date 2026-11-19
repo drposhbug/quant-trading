@@ -56,7 +56,8 @@ def market_clock(now):
 CASH_ETF = "SGOV"  # 0-3 month T-bills: idle cash earns ~the T-bill rate instead of 0
 
 
-def rebalance(w, nodata):
+def rebalance(w, nodata, last=None):
+    """last: {symbol: latest price}, needed for whole-share orders on non-fractionable assets (fresh IPOs like ANT)."""
     alpaca("DELETE", "/orders")  # cancel unfilled orders first, so positions are the whole truth and nothing doubles up
     equity = float(alpaca("GET", "/account")["equity"])
     held = {p["symbol"]: float(p["market_value"]) for p in alpaca("GET", "/positions")}
@@ -64,7 +65,7 @@ def rebalance(w, nodata):
         return equity, [f"SKIPPED rebalance: no price data for held {', '.join(stale)}"]
     w = {**w, CASH_ETF: max(0.0, 1 - sum(w.values()))}  # whatever the model leaves in cash goes to T-bills
     diffs = {s: w.get(s, 0) * equity * 0.98 - held.get(s, 0) for s in set(UNIVERSE) | set(held) | {CASH_ETF}}  # 2% cash buffer; held names outside the universe get sold
-    lines = []
+    lines, frac = [], {}
     for s, d in sorted(diffs.items(), key=lambda kv: kv[1]):  # sells first to free cash
         exit_all = s in held and w.get(s, 0) == 0
         if abs(d) < max(50, 0.01 * equity) and not exit_all:
@@ -73,7 +74,16 @@ def rebalance(w, nodata):
             if exit_all:  # close by position, not notional: a notional sell of the snapshot value can exceed shares held or leave dust
                 alpaca("DELETE", f"/positions/{s}")
             else:
-                alpaca("POST", "/orders", json={"symbol": s, "notional": round(abs(d), 2), "side": "buy" if d > 0 else "sell",
+                if s not in frac:
+                    frac[s] = alpaca("GET", f"/assets/{s}").get("fractionable", True)
+                size = {"notional": round(abs(d), 2)}
+                if not frac[s]:  # fresh IPOs start non-fractionable: Alpaca rejects notional orders -> whole shares
+                    qty = int(abs(d) / (last or {}).get(s, float("inf")))
+                    if qty < 1:
+                        lines.append(f"INFO {s}: not fractionable, ${abs(d):,.0f} is under one share; skipped")
+                        continue
+                    size = {"qty": str(qty)}
+                alpaca("POST", "/orders", json={"symbol": s, **size, "side": "buy" if d > 0 else "sell",
                                                 "type": "market", "time_in_force": "day"})
             lines.append(f"{'BUY ' if d > 0 else 'SELL'} {s} ${abs(d):,.0f}{' (close)' if exit_all else ''}")
         except requests.HTTPError as e:
@@ -113,6 +123,21 @@ TRUMP_NOTE = "_Context only: 0 of 295 tests found these posts predict daily retu
 DD_TIERS = [(-0.10, "review: inside the backtest's normal range (max drawdown -27%). Rule: no action."),
             (-0.20, "deep: in the worst tail of backtest drawdowns. Rule: decide on lowering vol_target at the next "
                     "scheduled review, after re-running backtest.py — never same-day.")]
+
+
+def missed_rebalance(state, today):
+    """Alert once per day if the previous trading session never got a completed rebalance (cron dropped, or all
+    attempts FAILED/SKIPPED). Missed dates accumulate in state['missed'] for the paper-year execution check."""
+    last = state.get("rebalanced")
+    if not last:
+        return None
+    cal = alpaca("GET", "/calendar", params={"start": (today - dt.timedelta(days=10)).isoformat(), "end": today.isoformat()})
+    prev = [c["date"] for c in cal if c["date"] < today.isoformat()]
+    missed = [d for d in prev if d > last]
+    if not missed:
+        return None
+    state["missed"] = sorted(set(state.get("missed", [])) | set(missed))
+    return f"⚠️ **Missed rebalance** on {', '.join(missed)} (last completed {last}). Total missed this year: {len(state['missed'])}."
 
 
 EQUITY_LOG = "signals/equity_log.csv"
@@ -161,6 +186,11 @@ def run(state):
         print("market closed")
         return
 
+    if AK and state.get("session_checked") != today:
+        state["session_checked"] = today
+        if msg := missed_rebalance(state, now.date()):
+            discord(msg)
+
     state.setdefault("alerted", {})
     alerted = state["alerted"].setdefault(today, [])
     state["alerted"] = {today: alerted}  # keep only today's dedupe keys
@@ -194,7 +224,7 @@ def run(state):
         table = "\n".join(f"`{s:5}` {w[s]:6.1%}" for s in UNIVERSE if w[s] > 0)
         summary = f"📊 **Daily target** ({today}, {regime}) — gross {w.sum():.0%}, cash {1 - w.sum():.0%}\n{table}"
         if AK:
-            equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()})
+            equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()}, C.iloc[-1].dropna().to_dict())
             summary += f"\n🧾 Paper account ${equity:,.0f}\n" + ("\n".join(orders) or "no trades needed")
             if dd_msg := drawdown_alert(state, equity):
                 msgs.append(dd_msg)
