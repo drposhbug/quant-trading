@@ -29,7 +29,12 @@ def discord(msg):
     if not HOOK:
         print(msg)
         return
-    requests.post(HOOK, json={"content": msg[:1990]}, timeout=10).raise_for_status()
+    try:  # swallow here so no caller can print a traceback containing the webhook URL (public Actions logs)
+        requests.post(HOOK, json={"content": msg[:1990]}, timeout=10).raise_for_status()
+        return True
+    except requests.RequestException as e:
+        print("discord failed:", type(e).__name__, getattr(e.response, "status_code", ""))
+        return False
 
 
 def alpaca(method, path, **kw):
