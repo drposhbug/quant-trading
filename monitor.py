@@ -48,14 +48,6 @@ def market_clock(now):
     return now.weekday() < 5 and dt.time(9, 30) <= now.time() <= dt.time(16, 0), (close - now).total_seconds() / 60
 
 
-def earnings_soon(sym, today):
-    try:
-        dates = yf.Ticker(sym).calendar.get("Earnings Date", [])
-        return any(0 <= (d - today).days <= 3 for d in dates)
-    except Exception:
-        return False  # calendar is flaky; a missing haircut is not worth crashing the run
-
-
 CASH_ETF = "SGOV"  # 0-3 month T-bills: idle cash earns ~the T-bill rate instead of 0
 
 
@@ -186,9 +178,6 @@ def run(state):
 
     if (closing or FORCE) and state.get("rebalanced") != today:
         w = target_weights(C).iloc[-1]
-        for s in UNIVERSE:
-            if w[s] > 0 and earnings_soon(s, now.date()):
-                w[s] /= 2  # earnings gap risk: report §risk, size down into the event
         table = "\n".join(f"`{s:5}` {w[s]:6.1%}" for s in UNIVERSE if w[s] > 0)
         summary = f"📊 **Daily target** ({today}, {regime}) — gross {w.sum():.0%}, cash {1 - w.sum():.0%}\n{table}"
         if AK:

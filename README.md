@@ -5,11 +5,13 @@ It runs in the cloud on GitHub Actions, sends alerts to Discord and paper-trades
 
 **Start here:** [MATH.md](MATH.md) explains what was proven and what failed.
 
+**Status:** the model is frozen as of 2026-11-19 and paper-traded for 12 months (MATH.md §Change control). No proven edge over equal-weighting the same stocks at the same volatility; the honest forward expectation is the end-2014 tech-list result, ~15% CAGR at Sharpe ~1.0, not the 23% in-sample backtest.
+
 | Path | What |
 |---|---|
 | `reports/Quant trading for Tesla and big tech.md` | Synthesis of 13 parallel research agents |
 | `research_notes/` | Raw notes from each research agent |
-| `model.py` | Inverse-vol basket + 25% vol target + QQQ 200d regime overlay |
+| `model.py` | Inverse-vol basket + 20% vol target + QQQ 200d regime overlay |
 | `correlations.py` → `reports/correlations_results.md` | Residual, overnight/intraday, tail-dependence and lead-lag correlation study |
 | `macro.py`, `events_study.py`, `pm_study.py`, `trump_study.py`, `altdata_study.py` | Predictor studies (macro, earnings/calendar, prediction markets, Trump posts, insider/short interest/TSMC). All null; see MATH.md table |
 | `universe_study.py` → `reports/universe_results.md` | Other stocks, bonds, gold, trend ETFs, T-bill cash |

@@ -20,9 +20,9 @@ P = dict(
     rev_win=5, beta_win=60,                          # 1-week residual reversal vs QQQ
     vol_win=60,                                      # vol / covariance lookback
     w_trend=0.5,                                     # equal-weight signal combination (w_rev = 1 - w_trend)
-    cap=0.25, vol_target=0.25,                       # per-name cap, portfolio vol target (annual). Raised from 0.15 on 2026-11-18
-                                                     # for return: same Sharpe, CAGR 19%->26%, MaxDD -20%->-27%. Above 0.25 the
-                                                     # no-leverage cap binds and adds ~nothing. ~1/5 Kelly (MATH.md §3).
+    cap=0.25, vol_target=0.20,                       # per-name cap, portfolio vol target (annual). 0.20 since 2026-11-19:
+                                                     # best Sharpe on Nasdaq-100 1985-2026 (0.78), MaxDD -39% vs -46.5% at 0.25
+                                                     # (pre-set bar was -45%). MATH.md change log.
     sizing="invvol",                                 # "invvol" or "hrp" (correlation-aware). HRP lost to inv-vol in backtest.py
     use_signal=False,                                # signals failed the bootstrap test vs the plain basket (reports/backtest_results.md); kept for research/alerts only
     regime_ma=200, regime_scale=0.5,                 # halve gross when QQQ < 200d MA

@@ -124,15 +124,41 @@ def main():
     core = px[CORE + [BENCH]]
     prev = sl(backtest_returns(core, target_weights(core, {**P, "vol_target": 0.15})))  # model before 2026-11-18
     rets = (px / px.shift(1) - 1)
-    ew = sl(rets[UNIVERSE].mean(axis=1, skipna=True).fillna(0))
     qqq = sl(rets[BENCH].fillna(0))
 
-    table = pd.DataFrame({
-        "Shipped model (5bp)": stats(strat), "Shipped model (10bp stress)": stats(strat2x),
-        "Signal model (trend+reversal) — rejected": stats(sig), "HRP sizing — rejected": stats(hrp),
-        "Previous model (8 names, 15% vol)": stats(prev), "Inv-vol basket, no risk engine": stats(raw),
-        "Equal-weight (daily rebal., no costs)": stats(ew), "QQQ buy&hold": stats(qqq),
-    }).T
+    # Benchmarks through the SAME engine and 5bp cost as the model (backtest_returns), so costs are charged alike.
+    w_ew = px[UNIVERSE].ffill().notna().astype(float)
+    w_ew = w_ew.div(w_ew.sum(axis=1), axis=0).fillna(0)  # equal weight on every listed name, rebalanced daily
+    ew = sl(backtest_returns(px, w_ew))
+    # Vol-matched EW, ex-post: one constant so full-sample vol equals the model's. Uses hindsight -> generous to EW.
+    k_post = strat.std() / ew.std()
+    ew_vm_post = sl(backtest_returns(px, w_ew * k_post))
+    # Vol-matched EW, ex-ante: scale_t = min(1, vol_target / trailing-60d realised vol of the EW basket). Data <= t only.
+    ew_gross = (px[UNIVERSE].ffill() / px[UNIVERSE].ffill().shift(1) - 1).fillna(0).mul(w_ew.shift(1)).sum(axis=1)
+    ew_rv = ew_gross.rolling(P["vol_win"]).std() * math.sqrt(252)
+    k_ante = np.minimum(1.0, P["vol_target"] / ew_rv).fillna(0)
+    ew_vm_ante = sl(backtest_returns(px, w_ew.mul(k_ante, axis=0)))
+    late = sl(backtest_returns(px, target_weights(px).shift(1)))  # executed one day late
+
+    # Honest forward check: same engine on the end-2014 top-10 US tech list (no hindsight in the names)
+    from universe_study import TECH10_2014, load_extra  # local import: universe_study imports this module
+    extra = load_extra(sorted(set(TECH10_2014) - set(px.columns)))
+    rf = sl(extra["^IRX"].reindex(px.index).ffill().fillna(0) / 100 / 252)  # 13-week T-bill, daily = annual/252
+    px14 = px.join(extra.drop(columns="^IRX"), how="left")[TECH10_2014 + [BENCH]]
+    t14 = sl(backtest_returns(px14, target_weights(px14)))
+
+    R = {
+        "Shipped model (5bp)": strat, "Shipped model (10bp stress)": strat2x,
+        "Shipped model, executed 1 day late": late,
+        "Signal model (trend+reversal) — rejected": sig, "HRP sizing — rejected": hrp,
+        "Previous model (8 names, 15% vol)": prev, "Inv-vol basket, no risk engine": raw,
+        "Equal-weight (daily rebal., 5bp)": ew,
+        f"EW vol-matched ex-post (x{k_post:.2f} constant)": ew_vm_post,
+        f"EW vol-matched ex-ante (min(1, {P['vol_target']:.0%}/60d vol))": ew_vm_ante,
+        "QQQ buy&hold": qqq,
+        "Same engine, end-2014 top-10 US tech list": t14,
+    }
+    table = pd.DataFrame({k: {**stats(r), "Sharpe ex T-bill": stats(r - rf)["Sharpe"]} for k, r in R.items()}).T
 
     # --- Proof battery ---
     B = 2000
@@ -140,6 +166,7 @@ def main():
     S_m, S_sig, S_ew, S_hrp, S_prev = (sharpe_rows(x.values[idx]) for x in (strat, sig, ew, hrp, prev))
     dd = lambda x: ((c := np.cumprod(1 + x, axis=1)) / np.maximum.accumulate(c, axis=1) - 1).min(axis=1)
     DD_m, DD_ew, DD_q = dd(strat.values[idx]), dd(ew.values[idx]), dd(qqq.values[idx])
+    DD_post, DD_ante = dd(ew_vm_post.values[idx]), dd(ew_vm_ante.values[idx])
     boot = {
         "Model Sharpe 95% CI": np.percentile(S_m, [2.5, 97.5]),
         "P(Model Sharpe <= 0)": (S_m <= 0).mean(),
@@ -149,6 +176,9 @@ def main():
         "P(Model Sharpe <= equal-weight)": (S_m - S_ew <= 0).mean(),
         "P(Model MaxDD worse than equal-weight)": (DD_m <= DD_ew).mean(),
         "P(Model MaxDD worse than QQQ)": (DD_m <= DD_q).mean(),
+        "P(Model MaxDD worse than EW vol-matched ex-post)": (DD_m <= DD_post).mean(),
+        "P(Model MaxDD worse than EW vol-matched ex-ante)": (DD_m <= DD_ante).mean(),
+        "P(Model Sharpe <= EW vol-matched ex-ante)": (S_m - sharpe_rows(ew_vm_ante.values[idx]) <= 0).mean(),
     }
     a_ew, b_ew, t_ew = hac_alpha(strat.values, ew.values)
     a_q, b_q, t_q = hac_alpha(strat.values, qqq.values)
@@ -177,16 +207,29 @@ def main():
         f"| P(signal model Sharpe <= shipped) — would adding the trend+reversal signal help? | {boot['P(signal model Sharpe <= shipped)']:.3f} | < 0.05 to justify adding it |",
         f"| P(HRP Sharpe <= shipped) — does correlation-aware sizing help? | {boot['P(HRP Sharpe <= shipped)']:.3f} | < 0.05 to justify it |",
         f"| P(shipped Sharpe <= previous 8-name, 15%-vol model) | {boot['P(shipped Sharpe <= previous 8-name model)']:.3f} | informational: vol target changes return, not Sharpe |",
-        f"| P(Model Sharpe <= equal-weight, daily rebal.) | {boot['P(Model Sharpe <= equal-weight)']:.3f} | < 0.05 |",
-        f"| P(Model max drawdown worse than equal-weight) | {boot['P(Model MaxDD worse than equal-weight)']:.3f} | < 0.05 |",
+        f"| P(Model Sharpe <= equal-weight, daily rebal., 5bp) | {boot['P(Model Sharpe <= equal-weight)']:.3f} | < 0.05 |",
+        f"| P(Model max drawdown worse than equal-weight, 5bp) | {boot['P(Model MaxDD worse than equal-weight)']:.3f} | < 0.05 |",
         f"| P(Model max drawdown worse than QQQ) | {boot['P(Model MaxDD worse than QQQ)']:.3f} | < 0.05 |",
-        f"| Alpha vs equal-weight (HAC t) | {a_ew:.2%}/yr, beta {b_ew:.2f}, t = {t_ew:.2f} | t > 3.0 (Harvey-Liu-Zhu) |",
+        f"| P(Model max drawdown worse than EW vol-matched ex-post) — is the drawdown cut more than lower exposure? | {boot['P(Model MaxDD worse than EW vol-matched ex-post)']:.3f} | < 0.05 |",
+        f"| P(Model max drawdown worse than EW vol-matched ex-ante) | {boot['P(Model MaxDD worse than EW vol-matched ex-ante)']:.3f} | < 0.05 |",
+        f"| P(Model Sharpe <= EW vol-matched ex-ante) | {boot['P(Model Sharpe <= EW vol-matched ex-ante)']:.3f} | < 0.05 |",
+        f"| Alpha vs equal-weight, 5bp (HAC t) | {a_ew:.2%}/yr, beta {b_ew:.2f}, t = {t_ew:.2f} | t > 3.0 (Harvey-Liu-Zhu) |",
         f"| Alpha vs QQQ (HAC t) | {a_q:.2%}/yr, beta {b_q:.2f}, t = {t_q:.2f} | t > 3.0 |",
         f"| Deflated Sharpe ratio ({len(grid)} trials) | {dsr:.3f} (Sharpe hurdle {sr0_ann:.2f}) | > 0.95 |",
         f"| Probability of backtest overfitting (CSCV, S=16) | {pbo:.3f} | < 0.30 |",
         f"| Rank IC, next day | {ic1[0]:.4f} (t = {ic1[1]:.2f}, n = {ic1[2]}) | t > 2 |",
         f"| Rank IC, next 5 days (non-overlapping) | {ic5[0]:.4f} (t = {ic5[1]:.2f}, n = {ic5[2]}) | t > 2 |",
         "\n## Caveats\n",
+        f"- Benchmarks: every equal-weight row runs through backtest_returns with the model's 5bp cost. The ex-post "
+        f"vol-matched row scales EW by a constant ({k_post:.2f}) picked with hindsight so its full-sample vol equals the "
+        f"model's: generous to EW. The ex-ante row uses the model's own rule (same vol target, 60d vol, no lookahead) but no "
+        f"regime filter, so its realised vol differs. Sharpe ex T-bill subtracts ^IRX/100/252 daily; idle cash earns 0 "
+        f"in every row (live, idle cash sits in SGOV: universe_results.md C1).",
+        "- End-2014 top-10 tech list (universe_study.py TECH10_2014: AAPL MSFT GOOGL META ORCL INTC AMZN CSCO IBM QCOM) "
+        "is the honest forward expectation: same engine, names picked without knowing the winners.",
+        "- Turnover cost uses |w_t - w_t-1| and ignores daily weight drift, for the model and the benchmarks alike, so "
+        "constant-weight EW pays almost nothing here. Checked once (2026-11-18) with drift-inclusive turnover at 5bp: "
+        "model Sharpe 1.285 -> 1.282, EW 1.261 -> 1.255. Immaterial for both.",
         "- Selection bias: these names were chosen knowing they became AI winners (AVGO, AMD, NVDA especially). Absolute "
         "returns are inflated; only comparisons on the same names (equal-weight, inv-vol basket, HRP) are meaningful.",
         "- SPCX has ~110 days of history and enters only after 60 days; ANT (Anthropic) has no prices yet and is weight 0.",
