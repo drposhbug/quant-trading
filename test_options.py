@@ -91,8 +91,8 @@ assert why is None and sp["strikes"] == [94.0, 100.0, 106.0], (sp, why)  # ATM 1
 assert abs(sp["implied_move"] - 6 / 100.4) < 1e-3
 c_mid = 6 - 2 * tv(106)
 c_nat = 2 * 3 * 0.95 - 2 * tv(106) * 1.05
-assert abs(sp["limit_credit"] - (c_mid - 0.1 * (c_mid - c_nat))) < 0.006 and sp["limit_credit"] == 4.39, sp
-assert sp["qty"] == math.floor(500 / ((6 - 4.39) * 100)) == 3, sp
+assert abs(sp["limit_credit"] - (c_nat - 0.05)) < 0.006, sp  # natural minus $0.05 (paper fills only marketable)
+assert sp["qty"] == math.floor(500 / ((6 - sp["limit_credit"]) * 100)) == 2, sp
 assert [l["side"] for l in sp["legs"]] == ["sell", "sell", "buy", "buy"]
 assert oe.build(chain(), 100.4, 30_000)[1].startswith("qty < 1")
 
@@ -120,7 +120,7 @@ reset()
 st = {}
 oe.run(st, at(15, 35))
 o = posts()[0][2]
-assert o["order_class"] == "mleg" and o["limit_price"] == "-4.39" and o["qty"] == "3", o
+assert o["order_class"] == "mleg" and o["limit_price"] == f"-{sp['limit_credit']:.2f}" and o["qty"] == str(sp["qty"]), o
 assert [l["position_intent"] for l in o["legs"]] == ["sell_to_open", "sell_to_open", "buy_to_open", "buy_to_open"]
 assert st["spreads"]["NVDA"]["status"] == "entering" and st["spreads"]["NVDA"]["expiry"] == EXP
 oe.run(st, at(15, 40))  # same event: decided once, never a second order

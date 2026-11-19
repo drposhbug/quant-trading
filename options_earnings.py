@@ -143,7 +143,10 @@ def build(chain, spot, equity):
             return None, f"{q['symbol']} bid-ask {q['bid']}/{q['ask']} > 20% of mid"
     c_mid = sum(mid(q) * (1 if s == "sell" else -1) for q, s in legs)
     c_nat = sc["bid"] + sp_["bid"] - lc["ask"] - lp["ask"]
-    credit = round(c_mid - 0.10 * (c_mid - c_nat), 2)
+    # Entry at the natural price minus $0.05: Alpaca paper fills only marketable orders (at NBBO), and the free
+    # 'indicative' quotes may lag, so a mid-ish limit would rarely fill. Changed 2026-11-19 before any trade;
+    # P&L is therefore measured at worst-case fills (conservative).
+    credit = round(c_nat - 0.05, 2)
     max_loss = (max(kc - atm, atm - kp) - credit) * 100
     if credit <= 0 or max_loss <= 0:
         return None, f"bad credit {credit}"
