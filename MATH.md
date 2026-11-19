@@ -60,11 +60,13 @@ model for 12 months (to 2027-11-19) and compare it with the backtest using `trac
 
 **Pre-registered challengers for the 2027-11-19 review** (written before any run):
 
-1. **Vol-targeted equal-weight** (the ex-ante row in backtest_results.md): equal weight on every listed name, scaled by
-   min(1, 20% / trailing-60d realised vol of the EW basket), no regime filter, same 5bp drift-inclusive costs.
-   Hypothesis: its Sharpe beats the frozen model's. Test: paired stationary bootstrap (L = 20, B = 2000),
-   P(Sharpe_EW <= Sharpe_frozen) < 0.05, on the shipped universe **and** the end-2014 top-10 tech list, over the full
-   backtest window extended by the 12 paper-trading months. Today, shipped universe only: 1.30 vs 1.26, P = 0.31.
+1. **Equal base weights inside the frozen engine** (`P["sizing"] = "ew"`): identical to the frozen model in every way
+   (eligibility, caps incl. SPCX/ANT, 20% vol target, QQQ 200d regime, costs) except equal instead of inverse-vol base
+   weights, so the test isolates one change. (Redefined 2026-11-19 before the window opened, after Grok and GPT-6-Astra
+   noted the ex-ante EW row changes four things at once.) Hypothesis: its Sharpe beats the frozen model's. Test: paired
+   stationary bootstrap (L = 20, B = 2000), P(Sharpe_EW <= Sharpe_frozen) < 0.05 on the shipped universe **and** the
+   end-2014 top-10 tech list, over the full backtest window extended by the 12 paper-trading months.
+   Baseline today: shipped 1.306 vs 1.259 (P = 0.15); end-2014 list 0.895 vs 0.975 (P = 0.97). It must win on both.
 
 | Date | Change | Test | Result |
 |---|---|---|---|

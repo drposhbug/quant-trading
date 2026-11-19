@@ -102,6 +102,8 @@ def target_weights(px, p=P):
             m = ok[t]
             base[t, m] = hrp(cov[t][np.ix_(m, m)]) if m.sum() > 1 else 1.0
         base = pd.DataFrame(base, index=s.index, columns=names)
+    elif p["sizing"] == "ew":  # pre-registered challenger (MATH.md): everything else identical to the frozen model
+        base = sc.notna().astype(float).where(vol_a > 0, 0.0)
     else:
         base = sc.notna().astype(float) / vol_a
     raw = base * (sc.clip(lower=0) if p["use_signal"] else 1)

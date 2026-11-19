@@ -6,6 +6,9 @@ BEFORE that day's orders are sent (monitor.rebalance reads /account first). So e
 15:30 -> 15:30 and includes the trades made the previous afternoon, while the model's is close -> close. Expect a small
 extra tracking error from that half-hour offset even when everything is correct; it should average out, not drift.
 
+Cash: the backtest earns 0 on cash; live idle cash sits in SGOV, and Alpaca paper credits no dividends, so SGOV's
+price-only return is ~0 too — comparable as is. Real money would add ~T-bill yield x cash share on top.
+
 Large gaps mean the live system is not the strategy we tested (fills, costs, bugs) — find out why before trusting either.
 """
 import math
@@ -19,9 +22,11 @@ if len(log) < 2:
     raise SystemExit(f"Only {len(log)} day(s) logged; come back after a few rebalances.")
 
 px = load_prices(start=(log.index[0] - pd.Timedelta(days=500)).date().isoformat())
-model = backtest_returns(px, target_weights(px)).reindex(log.index).iloc[1:]  # model's close-to-close return per logged day
+m = backtest_returns(px, target_weights(px))
+idx = log.index  # compound the model across sessions between logged dates (a missed day spans two sessions live)
+model = pd.Series([(1 + m[(m.index > a) & (m.index <= b)]).prod() - 1 for a, b in zip(idx[:-1], idx[1:])], index=idx[1:])
 live = log.equity.pct_change().iloc[1:]
-qqq = px[BENCH].pct_change().reindex(log.index).iloc[1:]
+qqq = px[BENCH].reindex(log.index).pct_change().iloc[1:]
 
 cum = lambda r: (1 + r.fillna(0)).prod() - 1
 diff = (live - model).dropna()

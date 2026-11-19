@@ -43,6 +43,7 @@ jobs:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}  # read-only: refuse if both keys point at the same account
           ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
       - name: Save state
+        if: ${{ always() }}  # a failed monitor run must still commit state, or alerts/rebalance repeat
         run: |
           git config user.name "monitor-bot"
           git config user.email "monitor-bot@users.noreply.github.com"

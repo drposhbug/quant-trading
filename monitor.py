@@ -95,7 +95,8 @@ def alt_data(state):
                         f"{TRUMP_NOTE}")
             except requests.RequestException as e:
                 print("discord failed:", type(e).__name__)
-        state["seen_posts"] = (list(seen) + [p[3] for p in posts])[-500:]
+        prev = state.get("seen_posts", [])  # ordered list: [-500:] must drop the oldest, not arbitrary set members
+        state["seen_posts"] = (prev + [p[3] for p in posts if p[3] not in seen])[-500:]
     except Exception as e:
         print("trump feed failed:", e)
 
@@ -140,7 +141,9 @@ def main():
     try:
         run(state)
     finally:  # always save, or a later crash re-sends already-sent alerts / repeats the rebalance next run
-        json.dump(state, open(STATE, "w"), indent=1)
+        with open(STATE + ".tmp", "w") as f:  # write-then-rename: a crash mid-write must not truncate state.json
+            json.dump(state, f, indent=1)
+        os.replace(STATE + ".tmp", STATE)
 
 
 def run(state):
@@ -171,6 +174,11 @@ def run(state):
             alerted.append(f"move:{s}")
 
     q = C[BENCH]
+    if pd.isna(q.iloc[-1]) or q.notna().sum() < P["regime_ma"]:  # failed QQQ download: NaN < MA is False -> would trade unhalved
+        msgs.append("⚠️ QQQ data missing — regime unknown, skipping today's checks and rebalance.")
+        for m in msgs:
+            discord(m)
+        return
     regime = "risk-on" if q.iloc[-1] >= q.rolling(P["regime_ma"]).mean().iloc[-1] else "risk-off"
     if state.get("regime") and state["regime"] != regime:
         msgs.append(f"🚦 Regime flip: **{regime}** (QQQ vs 200-day MA). Exposure {'restored' if regime == 'risk-on' else 'halved'} at the close rebalance if it holds.")
