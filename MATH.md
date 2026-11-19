@@ -67,6 +67,15 @@ model for 12 months (to 2027-11-19) and compare it with the backtest using `trac
    stationary bootstrap (L = 20, B = 2000), P(Sharpe_EW <= Sharpe_frozen) < 0.05 on the shipped universe **and** the
    end-2014 top-10 tech list, over the full backtest window extended by the 12 paper-trading months.
    Baseline today: shipped 1.306 vs 1.259 (P = 0.15); end-2014 list 0.895 vs 0.975 (P = 0.97). It must win on both.
+   **Closed 2026-11-19: fails pre-registration** — it loses on the honest end-2014 universe, and 12 months of paper data
+   cannot resolve a 0.05 Sharpe gap (≈ centuries of data for 80% power), so a shadow book would only add noise.
+
+**What the 12-month paper year tests: execution, not skill** (thresholds set now, checked with `track.py` and the logs):
+- tracking error, live vs backtest (compounded between logged days): ≤ 3%/yr annualised and no persistent drift;
+- missed rebalance sessions (no equity_log row on a trading day): ≤ 5 over the year;
+- fill shortfall (order fill price vs that day's close, from Alpaca order history): average ≤ 10 bp per trade;
+- zero unexplained orders, positions or state errors.
+Failing any of these means fixing the plumbing, not changing the model.
 
 | Date | Change | Test | Result |
 |---|---|---|---|
