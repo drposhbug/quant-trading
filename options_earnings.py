@@ -6,7 +6,10 @@ Pre-registered (implemented exactly, nothing tuned):
           else / unknown / 00:00 -> after close). Entry session = last session before the reaction session.
   Entry   last 30 min of the entry session. Nearest expiry on/after the reaction day (<= 7 calendar days).
           Short ATM call + put (strike nearest spot), long wings at strikes nearest spot +/- implied move
-          (implied move = ATM straddle mid). One mleg limit order at credit mid - 10% toward the natural bid.
+          (implied move = ATM straddle mid). One mleg limit order at the NATURAL credit minus $0.05 (changed 2026-11-19, before any trade: Alpaca paper fills
+          only marketable orders, so P&L is measured at worst-case fills).
+Go-live rule (pre-committed): no real money until ~120 closed trades show a positive average P&L at these fills
+(reports/Options math and strategy.md: expected result ~0 to slightly negative; ~120 trades to detect a 0.1 edge).
           qty = floor(0.5% equity / max loss), max loss = (wider wing - credit) x 100. Skip if qty < 1, any leg's
           bid-ask > 20% of its mid, or any leg's open interest < 100.
   Exit    reaction session 09:45-10:30 ET: mleg limit at mid (2 tries), then marketable limit. Also closed on the
