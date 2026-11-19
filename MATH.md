@@ -28,6 +28,8 @@ methods that punish luck and overfitting, and only ship what survives. Every cla
 | Insider buying, short interest, TSMC monthly sales | event study / rank IC, Holm | **Fail** (0 of 23) — [altdata_results.md](reports/altdata_results.md) |
 | Adding bonds/gold/other stocks beats the shipped universe | paired bootstrap, 12 variants | **Not significant** (best: IEF+GLD P = 0.03 vs bar 0.004); T-bills on idle cash adopted — [universe_results.md](reports/universe_results.md) |
 | Per-stock 200-day exit beats the index-level filter | paired bootstrap | **Fail** (P(≤ shipped) = 0.83; lower CAGR and Sharpe) |
+| Short QQQ (−25%) in risk-off instead of only halving | paired bootstrap, 5bp + 1%/yr borrow | **Fail** (Sharpe 1.23 vs 1.26, MaxDD worse −24% vs −22.5%, P(≤ model) = 0.80); risk-off only 18% of days, V-shaped recoveries whipsaw it |
+| 20% Cboe S&P 500 PutWrite (PUT) sleeve | paired bootstrap vs 100% model | **Fail** (Sharpe 1.24, P = 0.72). PUT 2007–2026 alone: CAGR 7.1%, Sharpe 0.56 vs S&P TR 10.7%/0.62; −35% in 2008, −29% in Mar 2020: put-selling is lower-beta equity, not a free premium |
 | Trend + reversal signals predict returns | rank IC t-stat, bootstrap vs basket | **Fail** (IC t = 0.7; signal model worse) → removed |
 | Candlestick patterns predict returns | 39 tests, Holm correction, split-sample | **Fail** (0 of 39 pass) |
 
