@@ -15,6 +15,9 @@ Go-live rule (pre-committed): no real money until ~120 closed trades show a posi
   Exit    reaction session 09:45-10:30 ET: mleg limit at mid (2 tries), then marketable limit. Also closed on the
           session before expiry (and on expiry day) regardless: never held through expiry.
   Limits  one spread per underlying, max 4 open, no new entries if account drawdown from peak > 10%.
+Safety (2026-11-19, not part of the measured rule): partial entry fills keep the filled quantity; closes size to the
+legs actually held in /positions; on/after expiry day any remaining spread is closed at once at a marketable limit
+(Discord alert); every run alerts once on any option position not in state.
 DRY_RUN=1: logs intended orders, sends nothing to the trading API, saves no state, prints instead of Discord.
 """
 import csv
@@ -225,10 +228,25 @@ def net_fill(o, sell_positive):
         return abs(float(o["filled_avg_price"]))
 
 
-def submit_close(sp):
+def held_qty():
+    """{option symbol: absolute contracts held} from live /positions."""
+    return {p["symbol"]: abs(int(float(p["qty"]))) for p in alpaca("GET", "/positions") or []
+            if p.get("asset_class") == "us_option"}
+
+
+def submit_close(sym, sp, state, force=False):
+    held = held_qty()
+    n = [held.get(l["symbol"], 0) for l in sp["legs"]]
+    if not any(n):  # nothing left (closed by hand, expired, assigned): stop tracking it
+        del state["spreads"][sym]
+        discord(f"🦋 {sym} iron fly: no legs held any more, dropped from state (check fills/assignment by hand)")
+        return
+    if len(set(n)) > 1:
+        discord(f"⚠️ {sym} iron fly legs held unevenly {n}: closing {min(n) or max(n)} as a spread, CHECK BY HAND")
+    sp["qty"] = min(n) or max(n)  # ponytail: uneven legs closed as one mleg; fix leftovers by hand (alerted above)
     q = quotes([l["symbol"] for l in sp["legs"]])
     short = {l["symbol"]: l["side"] == "sell" for l in sp["legs"]}
-    marketable = sp.get("close_attempts", 0) >= 2
+    marketable = force or sp.get("close_attempts", 0) >= 2
     debit = sum((q[s]["ask"] if marketable else mid(q[s])) if sh else -(q[s]["bid"] if marketable else mid(q[s]))
                 for s, sh in short.items())
     legs = [{"symbol": l["symbol"], "side": "buy" if l["side"] == "sell" else "sell"} for l in sp["legs"]]
@@ -237,23 +255,28 @@ def submit_close(sp):
     sp["status"], sp["close_order_id"] = "closing", (o or {}).get("id")
 
 
-def log_trade(sym, sp, debit, exit_spot):
-    pnl = round((sp["credit"] - debit) * 100 * sp["qty"], 2)
+def log_trade(sym, sp, debit, exit_spot, qty):
+    pnl = round((sp["credit"] - debit) * 100 * qty, 2)
     new = not os.path.exists(TRADES)
     os.makedirs(os.path.dirname(TRADES), exist_ok=True)
     with open(TRADES, "a", newline="") as f:
         w = csv.writer(f)
         if new:
             w.writerow(["date", "symbol", "expiry", "qty", "credit", "debit", "pnl", "implied_move", "realized_move"])
-        w.writerow([dt.datetime.now(NY).date().isoformat(), sym, sp["expiry"], sp["qty"], sp["credit"], debit, pnl,
+        w.writerow([dt.datetime.now(NY).date().isoformat(), sym, sp["expiry"], qty, sp["credit"], debit, pnl,
                     sp["implied_move"], round(abs(exit_spot / sp["spot"] - 1), 4)])
     return pnl
+
+
+def filled(o):
+    return int(float(o.get("filled_qty") or 0))
 
 
 def manage(state, sym, sp, now, sess):
     if sp["status"] == "entering":
         o = alpaca("GET", f"/orders/{sp['order_id']}")
-        if o["status"] == "filled":
+        if o["status"] == "filled" or (o["status"] in DEAD and filled(o) > 0):  # partial fill: keep what filled
+            sp["qty"] = filled(o) or sp["qty"]
             sp["credit"], sp["status"] = net_fill(o, True), "open"
             discord(f"🦋 **{sym} iron fly opened** {sp['qty']}x {'/'.join(f'{k:g}' for k in sp['strikes'])} "
                     f"exp {sp['expiry']} credit ${sp['credit']:.2f} (implied move {sp['implied_move']:.1%}, "
@@ -262,20 +285,30 @@ def manage(state, sym, sp, now, sess):
             del state["spreads"][sym]
             discord(f"🦋 {sym} iron fly entry not filled ({o['status']})")
         return
+    expiring = now.date() >= dt.date.fromisoformat(sp["expiry"])
     if sp["status"] == "closing":
-        o = alpaca("GET", f"/orders/{sp['close_order_id']}") if sp.get("close_order_id") else {"status": "canceled"}
-        if o["status"] == "filled":
-            debit = net_fill(o, False)
-            pnl = log_trade(sym, sp, debit, spot_price(sym))
-            del state["spreads"][sym]
-            discord(f"🦋 **{sym} iron fly closed** debit ${debit:.2f} vs credit ${sp['credit']:.2f} → P&L ${pnl:+,.0f}")
-            return
-        if o["status"] not in DEAD:  # still working: cancel; resubmit next run once the cancel is final (no double close)
+        get = lambda: alpaca("GET", f"/orders/{sp['close_order_id']}") if sp.get("close_order_id") else {"status": "canceled"}
+        o = get()
+        if o["status"] not in ("filled", *DEAD):  # still working: cancel, and resubmit only once the cancel is final
             alpaca("DELETE", f"/orders/{sp['close_order_id']}")
+            if (o := get() or {"status": "?"})["status"] not in DEAD:
+                return  # no double close; next run retries
+        n = filled(o) or (sp["qty"] if o["status"] == "filled" else 0)
+        if n:  # (partial) close fill: book it; partial fills from earlier close orders are averaged in
+            sp["closed"] = sp.get("closed", []) + [[n, net_fill(o, False)]]
+        if o["status"] == "filled":
+            qty = sum(c[0] for c in sp["closed"])
+            debit = round(sum(c[0] * c[1] for c in sp["closed"]) / qty, 4)
+            pnl = log_trade(sym, sp, debit, spot_price(sym), qty)
+            del state["spreads"][sym]
+            discord(f"🦋 **{sym} iron fly closed** {qty}x debit ${debit:.2f} vs credit ${sp['credit']:.2f} → P&L ${pnl:+,.0f}")
             return
         sp["status"] = "open"
-    if close_due(sp, now, sess):
-        submit_close(sp)
+    if sp["status"] == "open" and expiring:  # backstop: never carry a leg past expiry, whatever the time window
+        discord(f"🚨 {sym} iron fly still held on/after expiry {sp['expiry']}: closing NOW at a marketable limit")
+        submit_close(sym, sp, state, force=True)
+    elif close_due(sp, now, sess):
+        submit_close(sym, sp, state)
 
 
 def entries(state, now, equity, sess):
@@ -310,6 +343,16 @@ def entries(state, now, equity, sess):
             discord(f"🦋 {sym} entry FAILED: {type(e).__name__} {str(e)[:200]}")
 
 
+def reconcile(state):
+    """Alert (once per symbol) on any live option position that no tracked spread owns."""
+    mine = {l["symbol"] for sp in state["spreads"].values() for l in sp.get("legs", [])}
+    orphans = sorted(set(held_qty()) - mine)
+    new = [s for s in orphans if s not in state.get("orphans", [])]
+    if new:
+        discord(f"⚠️ options account holds positions the bot does not track: {', '.join(new)} — CHECK BY HAND")
+    state["orphans"] = orphans
+
+
 def run(state, now):
     state.setdefault("spreads", {})
     state.setdefault("done", [])
@@ -321,6 +364,7 @@ def run(state, now):
     equity = float(alpaca("GET", "/account")["equity"])
     state["peak_equity"] = max(state.get("peak_equity", equity), equity)
     sess = sessions(now.date())
+    reconcile(state)
     for sym, sp in list(state["spreads"].items()):
         try:
             manage(state, sym, sp, now, sess)

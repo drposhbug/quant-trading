@@ -11,35 +11,35 @@ methods that punish luck and overfitting, and only ship what survives. Every cla
 
 | Claim | Test | Result |
 |---|---|---|
-| The model has a positive Sharpe | stationary bootstrap, deflated Sharpe | **Pass** (CI 0.70–1.84, DSR 0.999). Raw 1.26; **1.14 after subtracting T-bills** (equal-weight: 1.18) |
+| The model has a positive Sharpe | stationary bootstrap, deflated Sharpe | **Pass** (CI 0.69–1.84, DSR 0.999). Raw 1.26; **1.14 after subtracting T-bills** (equal-weight: 1.18) |
 | The risk engine cuts drawdowns vs buy & hold | bootstrap P(MaxDD worse) | **Pass vs full-exposure equal-weight** (p = 0.019, −22.5% vs −44%); **fail vs QQQ** (p = 0.08). Nasdaq-100 1985–2026: −39% vs −83% buy & hold |
-| The drawdown cut is more than just holding less stock | bootstrap P(MaxDD worse) vs equal-weight scaled to the model's vol | **Fail.** Ex-post vol-matched EW (×0.64, hindsight): Sharpe 1.26, MaxDD −30%, p = 0.63. Ex-ante vol-targeted EW (20%/60d, no regime filter): Sharpe 1.30, MaxDD −29% at 20% vol, p = 0.28 |
-| The parameter choice is not overfit | PBO via CSCV over 60 distinct variants | **Pass** (0.19 < 0.30) |
-| Beats QQQ risk-adjusted | HAC alpha t-stat | **Pass** (t = 3.83, bar 3.0; inflated by selection bias, §6) |
-| Beats equal-weighting the same 12 stocks (daily rebalanced, same 5bp cost) | bootstrap P(Sharpe ≤ EW), HAC alpha | **Fail** (p = 0.42, t = 1.1) — same Sharpe; ex-T-bill Sharpe 1.18 vs 1.18 |
-| Survives one day of execution delay | weights shifted one extra day | **Pass** (Sharpe 1.25, MaxDD −29%, CAGR 25.6%) |
+| The drawdown cut is more than just holding less stock | bootstrap P(MaxDD worse) vs equal-weight scaled to the model's vol | **Fail.** Ex-post vol-matched EW (×0.64, hindsight): Sharpe 1.255, MaxDD −30%, p = 0.62. Ex-ante vol-targeted EW (20%/60d, no regime filter): Sharpe 1.30, MaxDD −29% at 20% vol, p = 0.28 |
+| No sign of overfitting within the parameter grid | PBO via CSCV over 60 distinct variants | **Pass** (0.18 < 0.30). PBO and DSR cover only this grid, not the universe, sizing, signal or research choices made around it, so they cannot rule out overfitting from those |
+| Beats QQQ risk-adjusted | HAC alpha t-stat, excess of T-bill | **Pass** (9.1%/yr, t = 3.29, bar 3.0; inflated by selection bias, §7) |
+| Beats equal-weighting the same 12 stocks (daily rebalanced, same 5bp cost) | bootstrap P(Sharpe ≤ EW), HAC alpha | **Fail** (p = 0.50, excess-return alpha 1.6%/yr, t = 0.67) — same Sharpe; ex-T-bill Sharpe 1.14 vs EW 1.18 |
+| Survives one day of execution delay | weights shifted one extra day | **Pass** (Sharpe 1.23, MaxDD −24%, CAGR 22.8%) |
 | Works on names chosen without hindsight | same engine on the end-2014 top-10 US tech list ([universe_study.py](universe_study.py)) | **Much weaker:** CAGR 15%, Sharpe 0.98 (0.84 ex T-bill), MaxDD −22%. This, not 23%/1.26, is the honest forward expectation |
-| Correlation-aware sizing (HRP) beats inverse-vol | paired bootstrap | **Fail** (P(HRP ≤ shipped) = 0.65; Sharpe 1.25 vs 1.26) → not used |
+| Correlation-aware sizing (HRP) beats inverse-vol | paired bootstrap | **Fail** (P(HRP ≤ shipped) = 0.64; Sharpe 1.245 vs 1.259) → not used |
 | Correlation structure predicts returns | rank IC + 110 lead-lag pairs, Holm | **Fail** (1 of 118 tests passes; too small to trade) — [correlations_results.md](reports/correlations_results.md) |
 | Macro / cross-asset (VIX, rates, dollar, credit, oil, BTC) or buy-the-dip rules predict | HAC t, Holm, split halves | **Fail** (0 of 44) — [macro_results.md](reports/macro_results.md) |
 | Earnings & calendar effects (pre-FOMC, turn-of-month, PEAD, peer spillover) | event study, Holm | **Fail** (0 of 9) — [events_results.md](reports/events_results.md) |
 | Prediction-market odds (Kalshi/Polymarket) lead returns | HAC t, Holm, outlier trim | **Fail** (4 of 113 formal passes, all driven by 2-3 days) — [pm_results.md](reports/pm_results.md) |
 | Trump posts predict returns | placebo-date test, Holm | **Fail** (0 of 295) — [trump_results.md](reports/trump_results.md) |
 | Insider buying, short interest, TSMC monthly sales | event study / rank IC, Holm | **Fail** (0 of 23) — [altdata_results.md](reports/altdata_results.md) |
-| Adding bonds/gold/other stocks beats the shipped universe | paired bootstrap, 12 variants | **Not significant** (best: IEF+GLD P = 0.03 vs bar 0.004); T-bills on idle cash adopted — [universe_results.md](reports/universe_results.md) |
+| Adding bonds/gold/other stocks beats the shipped universe | paired bootstrap, 12 variants | **Not significant** (best: GLD P = 0.024, IEF+GLD P = 0.029, vs bar 0.004); T-bills on idle cash adopted — [universe_results.md](reports/universe_results.md) |
 | Per-stock 200-day exit beats the index-level filter | paired bootstrap | **Fail** (P(≤ shipped) = 0.83; lower CAGR and Sharpe) |
 | Short QQQ (−25%) in risk-off instead of only halving | paired bootstrap, 5bp + 1%/yr borrow | **Fail** (Sharpe 1.23 vs 1.26, MaxDD worse −24% vs −22.5%, P(≤ model) = 0.80); risk-off only 18% of days, V-shaped recoveries whipsaw it |
 | 20% Cboe S&P 500 PutWrite (PUT) sleeve | paired bootstrap vs 100% model | **Fail** (Sharpe 1.24, P = 0.72). PUT 2007–2026 alone: CAGR 7.1%, Sharpe 0.56 vs S&P TR 10.7%/0.62; −35% in 2008, −29% in Mar 2020: put-selling is lower-beta equity, not a free premium |
 | Earnings-announcement premium across the point-in-time S&P 500 (2017–2026, 19,309 trades) | pre-registered, NW t, t > 3 bar; 80/20 mix bootstrap | **Fail** (−8.3%/yr vs EW S&P at 5bp, t = −1.43; ~−2%/yr before costs; mix Sharpe 1.15 vs 1.32, P = 0.98) — [earnings_premium_results.md](reports/earnings_premium_results.md) |
 | Buy the post-earnings dip (reaction-day residual ≤ −5%, hold 10 days), point-in-time S&P 500 2016–2026 | per-date mean t, 10bp round trip | **Fail** (n = 3,224: −0.28% vs market, 47% win, t = −1.39; drops keep drifting). Reactions are 50/50 up/down, not "nearly always down" |
-| Trend + reversal signals predict returns | rank IC t-stat, bootstrap vs basket | **Fail** (IC t = 0.7; signal model worse) → removed |
+| Trend + reversal signals predict returns | rank IC t-stat, bootstrap vs basket | **Fail** (rank IC t = 1.66 next day, 1.36 over 5 days, bar 2; signal model worse, P = 0.98) → removed |
 | Candlestick patterns predict returns | 39 tests, Holm correction, split-sample | **Fail** (0 of 39 pass) |
 
 **Plain-English conclusion:** there is no proven edge, in prediction *or* in risk control. The model is a
 long-only basket of these stocks run at about 64% of equal-weight's volatility (about 80% invested on average, tilted
 to the calmer names). Its Sharpe (1.26 raw, 1.14 after T-bills) is
 the same as equal-weighting the same names, and its drawdown (−22.5%) is about what you get by simply holding 64% of the
-equal-weight basket and the rest in cash (−30% with hindsight scaling; the bootstrap cannot tell them apart, p = 0.63).
+equal-weight basket and the rest in cash (−30% with hindsight scaling; the bootstrap cannot tell them apart, p = 0.62).
 The value of the engine is holding a *fixed risk level* mechanically: on the Nasdaq-100 since 1985 it turned an −83% buy-and-hold
 drawdown into −39% (2000–02: −77% → −41%) at a higher Sharpe (0.78 vs 0.63), though with lower CAGR (11.8% vs 14.1%).
 The 23% CAGR comes from names picked knowing they won; the same engine on the end-2014 top-10 tech list earned
@@ -58,11 +58,20 @@ model for 12 months (to 2027-11-19) and compare it with the backtest using `trac
 2. it is decided at a **scheduled review**, never during a drawdown;
 3. it is logged below with date and test result.
 
+**Pre-registered challengers for the 2027-11-19 review** (written before any run):
+
+1. **Vol-targeted equal-weight** (the ex-ante row in backtest_results.md): equal weight on every listed name, scaled by
+   min(1, 20% / trailing-60d realised vol of the EW basket), no regime filter, same 5bp drift-inclusive costs.
+   Hypothesis: its Sharpe beats the frozen model's. Test: paired stationary bootstrap (L = 20, B = 2000),
+   P(Sharpe_EW <= Sharpe_frozen) < 0.05, on the shipped universe **and** the end-2014 top-10 tech list, over the full
+   backtest window extended by the 12 paper-trading months. Today, shipped universe only: 1.30 vs 1.26, P = 0.31.
+
 | Date | Change | Test | Result |
 |---|---|---|---|
 | 2026-11-18 | Earnings haircut removed from monitor.py (never backtested; live ≠ tested). | — | — |
 | 2026-11-19 | vol_target 0.25 → 0.20, decided before the freeze. | Engine on ^NDX 1985–2026 (no hindsight universe, includes 2000–02 and 2008); rule set before the run: revert if MaxDD at 25% is worse than −45%. | NDX buy&hold: CAGR 14.1%, Sharpe 0.63, MaxDD −83%. Engine 15/20/25%: Sharpe 0.77/0.78/0.77, MaxDD −31/−39/−46.5%, CAGR 9.9/11.8/12.6%. 2000–02: NDX −77%, engine −41%. Bar tripped → 20%. |
 | 2026-11-19 | Model frozen. | — | — |
+| 2026-11-19 | Measurement fixes (cost drift, rank IC, excess-return alpha); no trading-rule change. | Backtest re-run: costs on the trade from drifted weights incl. first entry; rank IC over names valid on both sides; HAC alpha on T-bill excess returns. | Model Sharpe 1.262 → 1.259, EW 1.261 → 1.255; QQQ alpha t 3.54 → 3.29; EW alpha t 1.03 → 0.67; PBO 0.187 → 0.182. No §0 verdict changes. |
 
 ## 1. Notation
 
@@ -100,7 +109,7 @@ Half-Kelly keeps about 75% of growth with far less ruin risk (Ziemba).
 **Why it cuts drawdowns:** volatility clusters (GARCH). Crashes arrive in high-vol periods, when $k_t$ is already small.
 The ablation shows max drawdown falling from −42% without the engine to −22.5% with it, while Sharpe barely moves. But
 most of that is lower average exposure: equal-weight scaled to the same vol has a −30% drawdown and the bootstrap
-cannot separate the two (p = 0.63, §0). Vol targeting here is a way to set risk, not a proven drawdown edge.
+cannot separate the two (p = 0.62, §0). Vol targeting here is a way to set risk, not a proven drawdown edge.
 
 ## 4. Regime overlay
 
@@ -111,9 +120,12 @@ The 0.5 is not tuned. The PBO grid tests 0, 0.5 and 1.0 and finds the choice is 
 
 ## 5. Costs
 
-$$R^{net}_{p,t+1} = \sum_i w_{i,t} R_{i,t+1} - c \sum_i |w_{i,t} - w_{i,t-1}|, \quad c = 5\text{ bp (stress: 10 bp)}$$
+$$R^{net}_{p,t} = \sum_i w_{i,t-1} R_{i,t} - c \sum_i |w_{i,t} - \tilde w_{i,t}|, \quad \tilde w_{i,t} = \frac{w_{i,t-1}(1+R_{i,t})}{1+\sum_j w_{j,t-1}R_{j,t}}, \quad c = 5\text{ bp (stress: 10 bp)}$$
 
-Mega-cap spreads are about 1–2 bp (report §backtesting), so 5 bp is conservative. Doubling it barely changes Sharpe (1.26 → 1.25),
+$\tilde w_t$ is yesterday's book after today's price moves, so the cost is on the trade actually made at close $t$; the first
+entry from cash is charged. (Before 2026-11-19 the cost ignored drift; the fix moved Sharpe 1.262 → 1.259.)
+
+Mega-cap spreads are about 1–2 bp (report §backtesting), so 5 bp is conservative. Doubling it barely changes Sharpe (1.26 → 1.24),
 because inverse-vol weights move slowly.
 
 ## 6. The tests
@@ -123,7 +135,7 @@ uncertainty. Each resample is built from blocks with geometric lengths (mean $L 
 current block otherwise. The same index paths are used for every strategy, so differences are *paired*.
 2,000 resamples give a CI for the Sharpe, $P(\text{Sharpe}_A \le \text{Sharpe}_B)$ and $P(\text{MaxDD}_A \text{ worse})$.
 
-**HAC alpha.** We regress $R_{p,t} = \alpha + \beta R_{b,t} + u_t$ by OLS with the Newey-West covariance
+**HAC alpha.** We regress excess returns, $R_{p,t} - r_{f,t} = \alpha + \beta (R_{b,t} - r_{f,t}) + u_t$ ($r_f$ = daily 13-week T-bill), by OLS with the Newey-West covariance
 
 $$\hat V = (X^\top X)^{-1}\Big[\sum_t u_t^2 x_t x_t^\top + \sum_{l=1}^{5}\big(1-\tfrac{l}{6}\big)\sum_t u_t u_{t-l}(x_t x_{t-l}^\top + x_{t-l}x_t^\top)\Big](X^\top X)^{-1}$$
 

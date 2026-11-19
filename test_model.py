@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 from backtest import deflated_sharpe, pbo_cscv, prices
-from model import EVENT_CAPS, P, target_weights
+from model import BENCH, EVENT_CAPS, P, backtest_returns, target_weights
 
 px = prices()
 
@@ -37,5 +37,16 @@ assert dsr < 0.95, "DSR should reject noise"
 holed = px.copy()
 holed.loc[holed.index[-30], "AAPL"] = np.nan
 assert target_weights(holed)["AAPL"].iloc[-29:].gt(0).all(), "missing close zeroed AAPL"
+
+# 5. Costs: charged on the trade from DRIFTED weights to target, including the first entry from cash.
+idx = pd.bdate_range("2020-01-01", periods=50)
+flat = pd.DataFrame({"A": 100.0, "B": 50.0, BENCH: 1.0}, index=idx)
+w_const = pd.DataFrame({"A": 0.5, "B": 0.5}, index=idx)
+cost = -backtest_returns(flat, w_const)  # zero drift: only the entry trade (turnover 1.0 at 5bp) costs anything
+assert np.isclose(cost.iloc[0], 5e-4) and np.allclose(cost.iloc[1:], 0), "zero-drift constant weights: entry cost only"
+moving = flat.assign(A=100 * 1.01 ** np.arange(50))  # A drifts up 1%/day: holding 50/50 needs a daily rebalance
+net = backtest_returns(moving, w_const)
+gross = 0.5 * moving["A"].pct_change().fillna(0)
+assert ((gross - net).iloc[1:] > 1e-7).all(), "drifting prices must cost something to rebalance"
 
 print("all checks passed")

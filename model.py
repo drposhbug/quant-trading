@@ -119,10 +119,15 @@ def target_weights(px, p=P):
 
 
 def backtest_returns(px, w, cost_bps=5.0):
-    """Daily net returns: weights set at close t earn close t -> t+1. Cost on turnover each side."""
+    """Daily net returns. Weights w_t set at close t earn close t -> t+1. The trade at close t moves the book from the
+    previous weights, drifted by day t's returns, to w_t; its cost (cost_bps per unit turnover) is booked on day t.
+    The first trade from cash is charged as entry. Idle cash earns 0."""
     px = px.ffill()  # without this a hole books 0% twice and the move across it is lost
     names = names_of(px)
     r = (px[names] / px[names].shift(1) - 1).fillna(0)
-    wl = w.shift(1).fillna(0)  # shortcut: ignores intraday drift of weights between rebalances; fine for daily rebalancing
-    turnover = (w - w.shift(1)).abs().sum(axis=1).shift(1).fillna(0)
-    return (wl * r).sum(axis=1) - turnover * cost_bps / 1e4
+    w = w.reindex(index=r.index, columns=names).fillna(0)
+    wl = w.shift(1).fillna(0)
+    gross = (wl * r).sum(axis=1)
+    drifted = (wl * (1 + r)).div(1 + gross, axis=0)  # pre-trade weights at close t
+    turnover = (w - drifted).abs().sum(axis=1)
+    return gross - turnover * cost_bps / 1e4

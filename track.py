@@ -1,6 +1,11 @@
 """Live paper account vs what the backtest says the model should have done over the same days.
 Run: python track.py   (reads signals/equity_log.csv written by monitor.py)
 
+Timing: the logged equity is the account equity snapshotted at the daily rebalance (~15:30 ET, 12:30 on half days),
+BEFORE that day's orders are sent (monitor.rebalance reads /account first). So each live daily return runs
+15:30 -> 15:30 and includes the trades made the previous afternoon, while the model's is close -> close. Expect a small
+extra tracking error from that half-hour offset even when everything is correct; it should average out, not drift.
+
 Large gaps mean the live system is not the strategy we tested (fills, costs, bugs) — find out why before trusting either.
 """
 import math

@@ -107,7 +107,8 @@ def pbo_cscv(M, S=16):
 
 
 def rank_ic(score, fwd):
-    ics = score.rank(axis=1).corrwith(fwd.rank(axis=1), axis=1).dropna()
+    ok = score.notna() & fwd.notna()  # rank only names valid on both sides that day, or Spearman ranks differ in scope
+    ics = score.where(ok).rank(axis=1).corrwith(fwd.where(ok).rank(axis=1), axis=1).dropna()
     return ics.mean(), ics.mean() / ics.std() * math.sqrt(len(ics)), len(ics)
 
 
@@ -180,8 +181,9 @@ def main():
         "P(Model MaxDD worse than EW vol-matched ex-ante)": (DD_m <= DD_ante).mean(),
         "P(Model Sharpe <= EW vol-matched ex-ante)": (S_m - sharpe_rows(ew_vm_ante.values[idx]) <= 0).mean(),
     }
-    a_ew, b_ew, t_ew = hac_alpha(strat.values, ew.values)
-    a_q, b_q, t_q = hac_alpha(strat.values, qqq.values)
+    xs = lambda r: (r - rf).values  # alpha on excess returns (CAPM form): raw returns would book beta * rf as alpha
+    a_ew, b_ew, t_ew = hac_alpha(xs(strat), xs(ew))
+    a_q, b_q, t_q = hac_alpha(xs(strat), xs(qqq))
 
     grid = [dict(vol_target=vt, regime_scale=rs, vol_win=vw, regime_ma=ma)
             for vt in (0.10, 0.15, 0.20, 0.25) for rs in (0.0, 0.5, 1.0) for vw in (20, 60, 120) for ma in (100, 200)
@@ -213,8 +215,8 @@ def main():
         f"| P(Model max drawdown worse than EW vol-matched ex-post) — is the drawdown cut more than lower exposure? | {boot['P(Model MaxDD worse than EW vol-matched ex-post)']:.3f} | < 0.05 |",
         f"| P(Model max drawdown worse than EW vol-matched ex-ante) | {boot['P(Model MaxDD worse than EW vol-matched ex-ante)']:.3f} | < 0.05 |",
         f"| P(Model Sharpe <= EW vol-matched ex-ante) | {boot['P(Model Sharpe <= EW vol-matched ex-ante)']:.3f} | < 0.05 |",
-        f"| Alpha vs equal-weight, 5bp (HAC t) | {a_ew:.2%}/yr, beta {b_ew:.2f}, t = {t_ew:.2f} | t > 3.0 (Harvey-Liu-Zhu) |",
-        f"| Alpha vs QQQ (HAC t) | {a_q:.2%}/yr, beta {b_q:.2f}, t = {t_q:.2f} | t > 3.0 |",
+        f"| Alpha vs equal-weight, 5bp, excess of T-bill (HAC t) | {a_ew:.2%}/yr, beta {b_ew:.2f}, t = {t_ew:.2f} | t > 3.0 (Harvey-Liu-Zhu) |",
+        f"| Alpha vs QQQ, excess of T-bill (HAC t) | {a_q:.2%}/yr, beta {b_q:.2f}, t = {t_q:.2f} | t > 3.0 |",
         f"| Deflated Sharpe ratio ({len(grid)} trials) | {dsr:.3f} (Sharpe hurdle {sr0_ann:.2f}) | > 0.95 |",
         f"| Probability of backtest overfitting (CSCV, S=16) | {pbo:.3f} | < 0.30 |",
         f"| Rank IC, next day | {ic1[0]:.4f} (t = {ic1[1]:.2f}, n = {ic1[2]}) | t > 2 |",
@@ -227,9 +229,8 @@ def main():
         f"in every row (live, idle cash sits in SGOV: universe_results.md C1).",
         "- End-2014 top-10 tech list (universe_study.py TECH10_2014: AAPL MSFT GOOGL META ORCL INTC AMZN CSCO IBM QCOM) "
         "is the honest forward expectation: same engine, names picked without knowing the winners.",
-        "- Turnover cost uses |w_t - w_t-1| and ignores daily weight drift, for the model and the benchmarks alike, so "
-        "constant-weight EW pays almost nothing here. Checked once (2026-11-18) with drift-inclusive turnover at 5bp: "
-        "model Sharpe 1.285 -> 1.282, EW 1.261 -> 1.255. Immaterial for both.",
+        "- Turnover cost is charged on the trade from the drifted previous weights to the new target (so constant-weight "
+        "EW pays to rebalance its drift), for the model and the benchmarks alike; the first entry from cash is charged.",
         "- Selection bias: these names were chosen knowing they became AI winners (AVGO, AMD, NVDA especially). Absolute "
         "returns are inflated; only comparisons on the same names (equal-weight, inv-vol basket, HRP) are meaningful.",
         "- SPCX has ~110 days of history and enters only after 60 days; ANT (Anthropic) has no prices yet and is weight 0.",

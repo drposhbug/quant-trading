@@ -62,6 +62,9 @@ def fake(method, url, key, secret, **kw):
         return {"snapshots": {s: W["snaps"][s] for s in kw["params"]["symbols"].split(",")}}
     if method == "POST":
         return {"id": "o1"}
+    if method == "DELETE":
+        W["order"] = W.get("after_cancel", W["order"])
+        return None
     if method == "GET" and "/orders/" in p:
         return W["order"]
     return None
@@ -137,7 +140,7 @@ oe.run(st, at(15, 35))
 assert len(posts()) == 1
 
 # --- one per underlying (state or live option position) and max 4 open
-reset(positions=[{"symbol": "NVDA261127C00100000", "asset_class": "us_option"}])
+reset(positions=[{"symbol": "NVDA261127C00100000", "asset_class": "us_option", "qty": "1"}])
 oe.run({}, at(15, 35))
 assert not posts()
 reset()
@@ -148,17 +151,24 @@ assert not posts()
 OPEN = {"status": "open", "legs": sp["legs"], "qty": 3, "strikes": sp["strikes"], "expiry": "2026-11-27",
         "entry_day": "2026-11-19", "reaction_day": "2026-11-20", "credit": 4.39, "implied_move": 0.06, "spot": 100.4,
         "max_loss": 161}
+
+
+def held(n=3, legs=None):
+    return [{"symbol": l["symbol"], "asset_class": "us_option", "qty": str(-n if l["side"] == "sell" else n)}
+            for l in legs or OPEN["legs"]]
+
+
 reset(order={"status": "filled", "legs": [{"side": "sell", "filled_avg_price": "3"}, {"side": "sell", "filled_avg_price": "3"},
                                            {"side": "buy", "filled_avg_price": "0.8"}, {"side": "buy", "filled_avg_price": "0.8"}]})
 st = {"spreads": {"NVDA": {**OPEN, "status": "entering", "order_id": "o1"}}, "done": ["NVDA:2026-11-19"]}
 oe.run(st, at(15, 40))
 assert st["spreads"]["NVDA"]["status"] == "open" and st["spreads"]["NVDA"]["credit"] == 4.4
 for now, want in [(at(9, 40, 20), 0), (at(9, 50, 20), 1), (at(10, 45, 20), 0), (at(9, 50, 19), 0)]:
-    reset()
+    reset(positions=held())
     st = {"spreads": {"NVDA": dict(OPEN)}}
     oe.run(st, now)
     assert len(posts()) == want, (now, posts())
-reset()
+reset(positions=held())
 st = {"spreads": {"NVDA": dict(OPEN)}}
 oe.run(st, at(9, 50, 20))
 o = posts()[0][2]
@@ -166,10 +176,10 @@ assert [l["position_intent"] for l in o["legs"]] == ["buy_to_close"] * 2 + ["sel
 assert o["limit_price"] == f"{6 - 2 * tv(106):.2f}", o  # first try: at mid
 
 # --- close before expiry regardless of time (session before 11-27 is 11-25)
-reset()
+reset(positions=held())
 oe.run({"spreads": {"NVDA": dict(OPEN)}}, at(14, 0, 25))
 assert len(posts()) == 1
-reset()
+reset(positions=held())
 oe.run({"spreads": {"NVDA": dict(OPEN)}}, at(14, 0, 24))
 assert not posts()
 
@@ -178,7 +188,7 @@ reset(order={"status": "new"})
 st = {"spreads": {"NVDA": {**OPEN, "status": "closing", "close_order_id": "c1", "close_attempts": 2}}}
 oe.run(st, at(10, 0, 20))
 assert posts() == [("DELETE", oe.TRADE + "/orders/c1", None)], posts()
-reset(order={"status": "canceled"})
+reset(order={"status": "canceled"}, positions=held())
 oe.run(st, at(10, 5, 20))
 assert posts()[0][2]["limit_price"] == f"{2 * 3 * 1.05 - 2 * tv(106) * 0.95:.2f}", posts()  # pay the ask, sell the bid
 
@@ -195,7 +205,7 @@ assert row[1] == "NVDA" and float(row[5]) == 2.0 and float(row[6]) == round((4.3
 oe.DRY = True
 reset()
 oe.run({}, at(15, 35))
-reset()
+reset(positions=held())
 oe.run({"spreads": {"NVDA": dict(OPEN)}}, at(9, 50, 20))
 assert not posts(), posts()
 oe.DRY = False
@@ -211,4 +221,74 @@ assert not oe.same_account()
 oe.SK = "opt-key"
 assert oe.same_account()
 oe.SK = None
+
+# ================= safety: partial fills, expiry backstop, orphan reconcile (2026-11-19)
+msgs = []
+oe.discord = msgs.append
+LEGFILL = [{"side": "sell", "filled_avg_price": "3"}, {"side": "sell", "filled_avg_price": "3"},
+           {"side": "buy", "filled_avg_price": "0.8"}, {"side": "buy", "filled_avg_price": "0.8"}]
+CLOSEFILL = [{"side": "buy", "filled_avg_price": "1.5"}, {"side": "buy", "filled_avg_price": "1.0"},
+             {"side": "sell", "filled_avg_price": "0.2"}, {"side": "sell", "filled_avg_price": "0.3"}]  # debit 2.0
+
+# --- entry partially filled, then the day order died: keep the filled 1 of 3
+reset(order={"status": "expired", "filled_qty": "1", "legs": LEGFILL}, positions=held(1))
+st = {"spreads": {"NVDA": {**OPEN, "status": "entering", "order_id": "o1"}}, "done": ["NVDA:2026-11-19"]}
+oe.run(st, at(15, 40))
+assert st["spreads"]["NVDA"]["status"] == "open" and st["spreads"]["NVDA"]["qty"] == 1, st
+reset(order={"status": "canceled", "filled_qty": "0"})  # nothing filled: drop it
+st = {"spreads": {"NVDA": {**OPEN, "status": "entering", "order_id": "o1"}}, "done": ["NVDA:2026-11-19"]}
+oe.run(st, at(15, 40))
+assert st["spreads"] == {}
+reset(order={"status": "partially_filled", "filled_qty": "1"}, positions=held(1))  # still working: wait
+st = {"spreads": {"NVDA": {**OPEN, "status": "entering", "order_id": "o1"}}, "done": ["NVDA:2026-11-19"]}
+oe.run(st, at(15, 40))
+assert st["spreads"]["NVDA"]["status"] == "entering" and not posts()
+
+# --- close sizes to what /positions actually holds
+reset(positions=held(2))
+st = {"spreads": {"NVDA": dict(OPEN)}}  # state says 3
+oe.run(st, at(9, 50, 20))
+assert posts()[0][2]["qty"] == "2", posts()
+reset(positions=[])  # nothing held any more: stop tracking, send nothing
+st = {"spreads": {"NVDA": dict(OPEN)}}
+oe.run(st, at(9, 50, 20))
+assert st["spreads"] == {} and not posts() and "no legs held" in msgs[-1]
+
+# --- partial close: 1 of 3 fills then the order dies -> resubmit for the 2 still held -> P&L over all 3
+reset(order={"status": "canceled", "filled_qty": "1", "legs": [{**l, "filled_avg_price": "2"} for l in CLOSEFILL[:2]]
+             + [{**l, "filled_avg_price": "0"} for l in CLOSEFILL[2:]]}, positions=held(2))  # first lot debit 4.0
+st = {"spreads": {"NVDA": {**OPEN, "status": "closing", "close_order_id": "c1"}}}
+oe.run(st, at(10, 0, 20))
+assert st["spreads"]["NVDA"]["closed"] == [[1, 4.0]] and posts()[0][2]["qty"] == "2", (st, posts())
+reset(order={"status": "filled", "filled_qty": "2", "legs": CLOSEFILL}, positions=[])
+oe.run(st, at(10, 5, 20))
+row = open(oe.TRADES).read().splitlines()[-1].split(",")
+assert st["spreads"] == {} and row[3] == "3" and abs(float(row[5]) - (4 + 2 * 2) / 3) < 1e-3, row
+assert abs(float(row[6]) - (4.39 - 8 / 3) * 300) < 0.05, row
+
+# --- expiry backstop: on expiry day, outside the exit window, close at once at a marketable limit + alert
+EXPIRING = {**OPEN, "expiry": "2026-11-20"}
+reset(positions=held())
+msgs.clear()
+oe.run({"spreads": {"NVDA": dict(EXPIRING)}}, at(14, 0, 20))
+assert posts()[0][2]["limit_price"] == f"{2 * 3 * 1.05 - 2 * tv(106) * 0.95:.2f}", posts()  # first try already marketable
+assert any("expiry" in m for m in msgs), msgs
+reset(order={"status": "new"}, after_cancel={"status": "canceled"}, positions=held())  # working close order on expiry day
+st = {"spreads": {"NVDA": {**EXPIRING, "status": "closing", "close_order_id": "c1"}}}
+oe.run(st, at(15, 0, 20))
+assert [c[0] for c in posts()] == ["DELETE", "POST"], posts()  # cancel confirmed -> replaced in the same run
+assert posts()[1][2]["limit_price"] == f"{2 * 3 * 1.05 - 2 * tv(106) * 0.95:.2f}"
+
+# --- orphan positions: alert once per symbol, again only if it reappears
+reset(positions=[{"symbol": "TSLA261127P00300000", "asset_class": "us_option", "qty": "-1"}])
+msgs.clear()
+st = {}
+oe.run(st, at(11, 0))
+oe.run(st, at(11, 5))
+assert sum("does not track" in m for m in msgs) == 1 and st["orphans"] == ["TSLA261127P00300000"], msgs
+reset(positions=held())  # positions owned by a tracked spread are not orphans
+msgs.clear()
+oe.run({"spreads": {"NVDA": dict(OPEN)}}, at(11, 0))
+assert not any("does not track" in m for m in msgs), msgs
+
 print("all options checks passed")

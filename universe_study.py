@@ -25,34 +25,34 @@ TOP12_2014 = ["AAPL", "XOM", "MSFT", "BRK-B", "GOOGL", "JNJ", "WFC", "WMT", "GE"
 TECH10_2014 = ["AAPL", "MSFT", "GOOGL", "META", "ORCL", "INTC", "AMZN", "CSCO", "IBM", "QCOM"]
 SLEEVES = ["TLT", "IEF", "GLD", "DBC", "USMV", "XLV", "XLP", "DBMF", "KMLM"]
 
-# Written after the 2026-11-18 run (numbers quoted from the table above it). Re-check if the table moves.
+# Numbers quoted from the 2026-11-19 run (20% vol target, drift-inclusive costs). Re-check if the table moves.
 CONCLUSIONS = """## Findings
 
 **Hindsight in the current universe.** The same engine on the 10 largest US tech names as of end-2014 (A2) earns
-Sharpe 0.98 / CAGR 16% vs the shipped 1.29 / 26%, and the paired bootstrap says the current list is better with
-P = 0.99. That gap (~0.3 Sharpe, ~10 pp CAGR) is name selection made knowing NVDA/AVGO/AMD/TSLA won: treat it as
+Sharpe 0.98 / CAGR 15% vs the shipped 1.26 / 23%, and the paired bootstrap says the current list is better with
+P = 0.98. That gap (~0.3 Sharpe, ~8 pp CAGR) is name selection made knowing NVDA/AVGO/AMD/TSLA won: treat it as
 hindsight, not edge. A no-hindsight forward expectation for this engine is the rule-based range, Sharpe ~1.0, not 1.3.
-Adding the broad 2014 mega-caps (A3) lifts Sharpe slightly (1.33, P = 0.39) only by diluting into lower-vol names; it
-loses in H1 (-0.38) and wins in H2 (+0.51), costs 8 pp CAGR, and is not significant. No stock additions recommended.
+Adding the broad 2014 mega-caps (A3) lifts Sharpe slightly (1.34, P = 0.32) only by diluting into lower-vol names; it
+loses in H1 (-0.34) and wins in H2 (+0.54), costs 5 pp CAGR, and is not significant. No stock additions recommended.
 
 **Sleeves.** Assets with low correlation to the book raise Sharpe inside the same engine. Gold (B3) is the best single
-sleeve: Sharpe 1.37 vs 1.29, P = 0.047, better in both halves and since 2022, MaxDD -25% vs -27%, CAGR -1.5 pp.
-IEF + GLD (B8, pre-specified before the run) is best overall: Sharpe 1.44, P = 0.030, positive in H1, H2 and 2022+,
-MaxDD -22%, but CAGR falls 26% -> 19% because the no-leverage cap stops the vol target re-levering (vol 12%).
+sleeve: Sharpe 1.35 vs 1.26, P = 0.024, better in both halves and since 2022, MaxDD -22% vs -22.5%, CAGR -0.3 pp.
+IEF + GLD (B8, pre-specified before the run) is best overall: Sharpe 1.42, P = 0.029, positive in H1, H2 and 2022+,
+MaxDD -21%, but CAGR falls 23% -> 18% because the no-leverage cap stops the vol target re-levering (vol 12%).
 Neither clears the Bonferroni bar (P < 0.0042 for 12 tries), so these are risk-preference choices, not proven edge.
-Long bonds (TLT) stopped helping when the stock-bond correlation flipped (-0.20 to +0.05 after 2022; dSharpe 2022+
--0.05); IEF held up better. USMV/XLV/XLP/DBC: small, inconsistent gains. Managed futures (DBMF/KMLM): +0.11 Sharpe on
+Long bonds (TLT) stopped helping when the stock-bond correlation flipped (-0.19 to +0.05 after 2022; dSharpe 2022+
+-0.03); IEF held up better. USMV/XLV/XLP/DBC: small, inconsistent gains. Managed futures (DBMF/KMLM): +0.13 Sharpe on
 their own 2021+ window, but only ~5 years of data.
 
-**Idle cash.** Holding un-invested cash in T-bills (BIL/SGOV) adds ~0.4%/yr and trims MaxDD with zero added risk.
+**Idle cash.** Holding un-invested cash in T-bills (BIL/SGOV) adds ~0.5%/yr and trims MaxDD with zero added risk.
 Its "P = 0.000" is mechanical (it adds a positive return every day); in excess-of-T-bill terms it is just not
 throwing away the risk-free rate. Do it: it is the only change here that needs no statistical argument.
 
 **Recommendation.** Keep the stock universe as is (TSLA, SPCX, AAPL, MSFT, NVDA, GOOGL, AMZN, META, AVGO, TSM, AMD,
-ORCL, + ANT), sweep idle cash into SGOV/BIL, and add GLD as a sleeve (cost ~1.5 pp CAGR for +0.08 Sharpe and a
-shallower drawdown). Add IEF too only if lower vol (12%) is preferred over return (19% vs 26% CAGR).
+ORCL, + ANT), sweep idle cash into SGOV/BIL, and add GLD as a sleeve (cost ~0.3 pp CAGR for +0.09 Sharpe and a
+slightly shallower drawdown). Add IEF too only if lower vol (12%) is preferred over return (18% vs 23% CAGR).
 
-**Caveats.** 12 variants; best P = 0.030 > Bonferroni 0.0042. Gold's 2024-26 rally helps B3/B8 in-sample. The regime
+**Caveats.** 12 variants; best P = 0.024 > Bonferroni 0.0042. Gold's 2024-26 rally helps B3/B8 in-sample. The regime
 filter also halves the sleeves in risk-off, the opposite of what a hedge should do; exempting them is an untested
 13th variant. ^IRX is a proxy for BIL/SGOV (ignores ~0.1% fees). Survivorship: XOM/GE etc. still trade, so the
 2014 lists have no delisting gap. Sharpe here is raw mean/std as in backtest.py; the excess column subtracts T-bills.
@@ -154,7 +154,7 @@ def main():
     out = [
         "# Universe & sleeve study\n",
         f"Period {R.index[0].date()} to {R.index[-1].date()} ({len(R)} days), same window and engine as backtest.py "
-        f"(model.P unchanged: inv-vol, 25% cap, 25% vol target, no leverage, half gross when QQQ < 200d MA). "
+        f"(model.P unchanged: inv-vol, {P['cap']:.0%} cap, {P['vol_target']:.0%} vol target, no leverage, half gross when QQQ < 200d MA). "
         f"Generated by universe_study.py. **{n_var} variants tested** against the shipped model; with that many "
         f"tries, a one-sided P < 0.05 is expected ~{n_var * 0.05:.1f} times by luck, so the Bonferroni bar is "
         f"P < {0.05 / n_var:.4f}.\n",
