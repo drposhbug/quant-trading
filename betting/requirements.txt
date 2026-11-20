@@ -1,0 +1,12 @@
+requests
+pandas
+beautifulsoup4
+playwright
+google-genai
+python-dotenv
+scikit-learn
+xgboost
+lightgbm
+understatapi
+nba_api
+py-clob-client

@@ -1,0 +1,7 @@
+{
+  "coef_points_diff": 0.004911457102667058,
+  "coef_neutral": -0.5990968483314377,
+  "intercept": 0.7648489527456109,
+  "trained_on_matches": 15789,
+  "train_test_split_date": "2022-01-01"
+}

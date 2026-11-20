@@ -1,0 +1,3724 @@
+{
+  "league": "MLS",
+  "classes": [
+    "A",
+    "D",
+    "H"
+  ],
+  "feature_names": [
+    "elo_diff",
+    "h2h_home_win_rate",
+    "h2h_meetings",
+    "recent_form_diff",
+    "elo_form_interaction",
+    "elo_h2h_interaction"
+  ],
+  "coef": [
+    [
+      -0.0022719473009912743,
+      0.15644907439379294,
+      0.00399248558075837,
+      0.03054505612665744,
+      0.0005335016542263013,
+      0.0011966259085630906
+    ],
+    [
+      0.00019642491618599356,
+      -0.04846113139770848,
+      0.0027429529853033956,
+      -0.010040982338818,
+      -0.0003268364760282113,
+      -0.0008448935635401001
+    ],
+    [
+      0.0020755223848384326,
+      -0.10798794299595002,
+      -0.006735438566064082,
+      -0.020504073787901395,
+      -0.00020666517821634674,
+      -0.0003517323450195207
+    ]
+  ],
+  "intercept": [
+    -0.39470854522075527,
+    -0.16425766165799455,
+    0.5589662068783571
+  ],
+  "final_state": {
+    "elo": {
+      "Atlanta United FC": 1412.7,
+      "Austin FC": 1445.8,
+      "CF Montr\u00e9al": 1402.9,
+      "Charlotte FC": 1532.6,
+      "Chicago Fire FC": 1523.3,
+      "Chivas USA": 1353.4,
+      "Colorado Rapids": 1433.6,
+      "Columbus Crew": 1582.7,
+      "D.C. United": 1345.4,
+      "FC Cincinnati": 1576.9,
+      "FC Dallas": 1500.7,
+      "Houston Dynamo FC": 1466.2,
+      "Inter Miami CF": 1686.5,
+      "LA Galaxy": 1493.2,
+      "Los Angeles FC": 1644.2,
+      "Minnesota United FC": 1547.6,
+      "Nashville SC": 1512.3,
+      "New England Revolution": 1409.2,
+      "New York City FC": 1574.6,
+      "New York Red Bulls": 1491.3,
+      "Orlando City SC": 1551.4,
+      "Philadelphia Union": 1597.3,
+      "Portland Timbers FC": 1472.9,
+      "Real Salt Lake": 1468.3,
+      "San Diego FC": 1600.8,
+      "San Jose Earthquakes": 1420.7,
+      "Seattle Sounders FC": 1608.3,
+      "Sporting Kansas City": 1375.1,
+      "St. Louis City SC": 1435.4,
+      "Toronto FC": 1423.5,
+      "Vancouver Whitecaps FC": 1611.3
+    },
+    "h2h": {
+      "Philadelphia Union|||Sporting Kansas City": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Vancouver Whitecaps FC|||Toronto FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Houston Dynamo FC|||D.C. United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "FC Dallas|||Colorado Rapids": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "Chivas USA|||Columbus Crew": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Seattle Sounders FC|||CF Montr\u00e9al": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "LA Galaxy|||Chicago Fire FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Portland Timbers FC|||New York Red Bulls": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "San Jose Earthquakes|||Real Salt Lake": {
+        "home_wins": 8,
+        "meetings": 16
+      },
+      "Toronto FC|||Sporting Kansas City": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "D.C. United|||Real Salt Lake": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Chicago Fire FC|||New England Revolution": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "Vancouver Whitecaps FC|||Columbus Crew": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Portland Timbers FC|||CF Montr\u00e9al": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Colorado Rapids|||Philadelphia Union": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Chivas USA|||FC Dallas": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "San Jose Earthquakes|||New York Red Bulls": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "New York Red Bulls|||D.C. United": {
+        "home_wins": 10,
+        "meetings": 18
+      },
+      "Sporting Kansas City|||Chicago Fire FC": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "CF Montr\u00e9al|||Toronto FC": {
+        "home_wins": 10,
+        "meetings": 20
+      },
+      "Philadelphia Union|||New England Revolution": {
+        "home_wins": 15,
+        "meetings": 21
+      },
+      "Columbus Crew|||San Jose Earthquakes": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Real Salt Lake|||Colorado Rapids": {
+        "home_wins": 13,
+        "meetings": 19
+      },
+      "Seattle Sounders FC|||Portland Timbers FC": {
+        "home_wins": 8,
+        "meetings": 20
+      },
+      "FC Dallas|||Houston Dynamo FC": {
+        "home_wins": 9,
+        "meetings": 15
+      },
+      "LA Galaxy|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "D.C. United|||Columbus Crew": {
+        "home_wins": 5,
+        "meetings": 16
+      },
+      "New England Revolution|||Sporting Kansas City": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "CF Montr\u00e9al|||New York Red Bulls": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "Houston Dynamo FC|||Vancouver Whitecaps FC": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "FC Dallas|||Real Salt Lake": {
+        "home_wins": 6,
+        "meetings": 14
+      },
+      "LA Galaxy|||Colorado Rapids": {
+        "home_wins": 8,
+        "meetings": 17
+      },
+      "San Jose Earthquakes|||Seattle Sounders FC": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "Chicago Fire FC|||Chivas USA": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Toronto FC|||LA Galaxy": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "New York Red Bulls|||Philadelphia Union": {
+        "home_wins": 6,
+        "meetings": 16
+      },
+      "New England Revolution|||FC Dallas": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Colorado Rapids|||Portland Timbers FC": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "Sporting Kansas City|||CF Montr\u00e9al": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Houston Dynamo FC|||San Jose Earthquakes": {
+        "home_wins": 10,
+        "meetings": 13
+      },
+      "Real Salt Lake|||Seattle Sounders FC": {
+        "home_wins": 12,
+        "meetings": 14
+      },
+      "Chivas USA|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Sporting Kansas City|||D.C. United": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Toronto FC|||FC Dallas": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Columbus Crew|||Philadelphia Union": {
+        "home_wins": 10,
+        "meetings": 17
+      },
+      "Colorado Rapids|||Real Salt Lake": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "San Jose Earthquakes|||Vancouver Whitecaps FC": {
+        "home_wins": 7,
+        "meetings": 16
+      },
+      "Portland Timbers FC|||Houston Dynamo FC": {
+        "home_wins": 10,
+        "meetings": 14
+      },
+      "Chicago Fire FC|||New York Red Bulls": {
+        "home_wins": 7,
+        "meetings": 16
+      },
+      "Philadelphia Union|||Toronto FC": {
+        "home_wins": 6,
+        "meetings": 14
+      },
+      "Seattle Sounders FC|||New England Revolution": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Vancouver Whitecaps FC|||Real Salt Lake": {
+        "home_wins": 10,
+        "meetings": 16
+      },
+      "D.C. United|||New York Red Bulls": {
+        "home_wins": 6,
+        "meetings": 19
+      },
+      "FC Dallas|||LA Galaxy": {
+        "home_wins": 12,
+        "meetings": 14
+      },
+      "Chivas USA|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "CF Montr\u00e9al|||Columbus Crew": {
+        "home_wins": 6,
+        "meetings": 14
+      },
+      "Houston Dynamo FC|||Chicago Fire FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Portland Timbers FC|||San Jose Earthquakes": {
+        "home_wins": 13,
+        "meetings": 16
+      },
+      "New York Red Bulls|||Sporting Kansas City": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Toronto FC|||Houston Dynamo FC": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Colorado Rapids|||Seattle Sounders FC": {
+        "home_wins": 5,
+        "meetings": 16
+      },
+      "New York Red Bulls|||New England Revolution": {
+        "home_wins": 11,
+        "meetings": 15
+      },
+      "Chicago Fire FC|||Columbus Crew": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "FC Dallas|||Vancouver Whitecaps FC": {
+        "home_wins": 7,
+        "meetings": 15
+      },
+      "Real Salt Lake|||Chivas USA": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "LA Galaxy|||Sporting Kansas City": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "D.C. United|||Philadelphia Union": {
+        "home_wins": 5,
+        "meetings": 17
+      },
+      "San Jose Earthquakes|||Portland Timbers FC": {
+        "home_wins": 7,
+        "meetings": 16
+      },
+      "Toronto FC|||New York Red Bulls": {
+        "home_wins": 4,
+        "meetings": 15
+      },
+      "CF Montr\u00e9al|||Chicago Fire FC": {
+        "home_wins": 10,
+        "meetings": 16
+      },
+      "Vancouver Whitecaps FC|||FC Dallas": {
+        "home_wins": 7,
+        "meetings": 15
+      },
+      "Columbus Crew|||D.C. United": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "New England Revolution|||Philadelphia Union": {
+        "home_wins": 5,
+        "meetings": 16
+      },
+      "Sporting Kansas City|||Portland Timbers FC": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "Real Salt Lake|||LA Galaxy": {
+        "home_wins": 8,
+        "meetings": 18
+      },
+      "Chivas USA|||San Jose Earthquakes": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Houston Dynamo FC|||Colorado Rapids": {
+        "home_wins": 4,
+        "meetings": 14
+      },
+      "Portland Timbers FC|||New England Revolution": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Philadelphia Union|||Seattle Sounders FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Columbus Crew|||New York Red Bulls": {
+        "home_wins": 12,
+        "meetings": 20
+      },
+      "San Jose Earthquakes|||CF Montr\u00e9al": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Real Salt Lake|||Vancouver Whitecaps FC": {
+        "home_wins": 8,
+        "meetings": 14
+      },
+      "Colorado Rapids|||Toronto FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Sporting Kansas City|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "LA Galaxy|||Houston Dynamo FC": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "D.C. United|||Houston Dynamo FC": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "New York Red Bulls|||CF Montr\u00e9al": {
+        "home_wins": 12,
+        "meetings": 16
+      },
+      "New England Revolution|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Sporting Kansas City|||Seattle Sounders FC": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "FC Dallas|||Portland Timbers FC": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "San Jose Earthquakes|||Toronto FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Chicago Fire FC|||Philadelphia Union": {
+        "home_wins": 7,
+        "meetings": 16
+      },
+      "CF Montr\u00e9al|||Real Salt Lake": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Seattle Sounders FC|||San Jose Earthquakes": {
+        "home_wins": 8,
+        "meetings": 17
+      },
+      "Vancouver Whitecaps FC|||LA Galaxy": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "New England Revolution|||New York Red Bulls": {
+        "home_wins": 10,
+        "meetings": 16
+      },
+      "Columbus Crew|||Colorado Rapids": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "FC Dallas|||D.C. United": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Portland Timbers FC|||Chivas USA": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Houston Dynamo FC|||Sporting Kansas City": {
+        "home_wins": 7,
+        "meetings": 19
+      },
+      "Philadelphia Union|||LA Galaxy": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Toronto FC|||Columbus Crew": {
+        "home_wins": 8,
+        "meetings": 16
+      },
+      "Vancouver Whitecaps FC|||Portland Timbers FC": {
+        "home_wins": 9,
+        "meetings": 19
+      },
+      "Philadelphia Union|||Chicago Fire FC": {
+        "home_wins": 9,
+        "meetings": 15
+      },
+      "Houston Dynamo FC|||New England Revolution": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Seattle Sounders FC|||FC Dallas": {
+        "home_wins": 16,
+        "meetings": 20
+      },
+      "San Jose Earthquakes|||Colorado Rapids": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "New York Red Bulls|||LA Galaxy": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "D.C. United|||Sporting Kansas City": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Chivas USA|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "D.C. United|||Portland Timbers FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "CF Montr\u00e9al|||Philadelphia Union": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "New England Revolution|||Toronto FC": {
+        "home_wins": 7,
+        "meetings": 16
+      },
+      "FC Dallas|||San Jose Earthquakes": {
+        "home_wins": 5,
+        "meetings": 14
+      },
+      "Colorado Rapids|||Chivas USA": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Real Salt Lake|||Chicago Fire FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sporting Kansas City|||Houston Dynamo FC": {
+        "home_wins": 8,
+        "meetings": 16
+      },
+      "New York Red Bulls|||Columbus Crew": {
+        "home_wins": 8,
+        "meetings": 16
+      },
+      "LA Galaxy|||Seattle Sounders FC": {
+        "home_wins": 7,
+        "meetings": 19
+      },
+      "Toronto FC|||Philadelphia Union": {
+        "home_wins": 9,
+        "meetings": 15
+      },
+      "New York Red Bulls|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Columbus Crew|||Houston Dynamo FC": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Colorado Rapids|||FC Dallas": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "Real Salt Lake|||San Jose Earthquakes": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Chivas USA|||Seattle Sounders FC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "New England Revolution|||LA Galaxy": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Chicago Fire FC|||D.C. United": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "Philadelphia Union|||Columbus Crew": {
+        "home_wins": 9,
+        "meetings": 14
+      },
+      "New England Revolution|||D.C. United": {
+        "home_wins": 9,
+        "meetings": 15
+      },
+      "Chicago Fire FC|||Portland Timbers FC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Seattle Sounders FC|||Vancouver Whitecaps FC": {
+        "home_wins": 10,
+        "meetings": 19
+      },
+      "Portland Timbers FC|||FC Dallas": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "D.C. United|||Toronto FC": {
+        "home_wins": 4,
+        "meetings": 14
+      },
+      "Columbus Crew|||CF Montr\u00e9al": {
+        "home_wins": 10,
+        "meetings": 16
+      },
+      "Colorado Rapids|||San Jose Earthquakes": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "Vancouver Whitecaps FC|||New England Revolution": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "CF Montr\u00e9al|||Houston Dynamo FC": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Chicago Fire FC|||Colorado Rapids": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Vancouver Whitecaps FC|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "LA Galaxy|||Portland Timbers FC": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "D.C. United|||San Jose Earthquakes": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Columbus Crew|||Chicago Fire FC": {
+        "home_wins": 12,
+        "meetings": 17
+      },
+      "FC Dallas|||Sporting Kansas City": {
+        "home_wins": 9,
+        "meetings": 14
+      },
+      "Houston Dynamo FC|||Toronto FC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Philadelphia Union|||New York Red Bulls": {
+        "home_wins": 10,
+        "meetings": 18
+      },
+      "Portland Timbers FC|||Colorado Rapids": {
+        "home_wins": 11,
+        "meetings": 14
+      },
+      "Chivas USA|||LA Galaxy": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Toronto FC|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Philadelphia Union|||FC Dallas": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "CF Montr\u00e9al|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "D.C. United|||Vancouver Whitecaps FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sporting Kansas City|||Columbus Crew": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Chivas USA|||New England Revolution": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Jose Earthquakes|||LA Galaxy": {
+        "home_wins": 6,
+        "meetings": 19
+      },
+      "New York Red Bulls|||Houston Dynamo FC": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Toronto FC|||CF Montr\u00e9al": {
+        "home_wins": 8,
+        "meetings": 17
+      },
+      "Chicago Fire FC|||San Jose Earthquakes": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Sporting Kansas City|||Vancouver Whitecaps FC": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Real Salt Lake|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Seattle Sounders FC|||D.C. United": {
+        "home_wins": 4,
+        "meetings": 4
+      },
+      "FC Dallas|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Colorado Rapids|||New York Red Bulls": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "LA Galaxy|||Columbus Crew": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "New England Revolution|||San Jose Earthquakes": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Houston Dynamo FC|||Philadelphia Union": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Vancouver Whitecaps FC|||Seattle Sounders FC": {
+        "home_wins": 6,
+        "meetings": 18
+      },
+      "Chicago Fire FC|||Sporting Kansas City": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Columbus Crew|||Portland Timbers FC": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "CF Montr\u00e9al|||Chivas USA": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Colorado Rapids|||D.C. United": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "LA Galaxy|||FC Dallas": {
+        "home_wins": 8,
+        "meetings": 14
+      },
+      "Philadelphia Union|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "New England Revolution|||Houston Dynamo FC": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Sporting Kansas City|||Toronto FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Portland Timbers FC|||LA Galaxy": {
+        "home_wins": 7,
+        "meetings": 15
+      },
+      "Vancouver Whitecaps FC|||Chicago Fire FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Colorado Rapids|||New England Revolution": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Chivas USA|||Toronto FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Seattle Sounders FC|||Colorado Rapids": {
+        "home_wins": 11,
+        "meetings": 16
+      },
+      "CF Montr\u00e9al|||FC Dallas": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Columbus Crew|||New England Revolution": {
+        "home_wins": 7,
+        "meetings": 15
+      },
+      "Philadelphia Union|||Portland Timbers FC": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Real Salt Lake|||Sporting Kansas City": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "LA Galaxy|||Vancouver Whitecaps FC": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "Vancouver Whitecaps FC|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Colorado Rapids|||LA Galaxy": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "D.C. United|||New England Revolution": {
+        "home_wins": 9,
+        "meetings": 17
+      },
+      "New York Red Bulls|||Real Salt Lake": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "CF Montr\u00e9al|||Sporting Kansas City": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Seattle Sounders FC|||Chivas USA": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Sporting Kansas City|||New York Red Bulls": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "D.C. United|||CF Montr\u00e9al": {
+        "home_wins": 5,
+        "meetings": 14
+      },
+      "Houston Dynamo FC|||Columbus Crew": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "San Jose Earthquakes|||Chivas USA": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Portland Timbers FC|||Vancouver Whitecaps FC": {
+        "home_wins": 8,
+        "meetings": 18
+      },
+      "Toronto FC|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Vancouver Whitecaps FC|||San Jose Earthquakes": {
+        "home_wins": 10,
+        "meetings": 17
+      },
+      "Philadelphia Union|||D.C. United": {
+        "home_wins": 12,
+        "meetings": 14
+      },
+      "Sporting Kansas City|||New England Revolution": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Chicago Fire FC|||CF Montr\u00e9al": {
+        "home_wins": 6,
+        "meetings": 13
+      },
+      "Real Salt Lake|||Houston Dynamo FC": {
+        "home_wins": 9,
+        "meetings": 14
+      },
+      "CF Montr\u00e9al|||D.C. United": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "New England Revolution|||Chicago Fire FC": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "Columbus Crew|||Toronto FC": {
+        "home_wins": 7,
+        "meetings": 16
+      },
+      "Colorado Rapids|||Vancouver Whitecaps FC": {
+        "home_wins": 9,
+        "meetings": 15
+      },
+      "Houston Dynamo FC|||Seattle Sounders FC": {
+        "home_wins": 3,
+        "meetings": 14
+      },
+      "LA Galaxy|||Real Salt Lake": {
+        "home_wins": 12,
+        "meetings": 18
+      },
+      "San Jose Earthquakes|||Sporting Kansas City": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Portland Timbers FC|||Real Salt Lake": {
+        "home_wins": 9,
+        "meetings": 19
+      },
+      "Real Salt Lake|||Columbus Crew": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Chivas USA|||New York Red Bulls": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Toronto FC|||New England Revolution": {
+        "home_wins": 5,
+        "meetings": 14
+      },
+      "Real Salt Lake|||Portland Timbers FC": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "Philadelphia Union|||CF Montr\u00e9al": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "Columbus Crew|||Seattle Sounders FC": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Sporting Kansas City|||Colorado Rapids": {
+        "home_wins": 10,
+        "meetings": 15
+      },
+      "LA Galaxy|||San Jose Earthquakes": {
+        "home_wins": 8,
+        "meetings": 17
+      },
+      "Chicago Fire FC|||Houston Dynamo FC": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Seattle Sounders FC|||Chicago Fire FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Portland Timbers FC|||Toronto FC": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Houston Dynamo FC|||New York Red Bulls": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "New England Revolution|||CF Montr\u00e9al": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "Chivas USA|||D.C. United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Jose Earthquakes|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Toronto FC|||Chicago Fire FC": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Seattle Sounders FC|||Real Salt Lake": {
+        "home_wins": 13,
+        "meetings": 17
+      },
+      "D.C. United|||LA Galaxy": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "New York Red Bulls|||Toronto FC": {
+        "home_wins": 12,
+        "meetings": 16
+      },
+      "Philadelphia Union|||Houston Dynamo FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Chivas USA|||Portland Timbers FC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "CF Montr\u00e9al|||Vancouver Whitecaps FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Houston Dynamo FC|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "New York Red Bulls|||FC Dallas": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Sporting Kansas City|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Toronto FC|||D.C. United": {
+        "home_wins": 8,
+        "meetings": 16
+      },
+      "FC Dallas|||Columbus Crew": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Seattle Sounders FC|||New York Red Bulls": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "D.C. United|||Chicago Fire FC": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "Houston Dynamo FC|||CF Montr\u00e9al": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "Columbus Crew|||Sporting Kansas City": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Real Salt Lake|||FC Dallas": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "CF Montr\u00e9al|||New England Revolution": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "FC Dallas|||Chicago Fire FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Portland Timbers FC|||Seattle Sounders FC": {
+        "home_wins": 11,
+        "meetings": 21
+      },
+      "LA Galaxy|||CF Montr\u00e9al": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "FC Dallas|||Seattle Sounders FC": {
+        "home_wins": 10,
+        "meetings": 18
+      },
+      "New England Revolution|||Columbus Crew": {
+        "home_wins": 6,
+        "meetings": 16
+      },
+      "Chicago Fire FC|||Toronto FC": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "San Jose Earthquakes|||FC Dallas": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "New York Red Bulls|||Chicago Fire FC": {
+        "home_wins": 7,
+        "meetings": 13
+      },
+      "Vancouver Whitecaps FC|||Colorado Rapids": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Seattle Sounders FC|||LA Galaxy": {
+        "home_wins": 8,
+        "meetings": 17
+      },
+      "Sporting Kansas City|||Real Salt Lake": {
+        "home_wins": 3,
+        "meetings": 15
+      },
+      "Seattle Sounders FC|||Sporting Kansas City": {
+        "home_wins": 7,
+        "meetings": 13
+      },
+      "Vancouver Whitecaps FC|||New York Red Bulls": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "FC Dallas|||CF Montr\u00e9al": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Portland Timbers FC|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Chivas USA|||Chicago Fire FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "New York Red Bulls|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Seattle Sounders FC|||Toronto FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Sporting Kansas City|||FC Dallas": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "Portland Timbers FC|||Chicago Fire FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "New England Revolution|||Vancouver Whitecaps FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Sporting Kansas City|||San Jose Earthquakes": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "CF Montr\u00e9al|||Seattle Sounders FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Colorado Rapids|||Sporting Kansas City": {
+        "home_wins": 6,
+        "meetings": 13
+      },
+      "Vancouver Whitecaps FC|||Houston Dynamo FC": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "Real Salt Lake|||Toronto FC": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Seattle Sounders FC|||Columbus Crew": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "San Jose Earthquakes|||New England Revolution": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "New York Red Bulls|||Chivas USA": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Houston Dynamo FC|||FC Dallas": {
+        "home_wins": 4,
+        "meetings": 16
+      },
+      "Philadelphia Union|||Real Salt Lake": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Toronto FC|||Colorado Rapids": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "San Jose Earthquakes|||Columbus Crew": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "FC Dallas|||Toronto FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "D.C. United|||FC Dallas": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Houston Dynamo FC|||Portland Timbers FC": {
+        "home_wins": 6,
+        "meetings": 13
+      },
+      "Chicago Fire FC|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Chivas USA|||Houston Dynamo FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Seattle Sounders FC|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Portland Timbers FC|||D.C. United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "FC Dallas|||New York Red Bulls": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Columbus Crew|||Vancouver Whitecaps FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "New England Revolution|||Seattle Sounders FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Houston Dynamo FC|||Real Salt Lake": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "Houston Dynamo FC|||LA Galaxy": {
+        "home_wins": 6,
+        "meetings": 13
+      },
+      "Portland Timbers FC|||Columbus Crew": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "New York Red Bulls|||Portland Timbers FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Colorado Rapids|||CF Montr\u00e9al": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "LA Galaxy|||Philadelphia Union": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "San Jose Earthquakes|||Houston Dynamo FC": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Chivas USA|||Philadelphia Union": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Chicago Fire FC|||LA Galaxy": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Colorado Rapids|||Houston Dynamo FC": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Columbus Crew|||Real Salt Lake": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Colorado Rapids|||Chicago Fire FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Toronto FC|||San Jose Earthquakes": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Philadelphia Union|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Chicago Fire FC|||Seattle Sounders FC": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Vancouver Whitecaps FC|||CF Montr\u00e9al": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Portland Timbers FC|||Sporting Kansas City": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "D.C. United|||Seattle Sounders FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Columbus Crew|||FC Dallas": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "FC Dallas|||Philadelphia Union": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Colorado Rapids|||Columbus Crew": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Real Salt Lake|||New England Revolution": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Chivas USA|||CF Montr\u00e9al": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Jose Earthquakes|||D.C. United": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Philadelphia Union|||Colorado Rapids": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Toronto FC|||Vancouver Whitecaps FC": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "LA Galaxy|||New England Revolution": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Sporting Kansas City|||LA Galaxy": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "New York Red Bulls|||San Jose Earthquakes": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "FC Dallas|||New England Revolution": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "D.C. United|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Jose Earthquakes|||Chicago Fire FC": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Real Salt Lake|||CF Montr\u00e9al": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "CF Montr\u00e9al|||Portland Timbers FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "New England Revolution|||Colorado Rapids": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Chicago Fire FC|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Real Salt Lake|||New York Red Bulls": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Real Salt Lake|||D.C. United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Vancouver Whitecaps FC|||Sporting Kansas City": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "Seattle Sounders FC|||Houston Dynamo FC": {
+        "home_wins": 10,
+        "meetings": 13
+      },
+      "Columbus Crew|||LA Galaxy": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "New England Revolution|||Portland Timbers FC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "D.C. United|||Colorado Rapids": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "New England Revolution|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Philadelphia Union|||San Jose Earthquakes": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "LA Galaxy|||D.C. United": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Chicago Fire FC|||FC Dallas": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Vancouver Whitecaps FC|||D.C. United": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Columbus Crew|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "CF Montr\u00e9al|||LA Galaxy": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Chivas USA|||Sporting Kansas City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "New York Red Bulls|||Seattle Sounders FC": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "CF Montr\u00e9al|||San Jose Earthquakes": {
+        "home_wins": 4,
+        "meetings": 4
+      },
+      "Toronto FC|||Chivas USA": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Toronto FC|||Portland Timbers FC": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "LA Galaxy|||New York Red Bulls": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "LA Galaxy|||Toronto FC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Orlando City SC|||New York City FC": {
+        "home_wins": 4,
+        "meetings": 14
+      },
+      "Houston Dynamo FC|||Orlando City SC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "New York City FC|||New England Revolution": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Colorado Rapids|||New York City FC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Orlando City SC|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "CF Montr\u00e9al|||Orlando City SC": {
+        "home_wins": 6,
+        "meetings": 13
+      },
+      "New York City FC|||Sporting Kansas City": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Orlando City SC|||D.C. United": {
+        "home_wins": 6,
+        "meetings": 11
+      },
+      "Philadelphia Union|||New York City FC": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "Portland Timbers FC|||Orlando City SC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "New York City FC|||Philadelphia Union": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "Columbus Crew|||Orlando City SC": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "New York City FC|||Portland Timbers FC": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Chicago Fire FC|||New York City FC": {
+        "home_wins": 3,
+        "meetings": 12
+      },
+      "Orlando City SC|||Toronto FC": {
+        "home_wins": 6,
+        "meetings": 11
+      },
+      "New York City FC|||Seattle Sounders FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Orlando City SC|||New England Revolution": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "New York Red Bulls|||New York City FC": {
+        "home_wins": 8,
+        "meetings": 14
+      },
+      "D.C. United|||Orlando City SC": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "New York City FC|||Chicago Fire FC": {
+        "home_wins": 9,
+        "meetings": 12
+      },
+      "Orlando City SC|||LA Galaxy": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Real Salt Lake|||New York City FC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "San Jose Earthquakes|||Orlando City SC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "New York City FC|||Houston Dynamo FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Orlando City SC|||Columbus Crew": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Chicago Fire FC|||Orlando City SC": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "New York City FC|||CF Montr\u00e9al": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "Toronto FC|||New York City FC": {
+        "home_wins": 6,
+        "meetings": 14
+      },
+      "Orlando City SC|||Colorado Rapids": {
+        "home_wins": 4,
+        "meetings": 4
+      },
+      "New York City FC|||New York Red Bulls": {
+        "home_wins": 8,
+        "meetings": 14
+      },
+      "CF Montr\u00e9al|||New York City FC": {
+        "home_wins": 3,
+        "meetings": 11
+      },
+      "Real Salt Lake|||Orlando City SC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Orlando City SC|||FC Dallas": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "New York City FC|||Toronto FC": {
+        "home_wins": 6,
+        "meetings": 14
+      },
+      "New England Revolution|||New York City FC": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Orlando City SC|||New York Red Bulls": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "New York City FC|||Orlando City SC": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "Toronto FC|||Orlando City SC": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Orlando City SC|||Philadelphia Union": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "New York City FC|||D.C. United": {
+        "home_wins": 8,
+        "meetings": 12
+      },
+      "Seattle Sounders FC|||Orlando City SC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Columbus Crew|||New York City FC": {
+        "home_wins": 8,
+        "meetings": 14
+      },
+      "LA Galaxy|||New York City FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "New York City FC|||Columbus Crew": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "Orlando City SC|||Chicago Fire FC": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "New England Revolution|||Orlando City SC": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "FC Dallas|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Orlando City SC|||Sporting Kansas City": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "New York City FC|||San Jose Earthquakes": {
+        "home_wins": 5,
+        "meetings": 5
+      },
+      "New York Red Bulls|||Orlando City SC": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "Vancouver Whitecaps FC|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "D.C. United|||New York City FC": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "Orlando City SC|||CF Montr\u00e9al": {
+        "home_wins": 5,
+        "meetings": 13
+      },
+      "Philadelphia Union|||Orlando City SC": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Orlando City SC|||Real Salt Lake": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Orlando City SC|||Portland Timbers FC": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "New York City FC|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Sporting Kansas City|||Orlando City SC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Portland Timbers FC|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "New York City FC|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Orlando City SC|||San Jose Earthquakes": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Seattle Sounders FC|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "FC Dallas|||Orlando City SC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Orlando City SC|||Houston Dynamo FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Sporting Kansas City|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Vancouver Whitecaps FC|||Orlando City SC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "New York City FC|||Colorado Rapids": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "San Jose Earthquakes|||New York City FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Orlando City SC|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "New York City FC|||LA Galaxy": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Colorado Rapids|||Orlando City SC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "LA Galaxy|||Orlando City SC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "New York City FC|||FC Dallas": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Houston Dynamo FC|||New York City FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Portland Timbers FC|||Minnesota United FC": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "Atlanta United FC|||New York Red Bulls": {
+        "home_wins": 3,
+        "meetings": 11
+      },
+      "Minnesota United FC|||Atlanta United FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Atlanta United FC|||Chicago Fire FC": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Colorado Rapids|||Minnesota United FC": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "New England Revolution|||Minnesota United FC": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Seattle Sounders FC|||Atlanta United FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Minnesota United FC|||Real Salt Lake": {
+        "home_wins": 6,
+        "meetings": 11
+      },
+      "Toronto FC|||Atlanta United FC": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "FC Dallas|||Minnesota United FC": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "CF Montr\u00e9al|||Atlanta United FC": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Houston Dynamo FC|||Minnesota United FC": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "Real Salt Lake|||Atlanta United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Minnesota United FC|||Colorado Rapids": {
+        "home_wins": 7,
+        "meetings": 10
+      },
+      "Minnesota United FC|||San Jose Earthquakes": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Atlanta United FC|||D.C. United": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Minnesota United FC|||Sporting Kansas City": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "New York City FC|||Atlanta United FC": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "Toronto FC|||Minnesota United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Portland Timbers FC|||Atlanta United FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Atlanta United FC|||Houston Dynamo FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Minnesota United FC|||LA Galaxy": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "Minnesota United FC|||Orlando City SC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Atlanta United FC|||New York City FC": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Sporting Kansas City|||Minnesota United FC": {
+        "home_wins": 9,
+        "meetings": 13
+      },
+      "Vancouver Whitecaps FC|||Atlanta United FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Chicago Fire FC|||Atlanta United FC": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Atlanta United FC|||Columbus Crew": {
+        "home_wins": 4,
+        "meetings": 11
+      },
+      "Real Salt Lake|||Minnesota United FC": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "D.C. United|||Atlanta United FC": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Minnesota United FC|||Portland Timbers FC": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Atlanta United FC|||Colorado Rapids": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Minnesota United FC|||Vancouver Whitecaps FC": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "New York City FC|||Minnesota United FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Columbus Crew|||Atlanta United FC": {
+        "home_wins": 7,
+        "meetings": 11
+      },
+      "Atlanta United FC|||San Jose Earthquakes": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Minnesota United FC|||Columbus Crew": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Minnesota United FC|||Houston Dynamo FC": {
+        "home_wins": 7,
+        "meetings": 10
+      },
+      "Orlando City SC|||Atlanta United FC": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "Minnesota United FC|||New York Red Bulls": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Atlanta United FC|||Orlando City SC": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "Minnesota United FC|||D.C. United": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Minnesota United FC|||Seattle Sounders FC": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "Sporting Kansas City|||Atlanta United FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Seattle Sounders FC|||Minnesota United FC": {
+        "home_wins": 10,
+        "meetings": 11
+      },
+      "Philadelphia Union|||Atlanta United FC": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Chicago Fire FC|||Minnesota United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Minnesota United FC|||Philadelphia Union": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Atlanta United FC|||FC Dallas": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Atlanta United FC|||New England Revolution": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Vancouver Whitecaps FC|||Minnesota United FC": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "CF Montr\u00e9al|||Minnesota United FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Atlanta United FC|||LA Galaxy": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Minnesota United FC|||FC Dallas": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "Atlanta United FC|||CF Montr\u00e9al": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Atlanta United FC|||Philadelphia Union": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "New England Revolution|||Atlanta United FC": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Atlanta United FC|||Minnesota United FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "New York Red Bulls|||Atlanta United FC": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "LA Galaxy|||Minnesota United FC": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "San Jose Earthquakes|||Minnesota United FC": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "Atlanta United FC|||Toronto FC": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Houston Dynamo FC|||Atlanta United FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Seattle Sounders FC|||Los Angeles FC": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Real Salt Lake|||Los Angeles FC": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Orlando City SC|||Minnesota United FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Minnesota United FC|||Chicago Fire FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Atlanta United FC|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "New York Red Bulls|||Minnesota United FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "LA Galaxy|||Los Angeles FC": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "Atlanta United FC|||Los Angeles FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Vancouver Whitecaps FC|||Los Angeles FC": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "CF Montr\u00e9al|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "LA Galaxy|||Atlanta United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Los Angeles FC|||Seattle Sounders FC": {
+        "home_wins": 8,
+        "meetings": 11
+      },
+      "Los Angeles FC|||FC Dallas": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Atlanta United FC|||Sporting Kansas City": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Los Angeles FC|||Minnesota United FC": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Los Angeles FC|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Portland Timbers FC|||Los Angeles FC": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Minnesota United FC|||CF Montr\u00e9al": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Los Angeles FC|||D.C. United": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "FC Dallas|||Los Angeles FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "San Jose Earthquakes|||Los Angeles FC": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Los Angeles FC|||Columbus Crew": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Atlanta United FC|||Portland Timbers FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Los Angeles FC|||Philadelphia Union": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Houston Dynamo FC|||Los Angeles FC": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Minnesota United FC|||Toronto FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "FC Dallas|||Atlanta United FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Los Angeles FC|||Orlando City SC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Atlanta United FC|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Los Angeles FC|||Portland Timbers FC": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Minnesota United FC|||New England Revolution": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Minnesota United FC|||Los Angeles FC": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Los Angeles FC|||LA Galaxy": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "New York Red Bulls|||Los Angeles FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Los Angeles FC|||Sporting Kansas City": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Los Angeles FC|||Real Salt Lake": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Los Angeles FC|||Colorado Rapids": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "Toronto FC|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "D.C. United|||Minnesota United FC": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Colorado Rapids|||Atlanta United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Los Angeles FC|||New England Revolution": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "San Jose Earthquakes|||Atlanta United FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Los Angeles FC|||San Jose Earthquakes": {
+        "home_wins": 9,
+        "meetings": 11
+      },
+      "Atlanta United FC|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Chicago Fire FC|||Los Angeles FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Minnesota United FC|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Philadelphia Union|||Minnesota United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Colorado Rapids|||Los Angeles FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Los Angeles FC|||Houston Dynamo FC": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Los Angeles FC|||Vancouver Whitecaps FC": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "Columbus Crew|||Minnesota United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sporting Kansas City|||Los Angeles FC": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Seattle Sounders FC|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Atlanta United FC|||FC Cincinnati": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "New York City FC|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "FC Cincinnati|||Portland Timbers FC": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "New England Revolution|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "FC Cincinnati|||Philadelphia Union": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "D.C. United|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "FC Cincinnati|||Sporting Kansas City": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Los Angeles FC|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "FC Cincinnati|||Real Salt Lake": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "New York Red Bulls|||FC Cincinnati": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "Philadelphia Union|||FC Cincinnati": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "San Jose Earthquakes|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Los Angeles FC|||Chicago Fire FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "FC Cincinnati|||CF Montr\u00e9al": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Columbus Crew|||Los Angeles FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Orlando City SC|||FC Cincinnati": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Los Angeles FC|||CF Montr\u00e9al": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "FC Cincinnati|||New York Red Bulls": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Colorado Rapids|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "New York City FC|||FC Cincinnati": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "FC Cincinnati|||LA Galaxy": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Minnesota United FC|||FC Cincinnati": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "FC Cincinnati|||Houston Dynamo FC": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Chicago Fire FC|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "FC Cincinnati|||D.C. United": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "FC Cincinnati|||New England Revolution": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Los Angeles FC|||Atlanta United FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Toronto FC|||FC Cincinnati": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "New England Revolution|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "FC Cincinnati|||Vancouver Whitecaps FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Columbus Crew|||FC Cincinnati": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Los Angeles FC|||New York Red Bulls": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "FC Cincinnati|||New York City FC": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "FC Cincinnati|||Columbus Crew": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "FC Dallas|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "FC Cincinnati|||Toronto FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Orlando City SC|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "CF Montr\u00e9al|||FC Cincinnati": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Philadelphia Union|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "FC Cincinnati|||Atlanta United FC": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "FC Cincinnati|||Chicago Fire FC": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Los Angeles FC|||Toronto FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "FC Cincinnati|||Orlando City SC": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "D.C. United|||FC Cincinnati": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Nashville SC|||Atlanta United FC": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Los Angeles FC|||Inter Miami CF": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "D.C. United|||Inter Miami CF": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Portland Timbers FC|||Nashville SC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Orlando City SC|||Inter Miami CF": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Philadelphia Union|||Inter Miami CF": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Inter Miami CF|||New York City FC": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Portland Timbers FC|||FC Cincinnati": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "FC Dallas|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Atlanta United FC|||Nashville SC": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Inter Miami CF|||Orlando City SC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Orlando City SC|||Nashville SC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Nashville SC|||Inter Miami CF": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Atlanta United FC|||Inter Miami CF": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Nashville SC|||Orlando City SC": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Inter Miami CF|||Nashville SC": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Inter Miami CF|||Atlanta United FC": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Columbus Crew|||Nashville SC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Inter Miami CF|||New York Red Bulls": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Nashville SC|||D.C. United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Nashville SC|||Houston Dynamo FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "New England Revolution|||Nashville SC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Nashville SC|||Minnesota United FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "New York Red Bulls|||Inter Miami CF": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Inter Miami CF|||Houston Dynamo FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sporting Kansas City|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Houston Dynamo FC|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "CF Montr\u00e9al|||Inter Miami CF": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Nashville SC|||FC Dallas": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Nashville SC|||New England Revolution": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "FC Cincinnati|||Minnesota United FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "CF Montr\u00e9al|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "FC Dallas|||Inter Miami CF": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Nashville SC|||Chicago Fire FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Toronto FC|||Inter Miami CF": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Inter Miami CF|||FC Cincinnati": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Toronto FC|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Los Angeles FC|||Austin FC": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Nashville SC|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Inter Miami CF|||LA Galaxy": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Nashville SC|||CF Montr\u00e9al": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Colorado Rapids|||Austin FC": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Minnesota United FC|||Austin FC": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Sporting Kansas City|||Austin FC": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Inter Miami CF|||CF Montr\u00e9al": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "LA Galaxy|||Austin FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Real Salt Lake|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "FC Cincinnati|||Inter Miami CF": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Chicago Fire FC|||Inter Miami CF": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Nashville SC|||Austin FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Inter Miami CF|||D.C. United": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Seattle Sounders FC|||Austin FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "New York Red Bulls|||Nashville SC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "FC Cincinnati|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Austin FC|||San Jose Earthquakes": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Nashville SC|||Toronto FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Austin FC|||Columbus Crew": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Austin FC|||Portland Timbers FC": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Nashville SC|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Houston Dynamo FC|||FC Cincinnati": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Austin FC|||Los Angeles FC": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Inter Miami CF|||New England Revolution": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Austin FC|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Inter Miami CF|||Philadelphia Union": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Austin FC|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Austin FC|||Houston Dynamo FC": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "FC Dallas|||Austin FC": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "New York City FC|||Inter Miami CF": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Real Salt Lake|||Austin FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Inter Miami CF|||Chicago Fire FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Austin FC|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Inter Miami CF|||Toronto FC": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Austin FC|||FC Dallas": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Nashville SC|||New York City FC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Vancouver Whitecaps FC|||Austin FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Inter Miami CF|||Columbus Crew": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Houston Dynamo FC|||Austin FC": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Chicago Fire FC|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Austin FC|||LA Galaxy": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Austin FC|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "New York City FC|||Nashville SC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Portland Timbers FC|||Inter Miami CF": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Columbus Crew|||Inter Miami CF": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "D.C. United|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Austin FC|||Minnesota United FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Nashville SC|||Columbus Crew": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "San Jose Earthquakes|||Austin FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Philadelphia Union|||Nashville SC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "FC Cincinnati|||Nashville SC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Austin FC|||Sporting Kansas City": {
+        "home_wins": 5,
+        "meetings": 5
+      },
+      "Nashville SC|||New York Red Bulls": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "New England Revolution|||Inter Miami CF": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Portland Timbers FC|||Austin FC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "D.C. United|||Charlotte FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Austin FC|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Seattle Sounders FC|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Minnesota United FC|||Nashville SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlotte FC|||LA Galaxy": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Austin FC|||Inter Miami CF": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Inter Miami CF|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Atlanta United FC|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Charlotte FC|||New England Revolution": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Charlotte FC|||FC Cincinnati": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Philadelphia Union|||Charlotte FC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Charlotte FC|||Atlanta United FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "San Jose Earthquakes|||Nashville SC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "New England Revolution|||Charlotte FC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "D.C. United|||Austin FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Seattle Sounders FC|||Inter Miami CF": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Colorado Rapids|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "LA Galaxy|||Nashville SC": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "FC Cincinnati|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Orlando City SC|||Charlotte FC": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Charlotte FC|||Inter Miami CF": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Nashville SC|||Real Salt Lake": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Charlotte FC|||CF Montr\u00e9al": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Charlotte FC|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Austin FC|||Orlando City SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Inter Miami CF|||Portland Timbers FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Colorado Rapids|||Nashville SC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Seattle Sounders FC|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Charlotte FC|||New York Red Bulls": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Nashville SC|||San Jose Earthquakes": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Columbus Crew|||Charlotte FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "CF Montr\u00e9al|||Austin FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Nashville SC|||Sporting Kansas City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "CF Montr\u00e9al|||Charlotte FC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Inter Miami CF|||Minnesota United FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Charlotte FC|||Austin FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Nashville SC|||Portland Timbers FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Houston Dynamo FC|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Charlotte FC|||Nashville SC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Atlanta United FC|||Austin FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Nashville SC|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Inter Miami CF|||Charlotte FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Nashville SC|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Toronto FC|||Charlotte FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Austin FC|||New York Red Bulls": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Nashville SC|||Vancouver Whitecaps FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlotte FC|||D.C. United": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "San Jose Earthquakes|||Inter Miami CF": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Charlotte FC|||Chicago Fire FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Los Angeles FC|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "New York City FC|||Charlotte FC": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Charlotte FC|||Orlando City SC": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Charlotte FC|||Toronto FC": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Vancouver Whitecaps FC|||Nashville SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Nashville SC|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "FC Cincinnati|||Charlotte FC": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Charlotte FC|||New York City FC": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Nashville SC|||LA Galaxy": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "FC Cincinnati|||San Jose Earthquakes": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Chicago Fire FC|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Austin FC|||Nashville SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Real Salt Lake|||FC Cincinnati": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Charlotte FC|||Philadelphia Union": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Charlotte FC|||Columbus Crew": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "New York Red Bulls|||Charlotte FC": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Los Angeles FC|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Austin FC|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Austin FC|||CF Montr\u00e9al": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "FC Cincinnati|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Portland Timbers FC|||St. Louis City SC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "St. Louis City SC|||San Jose Earthquakes": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Real Salt Lake|||St. Louis City SC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "St. Louis City SC|||Minnesota United FC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Inter Miami CF|||FC Dallas": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Real Salt Lake|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Seattle Sounders FC|||St. Louis City SC": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Charlotte FC|||Colorado Rapids": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "St. Louis City SC|||FC Cincinnati": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Houston Dynamo FC|||Inter Miami CF": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Colorado Rapids|||St. Louis City SC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "St. Louis City SC|||Portland Timbers FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Chicago Fire FC|||St. Louis City SC": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Austin FC|||Toronto FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Sporting Kansas City": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "St. Louis City SC|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "LA Galaxy|||Charlotte FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Houston Dynamo FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "FC Dallas|||St. Louis City SC": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Charlotte FC|||Seattle Sounders FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Vancouver Whitecaps FC|||FC Cincinnati": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "St. Louis City SC|||LA Galaxy": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Nashville SC|||St. Louis City SC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Real Salt Lake": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "San Jose Earthquakes|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Inter Miami CF|||Austin FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Toronto FC|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Los Angeles FC|||St. Louis City SC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "St. Louis City SC|||Inter Miami CF": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Austin FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Charlotte FC|||Los Angeles FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Orlando City SC|||St. Louis City SC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||FC Dallas": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "New England Revolution|||Austin FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sporting Kansas City|||St. Louis City SC": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Nashville SC|||Charlotte FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Inter Miami CF|||Sporting Kansas City": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "LA Galaxy|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Houston Dynamo FC|||St. Louis City SC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "New York Red Bulls|||Austin FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Los Angeles FC": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Minnesota United FC|||St. Louis City SC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Austin FC|||D.C. United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Vancouver Whitecaps FC|||St. Louis City SC": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "St. Louis City SC|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Inter Miami CF|||Real Salt Lake": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "LA Galaxy|||Inter Miami CF": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Vancouver Whitecaps FC|||Charlotte FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "St. Louis City SC|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Austin FC|||Philadelphia Union": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Orlando City SC|||Austin FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||D.C. United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Inter Miami CF|||Colorado Rapids": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sporting Kansas City|||Inter Miami CF": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlotte FC|||Minnesota United FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlotte FC|||Portland Timbers FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Chicago Fire FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "FC Cincinnati|||St. Louis City SC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Vancouver Whitecaps FC|||Inter Miami CF": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Inter Miami CF|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Atlanta United FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Austin FC|||New York City FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Austin FC|||Charlotte FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "New England Revolution|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Toronto FC|||Austin FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "LA Galaxy|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Real Salt Lake|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||Columbus Crew": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlotte FC|||San Jose Earthquakes": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Philadelphia Union|||St. Louis City SC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Austin FC|||San Diego FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Diego FC|||Los Angeles FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Diego FC|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Colorado Rapids|||San Diego FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Columbus Crew": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlotte FC|||San Diego FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Diego FC|||Real Salt Lake": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||FC Dallas": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Minnesota United FC|||Inter Miami CF": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "FC Cincinnati|||Austin FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Austin FC|||Atlanta United FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||Colorado Rapids": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Diego FC|||Sporting Kansas City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||LA Galaxy": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "FC Cincinnati|||FC Dallas": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Seattle Sounders FC|||San Diego FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Diego FC|||Austin FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Minnesota United FC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sporting Kansas City|||Charlotte FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Orlando City SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Vancouver Whitecaps FC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "FC Dallas|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||Houston Dynamo FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Austin FC|||New England Revolution": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Chicago Fire FC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||Toronto FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||Vancouver Whitecaps FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "San Diego FC|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "St. Louis City SC|||Nashville SC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Sporting Kansas City|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlotte FC|||Real Salt Lake": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "San Jose Earthquakes|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||Portland Timbers FC": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Los Angeles FC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "CF Montr\u00e9al|||St. Louis City SC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||Minnesota United FC": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Inter Miami CF|||Seattle Sounders FC": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Atlanta United FC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "LA Galaxy|||FC Cincinnati": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "San Diego FC|||San Jose Earthquakes": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Houston Dynamo FC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Portland Timbers FC|||San Diego FC": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Inter Miami CF|||Vancouver Whitecaps FC": {
+        "home_wins": 1,
+        "meetings": 1
+      }
+    },
+    "form": {
+      "Philadelphia Union": [
+        3,
+        0,
+        1,
+        3,
+        0
+      ],
+      "Sporting Kansas City": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "Vancouver Whitecaps FC": [
+        3,
+        1,
+        1,
+        3,
+        0
+      ],
+      "Toronto FC": [
+        1,
+        1,
+        1,
+        0,
+        3
+      ],
+      "Houston Dynamo FC": [
+        0,
+        3,
+        0,
+        0,
+        1
+      ],
+      "D.C. United": [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "FC Dallas": [
+        3,
+        0,
+        3,
+        0,
+        1
+      ],
+      "Colorado Rapids": [
+        3,
+        0,
+        1,
+        0,
+        1
+      ],
+      "Chivas USA": [
+        0,
+        3,
+        3,
+        0,
+        3
+      ],
+      "Columbus Crew": [
+        1,
+        3,
+        0,
+        3,
+        0
+      ],
+      "Seattle Sounders FC": [
+        3,
+        3,
+        1,
+        3,
+        1
+      ],
+      "CF Montr\u00e9al": [
+        0,
+        0,
+        3,
+        1,
+        0
+      ],
+      "LA Galaxy": [
+        0,
+        3,
+        0,
+        3,
+        3
+      ],
+      "Chicago Fire FC": [
+        1,
+        1,
+        3,
+        1,
+        0
+      ],
+      "Portland Timbers FC": [
+        0,
+        3,
+        0,
+        1,
+        0
+      ],
+      "New York Red Bulls": [
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "San Jose Earthquakes": [
+        0,
+        0,
+        3,
+        0,
+        3
+      ],
+      "Real Salt Lake": [
+        3,
+        3,
+        0,
+        1,
+        0
+      ],
+      "New England Revolution": [
+        1,
+        0,
+        3,
+        0,
+        1
+      ],
+      "Orlando City SC": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "New York City FC": [
+        3,
+        1,
+        3,
+        3,
+        0
+      ],
+      "Minnesota United FC": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "Atlanta United FC": [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "Los Angeles FC": [
+        0,
+        1,
+        3,
+        3,
+        1
+      ],
+      "FC Cincinnati": [
+        3,
+        3,
+        0,
+        3,
+        0
+      ],
+      "Nashville SC": [
+        1,
+        0,
+        0,
+        3,
+        0
+      ],
+      "Inter Miami CF": [
+        0,
+        3,
+        3,
+        3,
+        3
+      ],
+      "Austin FC": [
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "Charlotte FC": [
+        3,
+        3,
+        0,
+        1,
+        0
+      ],
+      "St. Louis City SC": [
+        3,
+        3,
+        0,
+        3,
+        1
+      ],
+      "San Diego FC": [
+        3,
+        1,
+        3,
+        3,
+        0
+      ]
+    }
+  },
+  "trained_on_matches": 4438
+}

@@ -16,6 +16,7 @@ It runs in the cloud on GitHub Actions, sends alerts to Discord and paper-trades
 | `macro.py`, `events_study.py`, `pm_study.py`, `trump_study.py`, `altdata_study.py` | Predictor studies (macro, earnings/calendar, prediction markets, Trump posts, insider/short interest/TSMC). All null; see MATH.md table |
 | `universe_study.py` → `reports/universe_results.md` | Other stocks, bonds, gold, trend ETFs, T-bill cash |
 | `reports/Replicated predictors for tech stocks.md`, `Top traders methods and math.md`, `Trading psychology and behavior.md` | Literature research syntheses |
+| `betting/` | Polymarket sports betting system (NBA/soccer/tennis models, sharp-line dry trader, tennis favourites test). Merged 2026-11-20 without its old git history; data/keys/logs stay local (see betting/METHODS.md) |
 | `test_monitor.py` | Rebalance order logic + drawdown alerts against a fake Alpaca |
 | `backtest.py` → `reports/backtest_results.md` | Backtest plus proof battery: bootstrap, HAC alpha, deflated Sharpe, PBO, IC |
 | `candles.py` → `reports/candles_results.md` | 13 candlestick patterns × 3 horizons, Holm-corrected |

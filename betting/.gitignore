@@ -1,0 +1,10 @@
+# secrets and local state: never commit (this repo is public)
+.env
+*.log
+sports_data.sqlite3
+sports_data.sqlite3-*
+nba_player_values.json
+pm_tokens_cache.json
+nba_closing_odds.sqlite
+__pycache__/
+*.pyc

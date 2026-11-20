@@ -1,0 +1,7960 @@
+{
+  "league": "Premier League",
+  "classes": [
+    "A",
+    "D",
+    "H"
+  ],
+  "feature_names": [
+    "elo_diff",
+    "h2h_home_win_rate",
+    "h2h_meetings",
+    "recent_form_diff",
+    "elo_form_interaction",
+    "elo_h2h_interaction"
+  ],
+  "coef": [
+    [
+      -0.00394639980982709,
+      -0.003626332892595643,
+      0.002603840749929551,
+      0.04171356461737833,
+      0.00011383080047432613,
+      0.0006912464274902588
+    ],
+    [
+      -9.580272383051502e-05,
+      -0.11325441304049798,
+      -0.0032054221919035173,
+      0.0022229648193887387,
+      -0.0002436725978178695,
+      -0.0011113881398297797
+    ],
+    [
+      0.004042202533694107,
+      0.11688074593303195,
+      0.0006015814419768026,
+      -0.04393652943667132,
+      0.00012984179716977884,
+      0.00042014171233508384
+    ]
+  ],
+  "intercept": [
+    -0.2140588971193545,
+    -0.05825624185508454,
+    0.2723151389731497
+  ],
+  "final_state": {
+    "elo": {
+      "Arsenal": 1737.5,
+      "Aston Villa": 1586.6,
+      "Barnsley": 1500.0,
+      "Birmingham": 1499.0,
+      "Blackburn": 1498.1,
+      "Blackpool": 1498.7,
+      "Bolton": 1498.4,
+      "Bournemouth": 1592.6,
+      "Bradford": 1499.9,
+      "Brentford": 1545.7,
+      "Brighton": 1551.6,
+      "Burnley": 1340.2,
+      "Cardiff": 1487.2,
+      "Charlton": 1499.6,
+      "Chelsea": 1536.2,
+      "Coventry": 1499.9,
+      "Crystal Palace": 1496.7,
+      "Derby": 1498.7,
+      "Everton": 1507.2,
+      "Fulham": 1523.6,
+      "Huddersfield": 1472.7,
+      "Hull": 1491.7,
+      "Ipswich": 1384.8,
+      "Leeds": 1508.4,
+      "Leicester": 1382.0,
+      "Liverpool": 1607.7,
+      "Luton": 1416.2,
+      "Man City": 1713.4,
+      "Man United": 1633.3,
+      "Middlesbrough": 1491.5,
+      "Newcastle": 1532.7,
+      "Norwich": 1438.4,
+      "Nott'm Forest": 1538.2,
+      "Oldham": 1500.0,
+      "Portsmouth": 1498.9,
+      "QPR": 1495.2,
+      "Reading": 1497.2,
+      "Sheffield United": 1379.1,
+      "Sheffield Weds": 1499.9,
+      "Southampton": 1327.3,
+      "Stoke": 1491.7,
+      "Sunderland": 1511.9,
+      "Swansea": 1491.3,
+      "Swindon": 1500.0,
+      "Tottenham": 1454.3,
+      "Watford": 1444.3,
+      "West Brom": 1471.3,
+      "West Ham": 1472.5,
+      "Wigan": 1498.5,
+      "Wimbledon": 1499.9,
+      "Wolves": 1371.5
+    },
+    "h2h": {
+      "Arsenal|||Coventry": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Aston Villa|||QPR": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Chelsea|||Blackburn": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "Liverpool|||Sheffield Weds": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Man City|||Leeds": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Newcastle|||Tottenham": {
+        "home_wins": 15,
+        "meetings": 31
+      },
+      "Oldham|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield United|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Southampton|||Everton": {
+        "home_wins": 14,
+        "meetings": 24
+      },
+      "West Ham|||Wimbledon": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Norwich|||Man United": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Tottenham|||Arsenal": {
+        "home_wins": 12,
+        "meetings": 33
+      },
+      "Wimbledon|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Leeds|||West Ham": {
+        "home_wins": 9,
+        "meetings": 14
+      },
+      "Ipswich|||Southampton": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Everton|||Man City": {
+        "home_wins": 11,
+        "meetings": 28
+      },
+      "Blackburn|||Norwich": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Coventry|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Man United|||Sheffield United": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "QPR|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Sheffield Weds|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Swindon|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wimbledon|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Tottenham|||Man City": {
+        "home_wins": 16,
+        "meetings": 27
+      },
+      "Sheffield Weds|||Arsenal": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "QPR|||Southampton": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Man United|||Newcastle": {
+        "home_wins": 19,
+        "meetings": 30
+      },
+      "Everton|||Sheffield United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Ipswich|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Coventry|||West Ham": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Blackburn|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Leeds|||Norwich": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Swindon|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Aston Villa|||Man United": {
+        "home_wins": 3,
+        "meetings": 29
+      },
+      "Arsenal|||Leeds": {
+        "home_wins": 11,
+        "meetings": 14
+      },
+      "Man City|||Blackburn": {
+        "home_wins": 3,
+        "meetings": 13
+      },
+      "Oldham|||Coventry": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield United|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Ham|||Sheffield Weds": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Southampton|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Norwich|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Chelsea|||QPR": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Liverpool|||Tottenham": {
+        "home_wins": 21,
+        "meetings": 33
+      },
+      "Newcastle|||Everton": {
+        "home_wins": 16,
+        "meetings": 31
+      },
+      "Man City|||Coventry": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Sheffield United|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "West Ham|||QPR": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Southampton|||Man United": {
+        "home_wins": 5,
+        "meetings": 23
+      },
+      "Oldham|||Wimbledon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Arsenal|||Everton": {
+        "home_wins": 24,
+        "meetings": 32
+      },
+      "Liverpool|||Leeds": {
+        "home_wins": 9,
+        "meetings": 15
+      },
+      "Aston Villa|||Tottenham": {
+        "home_wins": 11,
+        "meetings": 30
+      },
+      "Norwich|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Chelsea|||Sheffield Weds": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Newcastle|||Blackburn": {
+        "home_wins": 6,
+        "meetings": 16
+      },
+      "Leeds|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Everton|||Aston Villa": {
+        "home_wins": 8,
+        "meetings": 30
+      },
+      "Ipswich|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Wimbledon|||Southampton": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Man United|||West Ham": {
+        "home_wins": 23,
+        "meetings": 30
+      },
+      "Tottenham|||Chelsea": {
+        "home_wins": 7,
+        "meetings": 32
+      },
+      "Swindon|||Man City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield Weds|||Norwich": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Blackburn|||Arsenal": {
+        "home_wins": 5,
+        "meetings": 17
+      },
+      "Coventry|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "QPR|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Oldham|||Everton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Leeds": {
+        "home_wins": 5,
+        "meetings": 14
+      },
+      "Sheffield United|||Tottenham": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "West Ham|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Norwich|||Wimbledon": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Chelsea|||Man United": {
+        "home_wins": 14,
+        "meetings": 33
+      },
+      "Aston Villa|||Coventry": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Arsenal|||Ipswich": {
+        "home_wins": 5,
+        "meetings": 5
+      },
+      "Man City|||QPR": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Liverpool|||Blackburn": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "Newcastle|||Sheffield Weds": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Tottenham|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Swindon|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield Weds|||Southampton": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "QPR|||Norwich": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Leeds|||Sheffield United": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Everton|||Liverpool": {
+        "home_wins": 7,
+        "meetings": 33
+      },
+      "Coventry|||Chelsea": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Blackburn|||West Ham": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Ipswich|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Man United|||Arsenal": {
+        "home_wins": 18,
+        "meetings": 33
+      },
+      "Wimbledon|||Man City": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Man United|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Sheffield United|||Man City": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Oldham|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Everton|||Norwich": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Newcastle|||West Ham": {
+        "home_wins": 14,
+        "meetings": 28
+      },
+      "Chelsea|||Liverpool": {
+        "home_wins": 16,
+        "meetings": 33
+      },
+      "Coventry|||Leeds": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Blackburn|||Sheffield Weds": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Arsenal|||Southampton": {
+        "home_wins": 16,
+        "meetings": 24
+      },
+      "Ipswich|||Tottenham": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Wimbledon|||QPR": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "West Ham|||Chelsea": {
+        "home_wins": 11,
+        "meetings": 30
+      },
+      "Swindon|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Sheffield United": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sheffield Weds|||Man United": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "QPR|||Ipswich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Norwich|||Coventry": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Liverpool|||Arsenal": {
+        "home_wins": 17,
+        "meetings": 33
+      },
+      "Leeds|||Wimbledon": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Aston Villa|||Newcastle": {
+        "home_wins": 11,
+        "meetings": 29
+      },
+      "Tottenham|||Everton": {
+        "home_wins": 21,
+        "meetings": 33
+      },
+      "Man City|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "West Ham|||Aston Villa": {
+        "home_wins": 8,
+        "meetings": 27
+      },
+      "Swindon|||Everton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Newcastle|||QPR": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Man United|||Tottenham": {
+        "home_wins": 24,
+        "meetings": 33
+      },
+      "Sheffield Weds|||Wimbledon": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Coventry|||Southampton": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Chelsea|||Norwich": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "Arsenal|||Man City": {
+        "home_wins": 13,
+        "meetings": 28
+      },
+      "Liverpool|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Ipswich|||Leeds": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Blackburn|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Tottenham|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield United|||Sheffield Weds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Oldham|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Norwich|||West Ham": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "QPR|||Coventry": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Leeds|||Blackburn": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Everton|||Man United": {
+        "home_wins": 8,
+        "meetings": 33
+      },
+      "Aston Villa|||Chelsea": {
+        "home_wins": 8,
+        "meetings": 29
+      },
+      "Man City|||Liverpool": {
+        "home_wins": 11,
+        "meetings": 28
+      },
+      "Southampton|||Newcastle": {
+        "home_wins": 13,
+        "meetings": 22
+      },
+      "Wimbledon|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sheffield Weds|||Leeds": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Arsenal|||Norwich": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "Blackburn|||Tottenham": {
+        "home_wins": 6,
+        "meetings": 17
+      },
+      "Chelsea|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Ipswich|||Everton": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Liverpool|||Southampton": {
+        "home_wins": 16,
+        "meetings": 24
+      },
+      "Man United|||QPR": {
+        "home_wins": 6,
+        "meetings": 6
+      },
+      "Newcastle|||Wimbledon": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Swindon|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Coventry|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "West Ham|||Man City": {
+        "home_wins": 7,
+        "meetings": 25
+      },
+      "Arsenal|||Aston Villa": {
+        "home_wins": 18,
+        "meetings": 30
+      },
+      "Coventry|||Everton": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Ipswich|||Sheffield Weds": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Leeds|||Chelsea": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "Liverpool|||West Ham": {
+        "home_wins": 23,
+        "meetings": 30
+      },
+      "QPR|||Blackburn": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Sheffield United|||Norwich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Southampton|||Tottenham": {
+        "home_wins": 10,
+        "meetings": 24
+      },
+      "Wimbledon|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Man City|||Man United": {
+        "home_wins": 12,
+        "meetings": 28
+      },
+      "Oldham|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Aston Villa|||Sheffield United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Blackburn|||Southampton": {
+        "home_wins": 8,
+        "meetings": 10
+      },
+      "Chelsea|||Arsenal": {
+        "home_wins": 12,
+        "meetings": 33
+      },
+      "Everton|||QPR": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Man United|||Wimbledon": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Norwich|||Man City": {
+        "home_wins": 1,
+        "meetings": 9
+      },
+      "Sheffield Weds|||Coventry": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Swindon|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Leeds": {
+        "home_wins": 8,
+        "meetings": 15
+      },
+      "West Ham|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Newcastle|||Liverpool": {
+        "home_wins": 10,
+        "meetings": 31
+      },
+      "Chelsea|||Man City": {
+        "home_wins": 14,
+        "meetings": 28
+      },
+      "Blackburn|||Coventry": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Everton|||Leeds": {
+        "home_wins": 7,
+        "meetings": 15
+      },
+      "Aston Villa|||Southampton": {
+        "home_wins": 9,
+        "meetings": 21
+      },
+      "Man United|||Ipswich": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Newcastle|||Sheffield United": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Sheffield Weds|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Swindon|||QPR": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Tottenham|||Wimbledon": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "West Ham|||Arsenal": {
+        "home_wins": 3,
+        "meetings": 30
+      },
+      "Wimbledon|||Everton": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Sheffield United|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "QPR|||Tottenham": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Oldham|||Norwich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Ipswich|||Blackburn": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Leeds|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Coventry|||Man United": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Arsenal|||Newcastle": {
+        "home_wins": 24,
+        "meetings": 31
+      },
+      "Man City|||Sheffield Weds": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Liverpool|||Aston Villa": {
+        "home_wins": 18,
+        "meetings": 29
+      },
+      "Southampton|||West Ham": {
+        "home_wins": 7,
+        "meetings": 22
+      },
+      "Sheffield Weds|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Tottenham|||Newcastle": {
+        "home_wins": 16,
+        "meetings": 31
+      },
+      "Swindon|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "QPR|||Aston Villa": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Wimbledon|||West Ham": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Leeds|||Man City": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Coventry|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Man United|||Norwich": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "Ipswich|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Everton|||Southampton": {
+        "home_wins": 16,
+        "meetings": 24
+      },
+      "Blackburn|||Chelsea": {
+        "home_wins": 5,
+        "meetings": 17
+      },
+      "Arsenal|||Tottenham": {
+        "home_wins": 19,
+        "meetings": 32
+      },
+      "Oldham|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Sheffield United|||Man United": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Aston Villa|||Sheffield Weds": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Liverpool|||QPR": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Man City|||Everton": {
+        "home_wins": 15,
+        "meetings": 27
+      },
+      "Southampton|||Ipswich": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "West Ham|||Leeds": {
+        "home_wins": 4,
+        "meetings": 14
+      },
+      "West Ham|||Coventry": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Southampton|||QPR": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Sheffield United|||Everton": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Oldham|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Liverpool|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Man City|||Tottenham": {
+        "home_wins": 11,
+        "meetings": 28
+      },
+      "Chelsea|||Ipswich": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Aston Villa|||Wimbledon": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Newcastle|||Man United": {
+        "home_wins": 10,
+        "meetings": 31
+      },
+      "Arsenal|||Sheffield Weds": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Norwich|||Leeds": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Swindon|||Southampton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wimbledon|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Tottenham|||Liverpool": {
+        "home_wins": 12,
+        "meetings": 33
+      },
+      "Sheffield Weds|||West Ham": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Ipswich|||Norwich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Everton|||Newcastle": {
+        "home_wins": 14,
+        "meetings": 30
+      },
+      "Coventry|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackburn|||Man City": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "Leeds|||Arsenal": {
+        "home_wins": 4,
+        "meetings": 15
+      },
+      "Man United|||Aston Villa": {
+        "home_wins": 24,
+        "meetings": 30
+      },
+      "Newcastle|||Leeds": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "Man United|||Blackburn": {
+        "home_wins": 12,
+        "meetings": 17
+      },
+      "Sheffield United|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Wimbledon|||Coventry": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Tottenham|||Norwich": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Swindon|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Chelsea": {
+        "home_wins": 5,
+        "meetings": 24
+      },
+      "Ipswich|||West Ham": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Everton|||Sheffield Weds": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "QPR|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Chelsea|||Newcastle": {
+        "home_wins": 22,
+        "meetings": 31
+      },
+      "Liverpool|||Wimbledon": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Man City|||Southampton": {
+        "home_wins": 12,
+        "meetings": 18
+      },
+      "West Ham|||Tottenham": {
+        "home_wins": 12,
+        "meetings": 30
+      },
+      "Norwich|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Oldham|||Man United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield Weds|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Leeds|||QPR": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Arsenal|||Sheffield United": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Blackburn|||Everton": {
+        "home_wins": 6,
+        "meetings": 17
+      },
+      "Tottenham|||Coventry": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Swindon|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Norwich": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Sheffield United|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "QPR|||Sheffield Weds": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Wimbledon|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Man United|||Leeds": {
+        "home_wins": 9,
+        "meetings": 15
+      },
+      "Ipswich|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Everton|||West Ham": {
+        "home_wins": 16,
+        "meetings": 30
+      },
+      "Aston Villa|||Blackburn": {
+        "home_wins": 10,
+        "meetings": 17
+      },
+      "Newcastle|||Man City": {
+        "home_wins": 8,
+        "meetings": 26
+      },
+      "West Ham|||Sheffield United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Coventry|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield Weds|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Arsenal|||QPR": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Chelsea|||Everton": {
+        "home_wins": 19,
+        "meetings": 32
+      },
+      "Liverpool|||Man United": {
+        "home_wins": 12,
+        "meetings": 33
+      },
+      "Norwich|||Newcastle": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Wimbledon|||Sheffield Weds": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Tottenham|||Man United": {
+        "home_wins": 8,
+        "meetings": 33
+      },
+      "Southampton|||Coventry": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Sheffield United|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Oldham|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Man City|||Arsenal": {
+        "home_wins": 13,
+        "meetings": 28
+      },
+      "Leeds|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Everton|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Aston Villa|||West Ham": {
+        "home_wins": 11,
+        "meetings": 27
+      },
+      "Norwich|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 9
+      },
+      "QPR|||Newcastle": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Swindon|||Tottenham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Sheffield Weds|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Newcastle|||Southampton": {
+        "home_wins": 16,
+        "meetings": 23
+      },
+      "Liverpool|||Man City": {
+        "home_wins": 18,
+        "meetings": 28
+      },
+      "Man United|||Everton": {
+        "home_wins": 23,
+        "meetings": 33
+      },
+      "Coventry|||QPR": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Chelsea|||Aston Villa": {
+        "home_wins": 17,
+        "meetings": 30
+      },
+      "Arsenal|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Ipswich|||Wimbledon": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Blackburn|||Leeds": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "West Ham|||Norwich": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Coventry|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Tottenham|||Sheffield Weds": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Swindon|||Coventry": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "QPR|||Man United": {
+        "home_wins": 0,
+        "meetings": 6
+      },
+      "Oldham|||Southampton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Norwich|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 9
+      },
+      "Everton|||Chelsea": {
+        "home_wins": 14,
+        "meetings": 33
+      },
+      "Blackburn|||Wimbledon": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Man City|||Ipswich": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Aston Villa|||Leeds": {
+        "home_wins": 7,
+        "meetings": 15
+      },
+      "Aston Villa|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Everton|||Ipswich": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Man City|||West Ham": {
+        "home_wins": 21,
+        "meetings": 25
+      },
+      "Oldham|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Sheffield United|||Coventry": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Blackburn": {
+        "home_wins": 10,
+        "meetings": 16
+      },
+      "Wimbledon|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Norwich|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 9
+      },
+      "Southampton|||Liverpool": {
+        "home_wins": 7,
+        "meetings": 24
+      },
+      "Blackburn|||Newcastle": {
+        "home_wins": 8,
+        "meetings": 16
+      },
+      "Coventry|||Man City": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Everton|||Arsenal": {
+        "home_wins": 10,
+        "meetings": 33
+      },
+      "Leeds|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 15
+      },
+      "Swindon|||Norwich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Aston Villa|||Man City": {
+        "home_wins": 7,
+        "meetings": 23
+      },
+      "Norwich|||Blackburn": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Newcastle|||Coventry": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Southampton|||Wimbledon": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "West Ham|||Man United": {
+        "home_wins": 8,
+        "meetings": 30
+      },
+      "Man City|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Norwich|||Sheffield Weds": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Ipswich|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Arsenal|||Blackburn": {
+        "home_wins": 10,
+        "meetings": 17
+      },
+      "Liverpool|||Coventry": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Chelsea|||Tottenham": {
+        "home_wins": 22,
+        "meetings": 33
+      },
+      "Oldham|||Leeds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Aston Villa": {
+        "home_wins": 14,
+        "meetings": 29
+      },
+      "Wimbledon|||Norwich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Tottenham|||Sheffield United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Swindon|||West Ham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "QPR|||Man City": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Sheffield Weds|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Leeds|||Southampton": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Ipswich|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Everton|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackburn|||Liverpool": {
+        "home_wins": 5,
+        "meetings": 17
+      },
+      "Man United|||Chelsea": {
+        "home_wins": 13,
+        "meetings": 32
+      },
+      "Coventry|||Aston Villa": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Aston Villa|||Ipswich": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Man City|||Wimbledon": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Newcastle|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Norwich|||QPR": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Southampton|||Sheffield Weds": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Liverpool|||Everton": {
+        "home_wins": 18,
+        "meetings": 33
+      },
+      "Sheffield United|||Leeds": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sheffield United|||QPR": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Man United|||Sheffield Weds": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Chelsea|||Wimbledon": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Leeds|||Aston Villa": {
+        "home_wins": 4,
+        "meetings": 15
+      },
+      "Tottenham|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Aston Villa|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Leeds|||Coventry": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Liverpool|||Chelsea": {
+        "home_wins": 16,
+        "meetings": 33
+      },
+      "Man City|||Sheffield United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "QPR|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Southampton|||Arsenal": {
+        "home_wins": 7,
+        "meetings": 24
+      },
+      "Swindon|||Man United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "West Ham|||Newcastle": {
+        "home_wins": 10,
+        "meetings": 28
+      },
+      "Sheffield Weds|||Blackburn": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Norwich|||Everton": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Arsenal|||Man United": {
+        "home_wins": 16,
+        "meetings": 33
+      },
+      "Newcastle|||Ipswich": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Oldham|||Man City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Ipswich|||QPR": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Everton|||Tottenham": {
+        "home_wins": 5,
+        "meetings": 32
+      },
+      "Sheffield United|||Southampton": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Chelsea|||West Ham": {
+        "home_wins": 20,
+        "meetings": 30
+      },
+      "Blackburn|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Arsenal|||Liverpool": {
+        "home_wins": 10,
+        "meetings": 31
+      },
+      "Coventry|||Norwich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Wimbledon|||Leeds": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Sheffield United|||West Ham": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Ipswich|||Man City": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Newcastle|||Norwich": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Wimbledon|||Blackburn": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Aston Villa|||Everton": {
+        "home_wins": 16,
+        "meetings": 30
+      },
+      "Man United|||Liverpool": {
+        "home_wins": 18,
+        "meetings": 33
+      },
+      "Sheffield Weds|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Southampton|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Leeds|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 15
+      },
+      "Sheffield Weds|||Everton": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Oldham|||QPR": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Norwich|||Tottenham": {
+        "home_wins": 1,
+        "meetings": 9
+      },
+      "Man City|||Aston Villa": {
+        "home_wins": 21,
+        "meetings": 25
+      },
+      "Blackburn|||Man United": {
+        "home_wins": 4,
+        "meetings": 17
+      },
+      "Coventry|||Wimbledon": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Chelsea|||Southampton": {
+        "home_wins": 13,
+        "meetings": 24
+      },
+      "West Ham|||Ipswich": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Arsenal|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Liverpool|||Sheffield United": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Swindon|||Sheffield Weds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield United|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Wimbledon|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Tottenham|||West Ham": {
+        "home_wins": 16,
+        "meetings": 30
+      },
+      "QPR|||Leeds": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Southampton|||Man City": {
+        "home_wins": 4,
+        "meetings": 19
+      },
+      "Man United|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Newcastle|||Chelsea": {
+        "home_wins": 15,
+        "meetings": 30
+      },
+      "Ipswich|||Coventry": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Everton|||Blackburn": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "Aston Villa|||Norwich": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "West Ham|||Everton": {
+        "home_wins": 8,
+        "meetings": 30
+      },
+      "Sheffield Weds|||QPR": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Norwich|||Southampton": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Liverpool|||Ipswich": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Coventry|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Man City|||Newcastle": {
+        "home_wins": 21,
+        "meetings": 26
+      },
+      "Blackburn|||Aston Villa": {
+        "home_wins": 8,
+        "meetings": 17
+      },
+      "QPR|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "QPR|||Everton": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Southampton|||Blackburn": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Sheffield United|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Oldham|||West Ham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wimbledon|||Man United": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Liverpool|||Newcastle": {
+        "home_wins": 25,
+        "meetings": 30
+      },
+      "Ipswich|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Coventry|||Sheffield Weds": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Arsenal|||Chelsea": {
+        "home_wins": 17,
+        "meetings": 33
+      },
+      "Man City|||Norwich": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Leeds|||Tottenham": {
+        "home_wins": 7,
+        "meetings": 15
+      },
+      "Arsenal|||Wimbledon": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "West Ham|||Liverpool": {
+        "home_wins": 9,
+        "meetings": 30
+      },
+      "Tottenham|||Southampton": {
+        "home_wins": 18,
+        "meetings": 24
+      },
+      "Swindon|||Wimbledon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Norwich|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sheffield Weds|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Man United|||Man City": {
+        "home_wins": 12,
+        "meetings": 28
+      },
+      "Everton|||Coventry": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Chelsea|||Leeds": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Aston Villa|||Arsenal": {
+        "home_wins": 6,
+        "meetings": 30
+      },
+      "Newcastle|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackburn|||QPR": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Wimbledon|||Oldham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Chelsea|||Swindon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Leeds|||Man United": {
+        "home_wins": 4,
+        "meetings": 15
+      },
+      "Newcastle|||Aston Villa": {
+        "home_wins": 18,
+        "meetings": 29
+      },
+      "QPR|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "West Ham|||Blackburn": {
+        "home_wins": 10,
+        "meetings": 14
+      },
+      "Sheffield United|||Newcastle": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Wimbledon|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Southampton|||Aston Villa": {
+        "home_wins": 8,
+        "meetings": 21
+      },
+      "Oldham|||Sheffield Weds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "QPR|||Swindon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Liverpool|||Norwich": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Leeds|||Everton": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Arsenal|||West Ham": {
+        "home_wins": 22,
+        "meetings": 30
+      },
+      "Man City|||Chelsea": {
+        "home_wins": 12,
+        "meetings": 28
+      },
+      "Ipswich|||Man United": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Coventry|||Blackburn": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Leeds|||Sheffield Weds": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Oldham|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "QPR|||West Ham": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Man United|||Southampton": {
+        "home_wins": 16,
+        "meetings": 24
+      },
+      "Chelsea|||Coventry": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Oldham|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Swindon|||Leeds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield Weds|||Man City": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Norwich|||Oldham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Newcastle|||Arsenal": {
+        "home_wins": 9,
+        "meetings": 30
+      },
+      "Blackburn|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Chelsea|||Sheffield United": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Aston Villa|||Liverpool": {
+        "home_wins": 7,
+        "meetings": 30
+      },
+      "Tottenham|||QPR": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Everton|||Wimbledon": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "West Ham|||Southampton": {
+        "home_wins": 15,
+        "meetings": 22
+      },
+      "Man United|||Coventry": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Ipswich|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Crystal Palace|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 15
+      },
+      "Leicester|||Newcastle": {
+        "home_wins": 6,
+        "meetings": 17
+      },
+      "Nott'm Forest|||Man United": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Blackburn|||Leicester": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Norwich|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Nott'm Forest|||Leicester": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Aston Villa|||Crystal Palace": {
+        "home_wins": 6,
+        "meetings": 13
+      },
+      "Crystal Palace|||Leeds": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Everton|||Nott'm Forest": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Leicester|||QPR": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Wimbledon|||Leicester": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Nott'm Forest|||Sheffield Weds": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Man City|||Crystal Palace": {
+        "home_wins": 10,
+        "meetings": 15
+      },
+      "Southampton|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 6
+      },
+      "Crystal Palace|||Wimbledon": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Leicester|||Tottenham": {
+        "home_wins": 8,
+        "meetings": 18
+      },
+      "Crystal Palace|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 16
+      },
+      "Everton|||Leicester": {
+        "home_wins": 6,
+        "meetings": 18
+      },
+      "Tottenham|||Nott'm Forest": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Arsenal|||Crystal Palace": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "Nott'm Forest|||QPR": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Leicester|||Coventry": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Chelsea|||Leicester": {
+        "home_wins": 10,
+        "meetings": 18
+      },
+      "Man City|||Nott'm Forest": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "West Ham|||Crystal Palace": {
+        "home_wins": 4,
+        "meetings": 15
+      },
+      "Crystal Palace|||Newcastle": {
+        "home_wins": 4,
+        "meetings": 15
+      },
+      "Leicester|||Southampton": {
+        "home_wins": 10,
+        "meetings": 18
+      },
+      "Nott'm Forest|||Wimbledon": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Aston Villa|||Nott'm Forest": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Crystal Palace|||Everton": {
+        "home_wins": 2,
+        "meetings": 16
+      },
+      "Leeds|||Leicester": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Nott'm Forest|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Leicester|||Crystal Palace": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Coventry|||Crystal Palace": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "West Ham|||Leicester": {
+        "home_wins": 10,
+        "meetings": 17
+      },
+      "Crystal Palace|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Liverpool|||Nott'm Forest": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Nott'm Forest|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 8
+      },
+      "Man United|||Crystal Palace": {
+        "home_wins": 11,
+        "meetings": 16
+      },
+      "Nott'm Forest|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Leicester|||Man City": {
+        "home_wins": 2,
+        "meetings": 13
+      },
+      "Leicester|||Arsenal": {
+        "home_wins": 4,
+        "meetings": 18
+      },
+      "Norwich|||Leicester": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Crystal Palace|||Southampton": {
+        "home_wins": 5,
+        "meetings": 13
+      },
+      "Leeds|||Nott'm Forest": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Sheffield Weds|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Leicester|||Aston Villa": {
+        "home_wins": 6,
+        "meetings": 15
+      },
+      "Nott'm Forest|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Newcastle|||Leicester": {
+        "home_wins": 9,
+        "meetings": 17
+      },
+      "Nott'm Forest|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Liverpool|||Crystal Palace": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "Man United|||Nott'm Forest": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Leicester|||Blackburn": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Crystal Palace|||Norwich": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Leicester|||Liverpool": {
+        "home_wins": 6,
+        "meetings": 18
+      },
+      "Crystal Palace|||QPR": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Coventry|||Nott'm Forest": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Nott'm Forest|||Norwich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Tottenham|||Crystal Palace": {
+        "home_wins": 10,
+        "meetings": 16
+      },
+      "Man United|||Leicester": {
+        "home_wins": 11,
+        "meetings": 17
+      },
+      "West Ham|||Nott'm Forest": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Leicester|||Sheffield Weds": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Crystal Palace|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Ipswich|||Leicester": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Nott'm Forest|||Crystal Palace": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Blackburn|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Crystal Palace|||Leicester": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Nott'm Forest|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Everton|||Crystal Palace": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "Man City|||Leicester": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "Chelsea|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Crystal Palace|||Man United": {
+        "home_wins": 2,
+        "meetings": 16
+      },
+      "Nott'm Forest|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Leicester|||West Ham": {
+        "home_wins": 7,
+        "meetings": 17
+      },
+      "Ipswich|||Crystal Palace": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Newcastle|||Nott'm Forest": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Arsenal|||Leicester": {
+        "home_wins": 14,
+        "meetings": 17
+      },
+      "Crystal Palace|||Coventry": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Arsenal|||Nott'm Forest": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Aston Villa|||Leicester": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "Crystal Palace|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 16
+      },
+      "Coventry|||Leicester": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "QPR|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Nott'm Forest|||Tottenham": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Leicester|||Everton": {
+        "home_wins": 4,
+        "meetings": 18
+      },
+      "Chelsea|||Crystal Palace": {
+        "home_wins": 11,
+        "meetings": 16
+      },
+      "QPR|||Leicester": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Nott'm Forest|||Everton": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Leicester|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Crystal Palace|||Sheffield Weds": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Leicester|||Leeds": {
+        "home_wins": 7,
+        "meetings": 11
+      },
+      "Wimbledon|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Nott'm Forest|||Southampton": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Tottenham|||Leicester": {
+        "home_wins": 9,
+        "meetings": 18
+      },
+      "Nott'm Forest|||Leeds": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Leicester|||Wimbledon": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Sheffield Weds|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Crystal Palace|||Man City": {
+        "home_wins": 2,
+        "meetings": 15
+      },
+      "Crystal Palace|||Aston Villa": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "Leicester|||Norwich": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Sheffield Weds|||Leicester": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Nott'm Forest|||West Ham": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Norwich|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Tottenham": {
+        "home_wins": 4,
+        "meetings": 16
+      },
+      "Leicester|||Man United": {
+        "home_wins": 2,
+        "meetings": 18
+      },
+      "QPR|||Crystal Palace": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Nott'm Forest|||Coventry": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Liverpool|||Leicester": {
+        "home_wins": 12,
+        "meetings": 18
+      },
+      "Blackburn|||Crystal Palace": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Leicester|||Ipswich": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Crystal Palace|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Southampton|||Crystal Palace": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Leicester|||Chelsea": {
+        "home_wins": 4,
+        "meetings": 18
+      },
+      "Nott'm Forest|||Man City": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Crystal Palace|||West Ham": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "Leeds|||Crystal Palace": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Wimbledon|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Newcastle|||Crystal Palace": {
+        "home_wins": 9,
+        "meetings": 14
+      },
+      "Southampton|||Leicester": {
+        "home_wins": 6,
+        "meetings": 18
+      },
+      "Wimbledon|||Bolton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Arsenal|||Middlesbrough": {
+        "home_wins": 8,
+        "meetings": 14
+      },
+      "Bolton|||Newcastle": {
+        "home_wins": 8,
+        "meetings": 12
+      },
+      "Bolton|||Blackburn": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "Middlesbrough|||Chelsea": {
+        "home_wins": 5,
+        "meetings": 14
+      },
+      "Aston Villa|||Bolton": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "Newcastle|||Middlesbrough": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "Bolton|||Middlesbrough": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Middlesbrough|||Southampton": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Middlesbrough|||Coventry": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Man United|||Bolton": {
+        "home_wins": 10,
+        "meetings": 13
+      },
+      "Man City|||Middlesbrough": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Liverpool|||Bolton": {
+        "home_wins": 12,
+        "meetings": 13
+      },
+      "Bolton|||QPR": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Middlesbrough|||Blackburn": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "Bolton|||Everton": {
+        "home_wins": 3,
+        "meetings": 12
+      },
+      "Sheffield Weds|||Middlesbrough": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Nott'm Forest|||Bolton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Middlesbrough|||QPR": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Man United|||Middlesbrough": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Bolton|||Arsenal": {
+        "home_wins": 5,
+        "meetings": 13
+      },
+      "Middlesbrough|||Leeds": {
+        "home_wins": 0,
+        "meetings": 8
+      },
+      "Man City|||Bolton": {
+        "home_wins": 8,
+        "meetings": 11
+      },
+      "Wimbledon|||Middlesbrough": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Bolton|||West Ham": {
+        "home_wins": 8,
+        "meetings": 10
+      },
+      "Middlesbrough|||Tottenham": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "Chelsea|||Bolton": {
+        "home_wins": 9,
+        "meetings": 13
+      },
+      "Middlesbrough|||Liverpool": {
+        "home_wins": 6,
+        "meetings": 14
+      },
+      "Southampton|||Bolton": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "QPR|||Middlesbrough": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bolton|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Middlesbrough|||Man City": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Bolton|||Liverpool": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "QPR|||Bolton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Blackburn|||Middlesbrough": {
+        "home_wins": 4,
+        "meetings": 11
+      },
+      "Tottenham|||Bolton": {
+        "home_wins": 9,
+        "meetings": 13
+      },
+      "Middlesbrough|||West Ham": {
+        "home_wins": 8,
+        "meetings": 12
+      },
+      "Everton|||Middlesbrough": {
+        "home_wins": 8,
+        "meetings": 14
+      },
+      "Bolton|||Leeds": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Bolton|||Coventry": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Nott'm Forest|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Sheffield Weds|||Bolton": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Middlesbrough|||Aston Villa": {
+        "home_wins": 3,
+        "meetings": 13
+      },
+      "Middlesbrough|||Arsenal": {
+        "home_wins": 3,
+        "meetings": 14
+      },
+      "Bolton|||Wimbledon": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Southampton|||Middlesbrough": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "Newcastle|||Bolton": {
+        "home_wins": 8,
+        "meetings": 12
+      },
+      "Blackburn|||Bolton": {
+        "home_wins": 5,
+        "meetings": 13
+      },
+      "Chelsea|||Middlesbrough": {
+        "home_wins": 11,
+        "meetings": 13
+      },
+      "Bolton|||Aston Villa": {
+        "home_wins": 3,
+        "meetings": 12
+      },
+      "Middlesbrough|||Newcastle": {
+        "home_wins": 2,
+        "meetings": 13
+      },
+      "Middlesbrough|||Bolton": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Coventry|||Middlesbrough": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Bolton|||Man United": {
+        "home_wins": 1,
+        "meetings": 13
+      },
+      "Leeds|||Bolton": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Middlesbrough|||Everton": {
+        "home_wins": 5,
+        "meetings": 14
+      },
+      "West Ham|||Middlesbrough": {
+        "home_wins": 9,
+        "meetings": 12
+      },
+      "Coventry|||Bolton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Middlesbrough|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Aston Villa|||Middlesbrough": {
+        "home_wins": 5,
+        "meetings": 13
+      },
+      "Bolton|||Tottenham": {
+        "home_wins": 6,
+        "meetings": 12
+      },
+      "Bolton|||Sheffield Weds": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Bolton|||Man City": {
+        "home_wins": 3,
+        "meetings": 11
+      },
+      "Leeds|||Middlesbrough": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Middlesbrough|||Sheffield Weds": {
+        "home_wins": 4,
+        "meetings": 4
+      },
+      "Everton|||Bolton": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "Tottenham|||Middlesbrough": {
+        "home_wins": 7,
+        "meetings": 14
+      },
+      "Bolton|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 12
+      },
+      "West Ham|||Bolton": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Middlesbrough|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Bolton|||Southampton": {
+        "home_wins": 0,
+        "meetings": 6
+      },
+      "Liverpool|||Middlesbrough": {
+        "home_wins": 10,
+        "meetings": 13
+      },
+      "Middlesbrough|||Man United": {
+        "home_wins": 2,
+        "meetings": 14
+      },
+      "Arsenal|||Bolton": {
+        "home_wins": 10,
+        "meetings": 13
+      },
+      "Sunderland|||Leicester": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Derby|||Leeds": {
+        "home_wins": 0,
+        "meetings": 6
+      },
+      "Tottenham|||Derby": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Nott'm Forest|||Sunderland": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Aston Villa|||Derby": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "Liverpool|||Sunderland": {
+        "home_wins": 8,
+        "meetings": 17
+      },
+      "Sunderland|||Newcastle": {
+        "home_wins": 5,
+        "meetings": 15
+      },
+      "Derby|||Man United": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Sunderland|||West Ham": {
+        "home_wins": 6,
+        "meetings": 16
+      },
+      "Blackburn|||Derby": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Derby|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Sheffield Weds|||Derby": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Sunderland|||Coventry": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Derby|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Arsenal|||Sunderland": {
+        "home_wins": 12,
+        "meetings": 17
+      },
+      "Derby|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Sunderland|||Middlesbrough": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Southampton|||Sunderland": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Nott'm Forest|||Derby": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sunderland|||Aston Villa": {
+        "home_wins": 5,
+        "meetings": 16
+      },
+      "Liverpool|||Derby": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Derby|||Leicester": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Leeds|||Sunderland": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Tottenham|||Sunderland": {
+        "home_wins": 14,
+        "meetings": 17
+      },
+      "Derby|||Middlesbrough": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Sunderland|||Sheffield Weds": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "West Ham|||Derby": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Derby|||Coventry": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Everton|||Sunderland": {
+        "home_wins": 11,
+        "meetings": 17
+      },
+      "Middlesbrough|||Leicester": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Sunderland|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Arsenal|||Derby": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Sunderland|||Chelsea": {
+        "home_wins": 5,
+        "meetings": 17
+      },
+      "Derby|||Everton": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Southampton|||Derby": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Man United|||Sunderland": {
+        "home_wins": 14,
+        "meetings": 17
+      },
+      "Sunderland|||Derby": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "West Ham|||Sunderland": {
+        "home_wins": 11,
+        "meetings": 16
+      },
+      "Derby|||Blackburn": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Coventry|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Wimbledon|||Derby": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Sunderland|||Arsenal": {
+        "home_wins": 3,
+        "meetings": 17
+      },
+      "Sunderland|||Blackburn": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Chelsea|||Derby": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "Leicester|||Sunderland": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Leeds|||Derby": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Derby|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Aston Villa|||Sunderland": {
+        "home_wins": 6,
+        "meetings": 16
+      },
+      "Derby|||West Ham": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Derby|||Sheffield Weds": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Sunderland|||Leeds": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Leicester|||Derby": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Derby|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Blackburn|||Sunderland": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Sunderland|||Tottenham": {
+        "home_wins": 5,
+        "meetings": 17
+      },
+      "Middlesbrough|||Derby": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Sunderland|||Man United": {
+        "home_wins": 2,
+        "meetings": 17
+      },
+      "Sheffield Weds|||Sunderland": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Everton|||Derby": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Leicester|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Chelsea|||Sunderland": {
+        "home_wins": 13,
+        "meetings": 17
+      },
+      "Derby|||Tottenham": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Sunderland|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Man United|||Derby": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Newcastle|||Sunderland": {
+        "home_wins": 4,
+        "meetings": 15
+      },
+      "Derby|||Southampton": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Derby|||Aston Villa": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Sunderland|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 17
+      },
+      "Middlesbrough|||Sunderland": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Newcastle|||Derby": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Sunderland|||Southampton": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "Derby|||Nott'm Forest": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sunderland|||Everton": {
+        "home_wins": 6,
+        "meetings": 17
+      },
+      "Coventry|||Derby": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Wimbledon|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Derby|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Barnsley|||West Ham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Barnsley": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Barnsley|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Barnsley|||Bolton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Derby|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Everton|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wimbledon|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Leicester": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Bolton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Arsenal|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Coventry": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Man United|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Liverpool|||Barnsley": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Leicester|||Bolton": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Barnsley|||Leeds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield Weds|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bolton|||Derby": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Derby|||Crystal Palace": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bolton|||Barnsley": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Barnsley|||Derby": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Ham|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Chelsea|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Everton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Coventry|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Aston Villa|||Barnsley": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Barnsley|||Southampton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bolton|||Leicester": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Barnsley|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackburn|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Leeds|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Sheffield Weds": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Derby|||Bolton": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Newcastle|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Derby": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Barnsley|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Leicester|||Barnsley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bolton|||Crystal Palace": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Barnsley|||Man United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Newcastle|||Charlton": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Charlton|||Southampton": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Arsenal|||Charlton": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Man United|||Charlton": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Charlton|||Derby": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Liverpool|||Charlton": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Charlton|||Coventry": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Nott'm Forest|||Charlton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Chelsea|||Charlton": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Charlton|||West Ham": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Tottenham|||Charlton": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Charlton|||Leicester": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Charlton|||Middlesbrough": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Leeds|||Charlton": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Charlton|||Everton": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Blackburn|||Charlton": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Sheffield Weds|||Charlton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Charlton|||Aston Villa": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Wimbledon|||Charlton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Charlton|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Southampton|||Charlton": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Charlton|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Charlton|||Man United": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Charlton|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Charlton|||Liverpool": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Derby|||Charlton": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Charlton|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Coventry|||Charlton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Leicester|||Charlton": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Charlton|||Chelsea": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "West Ham|||Charlton": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Middlesbrough|||Charlton": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Charlton|||Leeds": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Charlton|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Everton|||Charlton": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Charlton|||Blackburn": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Aston Villa|||Charlton": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Charlton|||Sheffield Weds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Watford|||Wimbledon": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Middlesbrough|||Bradford": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sunderland|||Watford": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Bradford|||Sheffield Weds": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Liverpool|||Watford": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Watford|||Bradford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Watford|||Aston Villa": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Arsenal|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Bradford|||West Ham": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Leicester|||Watford": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "West Ham|||Watford": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Bradford|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Watford|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Aston Villa|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Derby|||Bradford": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Arsenal|||Watford": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Bradford|||Sunderland": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Watford|||Leeds": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Man United|||Watford": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Wimbledon|||Bradford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bradford|||Leicester": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Watford|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Coventry|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Liverpool|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Bradford|||Coventry": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sheffield Weds|||Watford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Leeds|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Watford|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Watford|||Sunderland": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Chelsea|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Wimbledon|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bradford|||Middlesbrough": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Watford|||Everton": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Bradford|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Tottenham|||Watford": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Man United|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Watford|||Southampton": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Bradford|||Everton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Derby|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Southampton|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Bradford|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Watford|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Sheffield Weds|||Bradford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bradford|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bradford|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Aston Villa|||Watford": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Watford|||Leicester": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "West Ham|||Bradford": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Chelsea|||Watford": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Bradford|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Watford|||West Ham": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Tottenham|||Bradford": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Newcastle|||Watford": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Bradford|||Leeds": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Coventry|||Bradford": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Watford|||Sheffield Weds": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Watford|||Tottenham": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Bradford|||Man United": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Newcastle|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Everton|||Watford": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Watford|||Derby": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bradford|||Southampton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Southampton|||Watford": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Everton|||Bradford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Bradford|||Derby": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Watford|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Sunderland|||Bradford": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Watford|||Man United": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Bradford|||Wimbledon": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Leeds|||Watford": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Middlesbrough|||Watford": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Leicester|||Bradford": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Watford|||Coventry": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bradford|||Liverpool": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Charlton|||Man City": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Man City|||Sunderland": {
+        "home_wins": 12,
+        "meetings": 14
+      },
+      "Ipswich|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Man City|||Bradford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bradford|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Ipswich|||Middlesbrough": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Charlton|||Bradford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Ipswich|||Charlton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Charlton|||Sunderland": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Ipswich|||Derby": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sunderland|||Man City": {
+        "home_wins": 5,
+        "meetings": 14
+      },
+      "Man City|||Derby": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Man City|||Charlton": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Sunderland|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Derby|||Man City": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Ipswich|||Bradford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bradford|||Man City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bradford|||Charlton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Middlesbrough|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Charlton|||Ipswich": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Sunderland|||Charlton": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Derby|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Man United|||Fulham": {
+        "home_wins": 15,
+        "meetings": 19
+      },
+      "Fulham|||Sunderland": {
+        "home_wins": 6,
+        "meetings": 11
+      },
+      "Fulham|||Derby": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Charlton|||Fulham": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Fulham|||Arsenal": {
+        "home_wins": 4,
+        "meetings": 18
+      },
+      "Leicester|||Fulham": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Bolton|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Fulham|||Chelsea": {
+        "home_wins": 3,
+        "meetings": 19
+      },
+      "Aston Villa|||Fulham": {
+        "home_wins": 12,
+        "meetings": 18
+      },
+      "Fulham|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Fulham|||Southampton": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "West Ham|||Fulham": {
+        "home_wins": 9,
+        "meetings": 16
+      },
+      "Fulham|||Newcastle": {
+        "home_wins": 11,
+        "meetings": 17
+      },
+      "Ipswich|||Bolton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bolton|||Fulham": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "Fulham|||Leeds": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Fulham|||Everton": {
+        "home_wins": 8,
+        "meetings": 18
+      },
+      "Liverpool|||Fulham": {
+        "home_wins": 12,
+        "meetings": 18
+      },
+      "Tottenham|||Fulham": {
+        "home_wins": 11,
+        "meetings": 19
+      },
+      "Bolton|||Charlton": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Fulham|||Charlton": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Fulham|||Man United": {
+        "home_wins": 2,
+        "meetings": 19
+      },
+      "Derby|||Fulham": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Fulham|||Middlesbrough": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Sunderland|||Fulham": {
+        "home_wins": 2,
+        "meetings": 11
+      },
+      "Ipswich|||Fulham": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Fulham|||Aston Villa": {
+        "home_wins": 7,
+        "meetings": 18
+      },
+      "Fulham|||Blackburn": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Middlesbrough|||Fulham": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Arsenal|||Fulham": {
+        "home_wins": 13,
+        "meetings": 19
+      },
+      "Fulham|||Liverpool": {
+        "home_wins": 6,
+        "meetings": 19
+      },
+      "Sunderland|||Bolton": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Chelsea|||Fulham": {
+        "home_wins": 11,
+        "meetings": 18
+      },
+      "Everton|||Fulham": {
+        "home_wins": 15,
+        "meetings": 19
+      },
+      "Charlton|||Bolton": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Fulham|||Tottenham": {
+        "home_wins": 8,
+        "meetings": 19
+      },
+      "Southampton|||Fulham": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Fulham|||West Ham": {
+        "home_wins": 4,
+        "meetings": 16
+      },
+      "Bolton|||Ipswich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Newcastle|||Fulham": {
+        "home_wins": 9,
+        "meetings": 18
+      },
+      "Leeds|||Fulham": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Fulham|||Bolton": {
+        "home_wins": 9,
+        "meetings": 11
+      },
+      "Fulham|||Leicester": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Blackburn|||Fulham": {
+        "home_wins": 7,
+        "meetings": 10
+      },
+      "Man United|||West Brom": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "Arsenal|||Birmingham": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "West Brom|||Leeds": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Birmingham|||Blackburn": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Arsenal|||West Brom": {
+        "home_wins": 11,
+        "meetings": 13
+      },
+      "Everton|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "West Brom|||Fulham": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Birmingham|||Leeds": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "West Ham|||West Brom": {
+        "home_wins": 4,
+        "meetings": 11
+      },
+      "Liverpool|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "West Brom|||Southampton": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Birmingham|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Liverpool|||West Brom": {
+        "home_wins": 8,
+        "meetings": 13
+      },
+      "Middlesbrough|||Birmingham": {
+        "home_wins": 5,
+        "meetings": 5
+      },
+      "Birmingham|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 6
+      },
+      "West Brom|||Blackburn": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "West Ham|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Newcastle|||West Brom": {
+        "home_wins": 8,
+        "meetings": 12
+      },
+      "West Brom|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Chelsea|||West Brom": {
+        "home_wins": 10,
+        "meetings": 13
+      },
+      "Birmingham|||Man City": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Birmingham|||Bolton": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "West Brom|||Man City": {
+        "home_wins": 3,
+        "meetings": 13
+      },
+      "Bolton|||West Brom": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Chelsea|||Birmingham": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "West Brom|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 11
+      },
+      "Birmingham|||Fulham": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Sunderland|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Everton|||West Brom": {
+        "home_wins": 7,
+        "meetings": 13
+      },
+      "Birmingham|||Tottenham": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "West Brom|||Middlesbrough": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Southampton|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Tottenham|||West Brom": {
+        "home_wins": 6,
+        "meetings": 13
+      },
+      "Aston Villa|||West Brom": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "Fulham|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "West Brom|||Sunderland": {
+        "home_wins": 7,
+        "meetings": 10
+      },
+      "Birmingham|||Charlton": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "West Brom|||Arsenal": {
+        "home_wins": 3,
+        "meetings": 12
+      },
+      "Birmingham|||Everton": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Man United|||Birmingham": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "Fulham|||Man City": {
+        "home_wins": 1,
+        "meetings": 18
+      },
+      "Charlton|||West Brom": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Leeds|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "West Brom|||Man United": {
+        "home_wins": 1,
+        "meetings": 13
+      },
+      "Birmingham|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 6
+      },
+      "Blackburn|||Birmingham": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Leeds|||West Brom": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Man City|||Fulham": {
+        "home_wins": 11,
+        "meetings": 18
+      },
+      "West Brom|||Charlton": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Man City|||West Brom": {
+        "home_wins": 9,
+        "meetings": 13
+      },
+      "Bolton|||Birmingham": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Birmingham|||Man United": {
+        "home_wins": 0,
+        "meetings": 6
+      },
+      "West Brom|||Bolton": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Birmingham|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Fulham|||West Brom": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "West Brom|||West Ham": {
+        "home_wins": 3,
+        "meetings": 11
+      },
+      "Birmingham|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Southampton|||West Brom": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Aston Villa|||Birmingham": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Man City|||Birmingham": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "West Brom|||Chelsea": {
+        "home_wins": 3,
+        "meetings": 13
+      },
+      "Birmingham|||West Brom": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Tottenham|||Birmingham": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Middlesbrough|||West Brom": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "West Brom|||Everton": {
+        "home_wins": 4,
+        "meetings": 13
+      },
+      "Birmingham|||Sunderland": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Sunderland|||West Brom": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "Charlton|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "West Brom|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 13
+      },
+      "Birmingham|||Southampton": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "West Brom|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 13
+      },
+      "Birmingham|||Middlesbrough": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Newcastle|||Birmingham": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Blackburn|||West Brom": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "West Brom|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 12
+      },
+      "Birmingham|||West Ham": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Portsmouth|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Blackburn|||Wolves": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Man City|||Portsmouth": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Wolves|||Charlton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Portsmouth|||Bolton": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Man United|||Wolves": {
+        "home_wins": 7,
+        "meetings": 12
+      },
+      "Wolves|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Southampton|||Wolves": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Arsenal|||Portsmouth": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Portsmouth|||Blackburn": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Wolves|||Chelsea": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Birmingham|||Portsmouth": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Bolton|||Wolves": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Wolves|||Man City": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "Portsmouth|||Charlton": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Portsmouth|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Fulham|||Wolves": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Newcastle|||Portsmouth": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Wolves|||Leicester": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Man United|||Portsmouth": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "Middlesbrough|||Wolves": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Portsmouth|||Leeds": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wolves|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Everton|||Wolves": {
+        "home_wins": 5,
+        "meetings": 12
+      },
+      "Fulham|||Portsmouth": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Wolves|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 11
+      },
+      "Portsmouth|||Leicester": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Wolves": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "Middlesbrough|||Portsmouth": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Portsmouth|||Everton": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Leicester|||Birmingham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Aston Villa|||Wolves": {
+        "home_wins": 4,
+        "meetings": 11
+      },
+      "Southampton|||Portsmouth": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Arsenal|||Wolves": {
+        "home_wins": 8,
+        "meetings": 12
+      },
+      "Portsmouth|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Wolves|||Leeds": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Chelsea|||Portsmouth": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "Aston Villa|||Portsmouth": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Wolves|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Charlton|||Wolves": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Portsmouth|||Man City": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Bolton|||Portsmouth": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Wolves|||Man United": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "Wolves|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 12
+      },
+      "Portsmouth|||Wolves": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Tottenham|||Portsmouth": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Wolves|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 12
+      },
+      "Leeds|||Wolves": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Portsmouth|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Wolves|||Fulham": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Leicester|||Wolves": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Portsmouth|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Everton|||Portsmouth": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Birmingham|||Leicester": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wolves|||Aston Villa": {
+        "home_wins": 5,
+        "meetings": 11
+      },
+      "Liverpool|||Portsmouth": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Liverpool|||Wolves": {
+        "home_wins": 11,
+        "meetings": 12
+      },
+      "Portsmouth|||Southampton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackburn|||Portsmouth": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Chelsea|||Wolves": {
+        "home_wins": 8,
+        "meetings": 12
+      },
+      "Wolves|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Birmingham|||Wolves": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Leeds|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wolves|||Everton": {
+        "home_wins": 4,
+        "meetings": 12
+      },
+      "Portsmouth|||Fulham": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Portsmouth|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Leicester|||Portsmouth": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Portsmouth|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Charlton|||Portsmouth": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Middlesbrough|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Portsmouth|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Norwich|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Fulham": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "West Brom|||Norwich": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Crystal Palace|||West Brom": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Portsmouth|||Man United": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Birmingham|||Crystal Palace": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Charlton|||Norwich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Birmingham|||Norwich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Norwich|||Fulham": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Portsmouth|||West Brom": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Crystal Palace|||Charlton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Norwich|||Bolton": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Crystal Palace|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Middlesbrough|||Norwich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Fulham|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Portsmouth|||Norwich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Norwich|||Middlesbrough": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Portsmouth|||Middlesbrough": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "West Brom|||Crystal Palace": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Norwich|||West Brom": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Crystal Palace|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bolton|||Norwich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Crystal Palace|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Wigan|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "West Brom|||Portsmouth": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Charlton|||Wigan": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Wigan|||Sunderland": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "West Brom|||Wigan": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Wigan|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Everton|||Wigan": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Wigan|||Bolton": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Wigan|||Newcastle": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Aston Villa|||Wigan": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Sunderland|||Portsmouth": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Wigan|||Fulham": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Portsmouth|||Wigan": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Wigan|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Wigan|||Tottenham": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Liverpool|||Wigan": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Chelsea|||Wigan": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Man United|||Wigan": {
+        "home_wins": 8,
+        "meetings": 8
+      },
+      "Wigan|||Charlton": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Wigan|||Man City": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Portsmouth|||West Ham": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "West Ham|||Wigan": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Wigan|||Blackburn": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Birmingham|||Wigan": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Wigan|||West Brom": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Middlesbrough|||Wigan": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Wigan|||Everton": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Bolton|||Wigan": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Wigan|||Liverpool": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Tottenham|||Wigan": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Wigan|||Man United": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Sunderland|||Wigan": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Man City|||Wigan": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "West Ham|||Portsmouth": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Wigan|||West Ham": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Blackburn|||Wigan": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Wigan|||Birmingham": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Newcastle|||Wigan": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Wigan|||Aston Villa": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Portsmouth|||Sunderland": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Fulham|||Wigan": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Wigan|||Portsmouth": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Arsenal|||Wigan": {
+        "home_wins": 7,
+        "meetings": 8
+      },
+      "Reading|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Aston Villa|||Reading": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Fulham|||Sheffield United": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Wigan|||Reading": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Bolton|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Reading|||Man City": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sheffield United|||Reading": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wigan|||Watford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Reading|||Man United": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Sheffield United|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Ham|||Reading": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Watford|||Fulham": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Reading|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Charlton|||Watford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Reading|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Portsmouth|||Reading": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Liverpool|||Reading": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Sheffield United|||Bolton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Reading|||Tottenham": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Reading|||Charlton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Portsmouth|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Fulham|||Reading": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Watford|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sheffield United|||Charlton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Reading|||Bolton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Man City|||Watford": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Newcastle|||Reading": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Watford|||Reading": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wigan|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Reading|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Reading|||Everton": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Portsmouth|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Chelsea|||Reading": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Man United|||Reading": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Reading|||West Ham": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Middlesbrough|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Fulham|||Watford": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sheffield United|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Everton|||Reading": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Reading|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Watford|||Blackburn": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Reading|||Wigan": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sheffield United|||Fulham": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Watford|||Bolton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Man City|||Reading": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Reading|||Aston Villa": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Watford|||Wigan": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Middlesbrough|||Reading": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Watford|||Charlton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Arsenal|||Reading": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Reading|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Bolton|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Tottenham|||Reading": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Reading|||Liverpool": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Watford|||Portsmouth": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Charlton|||Reading": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Reading|||Fulham": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Blackburn|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Watford|||Man City": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Charlton|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bolton|||Reading": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sheffield United|||Watford": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Reading|||Newcastle": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Reading|||Watford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield United|||Wigan": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackburn|||Reading": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Derby|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Derby|||Birmingham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sunderland|||Reading": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Reading|||Derby": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Birmingham|||Reading": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Reading|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Derby|||Wigan": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Portsmouth|||Derby": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Birmingham|||Derby": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wigan|||Derby": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Reading|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Derby|||Reading": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Hull|||Fulham": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Bolton|||Stoke": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Blackburn|||Hull": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Stoke|||Aston Villa": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Hull|||Wigan": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Middlesbrough|||Stoke": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Newcastle|||Hull": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Stoke|||Everton": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "Liverpool|||Stoke": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Hull|||Everton": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Stoke|||Chelsea": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "Arsenal|||Hull": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Tottenham|||Hull": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Portsmouth|||Stoke": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Hull|||West Ham": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Stoke|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "West Brom|||Hull": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Man City|||Stoke": {
+        "home_wins": 8,
+        "meetings": 10
+      },
+      "Stoke|||Sunderland": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Hull|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Stoke|||Arsenal": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "Man United|||Hull": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Wigan|||Stoke": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Hull|||Bolton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Man United|||Stoke": {
+        "home_wins": 9,
+        "meetings": 10
+      },
+      "Hull|||Man City": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Portsmouth|||Hull": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Stoke|||West Brom": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Stoke|||Hull": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Newcastle|||Stoke": {
+        "home_wins": 4,
+        "meetings": 8
+      },
+      "Hull|||Middlesbrough": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Stoke|||Fulham": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Liverpool|||Hull": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Blackburn|||Stoke": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Hull|||Sunderland": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Man City|||Hull": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Stoke|||Man United": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "West Ham|||Stoke": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Hull|||Aston Villa": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Everton|||Hull": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Stoke|||Liverpool": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Chelsea|||Stoke": {
+        "home_wins": 9,
+        "meetings": 10
+      },
+      "Hull|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Tottenham|||Stoke": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "West Ham|||Hull": {
+        "home_wins": 5,
+        "meetings": 5
+      },
+      "Stoke|||Man City": {
+        "home_wins": 2,
+        "meetings": 10
+      },
+      "Hull|||West Brom": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Sunderland|||Stoke": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Chelsea|||Hull": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Stoke|||Portsmouth": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Hull|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Hull|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Aston Villa|||Stoke": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Stoke|||Bolton": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Fulham|||Hull": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Everton|||Stoke": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Hull|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Stoke|||Middlesbrough": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Wigan|||Hull": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "West Brom|||Stoke": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Hull|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Stoke|||Newcastle": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Middlesbrough|||Hull": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Stoke|||Blackburn": {
+        "home_wins": 4,
+        "meetings": 4
+      },
+      "Sunderland|||Hull": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Fulham|||Stoke": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Hull|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Stoke|||West Ham": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Aston Villa|||Hull": {
+        "home_wins": 4,
+        "meetings": 4
+      },
+      "Hull|||Stoke": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Bolton|||Hull": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Stoke|||Wigan": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Arsenal|||Stoke": {
+        "home_wins": 10,
+        "meetings": 10
+      },
+      "Hull|||Man United": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Stoke|||Burnley": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Wolves|||West Ham": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Wigan|||Wolves": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Burnley|||Man United": {
+        "home_wins": 1,
+        "meetings": 10
+      },
+      "Birmingham|||Stoke": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Man City|||Wolves": {
+        "home_wins": 10,
+        "meetings": 11
+      },
+      "Burnley|||Everton": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "Wolves|||Hull": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Chelsea|||Burnley": {
+        "home_wins": 4,
+        "meetings": 10
+      },
+      "Liverpool|||Burnley": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Burnley|||Sunderland": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Hull|||Birmingham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Burnley": {
+        "home_wins": 9,
+        "meetings": 10
+      },
+      "Sunderland|||Wolves": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Burnley|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackburn|||Burnley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Wigan": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Stoke|||Wolves": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Burnley|||Hull": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Man City|||Burnley": {
+        "home_wins": 8,
+        "meetings": 10
+      },
+      "Burnley|||Aston Villa": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "West Ham|||Burnley": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Portsmouth|||Burnley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wolves|||Bolton": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Burnley|||Fulham": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Burnley|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 10
+      },
+      "Wolves|||Burnley": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Burnley|||Bolton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Stoke|||Birmingham": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Everton|||Burnley": {
+        "home_wins": 8,
+        "meetings": 10
+      },
+      "Wolves|||Wigan": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Man United|||Burnley": {
+        "home_wins": 5,
+        "meetings": 10
+      },
+      "Bolton|||Burnley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 10
+      },
+      "Hull|||Wolves": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Burnley|||West Ham": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "Fulham|||Burnley": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Wolves|||Tottenham": {
+        "home_wins": 4,
+        "meetings": 11
+      },
+      "Aston Villa|||Burnley": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Burnley|||Portsmouth": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Arsenal|||Burnley": {
+        "home_wins": 8,
+        "meetings": 10
+      },
+      "Burnley|||Stoke": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Burnley|||Wolves": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Wigan|||Burnley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Ham|||Wolves": {
+        "home_wins": 7,
+        "meetings": 10
+      },
+      "Burnley|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Burnley|||Man City": {
+        "home_wins": 1,
+        "meetings": 10
+      },
+      "Hull|||Burnley": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Wolves|||Stoke": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Sunderland|||Burnley": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Birmingham|||Hull": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Burnley|||Liverpool": {
+        "home_wins": 1,
+        "meetings": 10
+      },
+      "Birmingham|||Burnley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wolves|||Sunderland": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Burnley|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 10
+      },
+      "Wigan|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Arsenal|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Fulham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Newcastle|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Chelsea|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Blackburn": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Liverpool|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||Man City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Birmingham|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||West Brom": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Everton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Aston Villa|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Ham|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||Wolves": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bolton|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Stoke|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sunderland|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Man City|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Birmingham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||Liverpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Brom|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Sunderland": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||Man United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||West Ham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Everton|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "West Brom|||Wolves": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Blackpool|||Tottenham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wolves|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackburn|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Newcastle|||Wolves": {
+        "home_wins": 6,
+        "meetings": 10
+      },
+      "Fulham|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Blackpool|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||Wigan": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Blackpool|||Stoke": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Blackpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wolves|||West Brom": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Blackpool|||Bolton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Man United|||Blackpool": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wigan|||Norwich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Man City|||Swansea": {
+        "home_wins": 7,
+        "meetings": 7
+      },
+      "Swansea|||Wigan": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Norwich|||Stoke": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Swansea|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Wigan|||QPR": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Arsenal|||Swansea": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Swansea|||West Brom": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Wolves|||QPR": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Chelsea|||Swansea": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Norwich|||Sunderland": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Fulham|||QPR": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Swansea|||Stoke": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Norwich|||Swansea": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Wolves|||Swansea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Swansea|||Bolton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Liverpool|||Swansea": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Swansea|||Man United": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Stoke|||QPR": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Swansea|||Aston Villa": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "QPR|||West Brom": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Blackburn|||Swansea": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Swansea|||Fulham": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Newcastle|||Swansea": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Wolves|||Norwich": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Everton|||Swansea": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "QPR|||Sunderland": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Swansea|||QPR": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Swansea|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Aston Villa|||Swansea": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Swansea|||Arsenal": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "QPR|||Wigan": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sunderland|||Swansea": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Swansea|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Sunderland|||Norwich": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "West Brom|||Swansea": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "QPR|||Wolves": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Swansea|||Norwich": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "QPR|||Fulham": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Stoke|||Swansea": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Stoke|||Norwich": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Wigan|||Swansea": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Norwich|||Wigan": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Swansea|||Man City": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Fulham|||Swansea": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Swansea|||Everton": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Sunderland|||QPR": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Norwich|||Wolves": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Fulham|||Norwich": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Tottenham|||Swansea": {
+        "home_wins": 6,
+        "meetings": 7
+      },
+      "Swansea|||Newcastle": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "QPR|||Swansea": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "West Brom|||QPR": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Swansea|||Blackburn": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bolton|||Swansea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Swansea|||Wolves": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "QPR|||Stoke": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Man United|||Swansea": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Swansea|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Reading|||Stoke": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Swansea|||West Ham": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Southampton|||Wigan": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "West Brom|||Reading": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Swansea|||Reading": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "QPR|||Reading": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Swansea": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Reading|||Norwich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Reading": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Reading|||Swansea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Stoke|||Southampton": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Reading|||West Brom": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Ham|||Swansea": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Wigan|||Southampton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Stoke|||Reading": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Reading|||Southampton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Norwich|||Reading": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Swansea|||Southampton": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Reading|||QPR": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Southampton|||Stoke": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "West Ham|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Hull|||Norwich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Stoke|||Crystal Palace": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Cardiff|||Man City": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Cardiff|||Everton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Crystal Palace|||Sunderland": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Hull|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Cardiff|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Crystal Palace|||Swansea": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Fulham|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Cardiff|||Newcastle": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Chelsea|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Norwich|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Cardiff|||Swansea": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Southampton|||Hull": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Aston Villa|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Hull|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Cardiff|||Man United": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Cardiff|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Stoke|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Swansea|||Hull": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Cardiff|||West Brom": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Liverpool|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Cardiff|||Southampton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Cardiff|||Sunderland": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Arsenal|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Cardiff|||West Ham": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Norwich|||Hull": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Crystal Palace|||Stoke": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Man City|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Crystal Palace|||Hull": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Man United|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Cardiff|||Norwich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Swansea|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Cardiff|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Hull|||Southampton": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Cardiff|||Hull": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Swansea|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Tottenham|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Cardiff|||Fulham": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Sunderland|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Everton|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Cardiff|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "West Brom|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Cardiff|||Crystal Palace": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Hull|||Swansea": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Southampton|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Cardiff|||Stoke": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sunderland|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Newcastle|||Cardiff": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Cardiff|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "QPR|||Hull": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Swansea|||Burnley": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Stoke|||Leicester": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Crystal Palace|||Burnley": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "West Brom|||Burnley": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Leicester|||Burnley": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Swansea|||Leicester": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Leicester|||West Brom": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Burnley|||Newcastle": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "QPR|||Burnley": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Southampton": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Hull|||Leicester": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Newcastle|||Burnley": {
+        "home_wins": 5,
+        "meetings": 8
+      },
+      "Burnley|||QPR": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Crystal Palace": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Leicester|||Stoke": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Burnley|||West Brom": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Hull|||QPR": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Swansea": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Leicester|||Hull": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Southampton|||Burnley": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "West Brom|||Leicester": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Leicester|||Swansea": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Burnley|||Leicester": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Bournemouth|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Watford|||West Brom": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Liverpool|||Bournemouth": {
+        "home_wins": 8,
+        "meetings": 9
+      },
+      "West Ham|||Bournemouth": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Bournemouth|||Leicester": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Norwich|||Bournemouth": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Watford|||Swansea": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Bournemouth|||Sunderland": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Stoke|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Watford|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Bournemouth|||Watford": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Man City|||Bournemouth": {
+        "home_wins": 9,
+        "meetings": 9
+      },
+      "Stoke|||Watford": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Bournemouth|||Tottenham": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Southampton|||Bournemouth": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Bournemouth|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Swansea|||Bournemouth": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Bournemouth|||Everton": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Watford|||Norwich": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Chelsea|||Bournemouth": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Bournemouth|||Man United": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "West Brom|||Bournemouth": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Bournemouth|||Crystal Palace": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Arsenal|||Bournemouth": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "Leicester|||Bournemouth": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Bournemouth|||West Ham": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Bournemouth|||Norwich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Swansea|||Watford": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Sunderland|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Crystal Palace|||Bournemouth": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Bournemouth|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Bournemouth|||Stoke": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Crystal Palace|||Watford": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Watford|||Bournemouth": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Bournemouth|||Southampton": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Newcastle|||Bournemouth": {
+        "home_wins": 2,
+        "meetings": 8
+      },
+      "Bournemouth|||Swansea": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Watford|||Stoke": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Tottenham|||Bournemouth": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Bournemouth|||Man City": {
+        "home_wins": 1,
+        "meetings": 9
+      },
+      "Aston Villa|||Bournemouth": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "West Brom|||Watford": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Bournemouth|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Bournemouth|||Chelsea": {
+        "home_wins": 1,
+        "meetings": 9
+      },
+      "Everton|||Bournemouth": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Bournemouth|||West Brom": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Norwich|||Watford": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Man United|||Bournemouth": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Burnley|||Watford": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Bournemouth|||Hull": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Watford|||Hull": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Middlesbrough|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Bournemouth": {
+        "home_wins": 3,
+        "meetings": 6
+      },
+      "Middlesbrough|||Swansea": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Hull|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Watford|||Burnley": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Swansea|||Middlesbrough": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Middlesbrough|||Burnley": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bournemouth|||Middlesbrough": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Hull|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bournemouth|||Burnley": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Brighton|||Man City": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Crystal Palace|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Leicester|||Brighton": {
+        "home_wins": 3,
+        "meetings": 7
+      },
+      "Huddersfield|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Huddersfield|||Southampton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Watford|||Brighton": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Brighton|||West Brom": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "West Ham|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Bournemouth|||Brighton": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Huddersfield|||Leicester": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Burnley|||Huddersfield": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Brighton|||Newcastle": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Huddersfield|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Arsenal|||Brighton": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Swansea|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brighton|||Everton": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "West Ham|||Brighton": {
+        "home_wins": 0,
+        "meetings": 9
+      },
+      "Huddersfield|||Man United": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Liverpool|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Brighton|||Southampton": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Swansea|||Brighton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Huddersfield|||West Brom": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Bournemouth|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Brighton|||Stoke": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Man United|||Brighton": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Huddersfield|||Man City": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Brighton|||Crystal Palace": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Arsenal|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Brighton|||Liverpool": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Everton|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Huddersfield|||Brighton": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Huddersfield|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Tottenham|||Brighton": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Brighton|||Burnley": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Watford|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Southampton|||Huddersfield": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Brighton|||Watford": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Chelsea|||Brighton": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Huddersfield|||Stoke": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Huddersfield|||Burnley": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Newcastle|||Brighton": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Leicester|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Brighton|||Bournemouth": {
+        "home_wins": 4,
+        "meetings": 7
+      },
+      "Huddersfield|||West Ham": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "West Brom|||Brighton": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Stoke|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brighton|||Chelsea": {
+        "home_wins": 3,
+        "meetings": 9
+      },
+      "Huddersfield|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Southampton|||Brighton": {
+        "home_wins": 0,
+        "meetings": 7
+      },
+      "Man United|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Brighton|||West Ham": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Stoke|||Brighton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Huddersfield|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Brighton|||Swansea": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "West Brom|||Huddersfield": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Brighton|||Arsenal": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Huddersfield|||Swansea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Everton|||Brighton": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Huddersfield|||Crystal Palace": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Brighton|||Leicester": {
+        "home_wins": 2,
+        "meetings": 7
+      },
+      "Newcastle|||Huddersfield": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Brighton|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Crystal Palace|||Brighton": {
+        "home_wins": 2,
+        "meetings": 9
+      },
+      "Huddersfield|||Watford": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Brighton|||Tottenham": {
+        "home_wins": 4,
+        "meetings": 9
+      },
+      "Burnley|||Brighton": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Huddersfield|||Everton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Brighton|||Man United": {
+        "home_wins": 5,
+        "meetings": 9
+      },
+      "Man City|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Man City|||Brighton": {
+        "home_wins": 7,
+        "meetings": 9
+      },
+      "Chelsea|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Huddersfield|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Liverpool|||Brighton": {
+        "home_wins": 6,
+        "meetings": 9
+      },
+      "Bournemouth|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Huddersfield|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Brighton|||Fulham": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Wolves|||Southampton": {
+        "home_wins": 4,
+        "meetings": 6
+      },
+      "Cardiff|||Burnley": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Wolves": {
+        "home_wins": 6,
+        "meetings": 8
+      },
+      "Wolves|||Watford": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Fulham|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Brighton|||Wolves": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Cardiff|||Leicester": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Huddersfield|||Fulham": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Cardiff|||Brighton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wolves|||Huddersfield": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Cardiff|||Wolves": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Watford|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wolves|||Bournemouth": {
+        "home_wins": 2,
+        "meetings": 6
+      },
+      "Fulham|||Huddersfield": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Leicester|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wolves|||Crystal Palace": {
+        "home_wins": 3,
+        "meetings": 8
+      },
+      "Cardiff|||Huddersfield": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Fulham|||Brighton": {
+        "home_wins": 5,
+        "meetings": 6
+      },
+      "Cardiff|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Cardiff|||Watford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bournemouth|||Wolves": {
+        "home_wins": 1,
+        "meetings": 6
+      },
+      "Huddersfield|||Wolves": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Wolves|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Cardiff": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brighton|||Cardiff": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wolves|||Brighton": {
+        "home_wins": 1,
+        "meetings": 8
+      },
+      "Bournemouth|||Fulham": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Watford|||Wolves": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Bournemouth|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Sheffield United|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Sheffield United|||Leicester": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Burnley|||Norwich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Aston Villa|||Brighton": {
+        "home_wins": 5,
+        "meetings": 7
+      },
+      "Brighton|||Norwich": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sheffield United|||Burnley": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Wolves|||Sheffield United": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Brighton|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Brighton|||Aston Villa": {
+        "home_wins": 1,
+        "meetings": 7
+      },
+      "Crystal Palace|||Sheffield United": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sheffield United|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Sheffield United|||Brighton": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Norwich|||Brighton": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Burnley|||Sheffield United": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Sheffield United|||Wolves": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Leicester|||Sheffield United": {
+        "home_wins": 2,
+        "meetings": 2
+      },
+      "Norwich|||Burnley": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "West Brom|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Leeds|||Burnley": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Leeds|||Brighton": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Sheffield United|||West Brom": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brighton|||Leeds": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Burnley|||Leeds": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Brentford|||Arsenal": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Crystal Palace|||Brentford": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Aston Villa|||Brentford": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Brentford|||Brighton": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Wolves|||Brentford": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Brentford|||Liverpool": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "West Ham|||Brentford": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Brentford|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Brentford|||Leicester": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Burnley|||Brentford": {
+        "home_wins": 2,
+        "meetings": 3
+      },
+      "Brentford|||Norwich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Newcastle|||Brentford": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Brentford|||Everton": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Tottenham|||Brentford": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Leeds|||Brentford": {
+        "home_wins": 0,
+        "meetings": 3
+      },
+      "Brentford|||Watford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brighton|||Brentford": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Brentford|||Man City": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Brentford|||Aston Villa": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Southampton|||Brentford": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Liverpool|||Brentford": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Brentford|||Man United": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Brentford|||Wolves": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Man City|||Brentford": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Brentford|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 5
+      },
+      "Arsenal|||Brentford": {
+        "home_wins": 3,
+        "meetings": 5
+      },
+      "Brentford|||Newcastle": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Norwich|||Brentford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Brentford|||Burnley": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Leicester|||Brentford": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Chelsea|||Brentford": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Brentford|||West Ham": {
+        "home_wins": 4,
+        "meetings": 5
+      },
+      "Watford|||Brentford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Brentford|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 5
+      },
+      "Man United|||Brentford": {
+        "home_wins": 5,
+        "meetings": 5
+      },
+      "Brentford|||Southampton": {
+        "home_wins": 3,
+        "meetings": 3
+      },
+      "Everton|||Brentford": {
+        "home_wins": 2,
+        "meetings": 5
+      },
+      "Brentford|||Leeds": {
+        "home_wins": 1,
+        "meetings": 3
+      },
+      "Fulham|||Brentford": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Nott'm Forest|||Bournemouth": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Nott'm Forest|||Fulham": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Bournemouth|||Brentford": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Wolves|||Nott'm Forest": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Brighton|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Leeds|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Nott'm Forest|||Brentford": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Brentford|||Bournemouth": {
+        "home_wins": 3,
+        "meetings": 4
+      },
+      "Bournemouth|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Fulham|||Nott'm Forest": {
+        "home_wins": 4,
+        "meetings": 4
+      },
+      "Brentford|||Fulham": {
+        "home_wins": 1,
+        "meetings": 4
+      },
+      "Nott'm Forest|||Wolves": {
+        "home_wins": 0,
+        "meetings": 4
+      },
+      "Nott'm Forest|||Brighton": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Brentford|||Nott'm Forest": {
+        "home_wins": 2,
+        "meetings": 4
+      },
+      "Bournemouth|||Leeds": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Brighton|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Nott'm Forest|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Chelsea|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||West Ham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Fulham|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Nott'm Forest|||Burnley": {
+        "home_wins": 1,
+        "meetings": 2
+      },
+      "Luton|||Wolves": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Everton|||Luton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Luton|||Burnley": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Luton|||Tottenham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Nott'm Forest|||Luton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Aston Villa|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Liverpool": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Man United|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Crystal Palace": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brentford|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Arsenal": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield United|||Brentford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Man City": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Luton|||Newcastle": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Sheffield United|||Luton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Luton|||Chelsea": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Burnley|||Luton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Luton|||Brighton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Newcastle|||Luton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Luton|||Sheffield United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Luton|||Man United": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Liverpool|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Aston Villa": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Crystal Palace|||Luton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bournemouth|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Tottenham|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Arsenal|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Bournemouth": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Man City|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brentford|||Sheffield United": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Brentford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wolves|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Luton|||Everton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sheffield United|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "West Ham|||Luton": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Burnley|||Nott'm Forest": {
+        "home_wins": 0,
+        "meetings": 2
+      },
+      "Luton|||Fulham": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Brighton|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Brentford|||Ipswich": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Ipswich|||Bournemouth": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Wolves|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Ipswich|||Brighton": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Bournemouth|||Ipswich": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Ipswich|||Wolves": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Ipswich|||Brentford": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Sunderland|||Brentford": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Brighton|||Sunderland": {
+        "home_wins": 0,
+        "meetings": 1
+      },
+      "Brentford|||Sunderland": {
+        "home_wins": 1,
+        "meetings": 1
+      },
+      "Sunderland|||Brighton": {
+        "home_wins": 0,
+        "meetings": 1
+      }
+    },
+    "form": {
+      "Arsenal": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "Coventry": [
+        3,
+        0,
+        0,
+        0,
+        1
+      ],
+      "Aston Villa": [
+        0,
+        0,
+        1,
+        3,
+        3
+      ],
+      "QPR": [
+        1,
+        0,
+        0,
+        3,
+        0
+      ],
+      "Chelsea": [
+        0,
+        0,
+        1,
+        3,
+        0
+      ],
+      "Blackburn": [
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "Liverpool": [
+        3,
+        0,
+        1,
+        0,
+        1
+      ],
+      "Sheffield Weds": [
+        0,
+        0,
+        0,
+        1,
+        3
+      ],
+      "Man City": [
+        1,
+        3,
+        3,
+        1,
+        0
+      ],
+      "Leeds": [
+        1,
+        3,
+        1,
+        3,
+        0
+      ],
+      "Newcastle": [
+        0,
+        3,
+        1,
+        3,
+        0
+      ],
+      "Tottenham": [
+        3,
+        3,
+        1,
+        0,
+        3
+      ],
+      "Oldham": [
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "Ipswich": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "Sheffield United": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Swindon": [
+        1,
+        0,
+        0,
+        3,
+        0
+      ],
+      "Southampton": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "Everton": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "West Ham": [
+        3,
+        0,
+        0,
+        0,
+        3
+      ],
+      "Wimbledon": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "Norwich": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "Man United": [
+        3,
+        3,
+        1,
+        3,
+        3
+      ],
+      "Nott'm Forest": [
+        3,
+        3,
+        1,
+        0,
+        1
+      ],
+      "Crystal Palace": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "Leicester": [
+        0,
+        3,
+        1,
+        3,
+        0
+      ],
+      "Bolton": [
+        3,
+        1,
+        0,
+        1,
+        1
+      ],
+      "Middlesbrough": [
+        3,
+        1,
+        0,
+        0,
+        0
+      ],
+      "Sunderland": [
+        0,
+        1,
+        1,
+        3,
+        3
+      ],
+      "Derby": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Barnsley": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "Charlton": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "Watford": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "Bradford": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "Fulham": [
+        3,
+        0,
+        0,
+        1,
+        3
+      ],
+      "West Brom": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Birmingham": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "Portsmouth": [
+        1,
+        0,
+        1,
+        3,
+        0
+      ],
+      "Wolves": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "Wigan": [
+        1,
+        3,
+        0,
+        0,
+        1
+      ],
+      "Reading": [
+        0,
+        1,
+        3,
+        0,
+        0
+      ],
+      "Hull": [
+        3,
+        1,
+        0,
+        0,
+        0
+      ],
+      "Stoke": [
+        1,
+        1,
+        1,
+        0,
+        3
+      ],
+      "Burnley": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "Blackpool": [
+        1,
+        1,
+        1,
+        3,
+        0
+      ],
+      "Swansea": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Cardiff": [
+        3,
+        0,
+        0,
+        0,
+        3
+      ],
+      "Bournemouth": [
+        1,
+        3,
+        3,
+        1,
+        1
+      ],
+      "Brighton": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "Huddersfield": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "Brentford": [
+        0,
+        3,
+        0,
+        1,
+        1
+      ],
+      "Luton": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    }
+  },
+  "trained_on_matches": 12614,
+  "test_seasons": [
+    "2324",
+    "2425"
+  ]
+}

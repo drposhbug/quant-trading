@@ -1,0 +1,15 @@
+{
+  "feature_names": [
+    "elo_diff",
+    "h2h_home_win_rate",
+    "h2h_meetings",
+    "recent_form_diff",
+    "elo_form_interaction",
+    "elo_h2h_interaction"
+  ],
+  "class_order": [
+    "A",
+    "D",
+    "H"
+  ]
+}
