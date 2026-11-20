@@ -21,6 +21,7 @@ It runs in the cloud on GitHub Actions, sends alerts to Discord and paper-trades
 | `candles.py` → `reports/candles_results.md` | 13 candlestick patterns × 3 horizons, Holm-corrected |
 | `monitor.py` + `.github/workflows/monitor.yml` | Runs every 5 min in market hours: Discord alerts and daily paper rebalance |
 | `test_model.py` | No-lookahead, weight-limit and stats self-checks |
+| `scorecard.py` + `.github/workflows/daily.yml` | Daily scorecard of every paper sleeve vs its pre-registered rules (MATH.md Change control); one Discord report a day |
 
 ## Setup (one time)
 

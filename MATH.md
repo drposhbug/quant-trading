@@ -73,9 +73,23 @@ model for 12 months (to 2027-11-19) and compare it with the backtest using `trac
 **What the 12-month paper year tests: execution, not skill** (thresholds set now, checked with `track.py` and the logs):
 - tracking error, live vs backtest (compounded between logged days): ≤ 3%/yr annualised and no persistent drift;
 - missed rebalance sessions (no equity_log row on a trading day): ≤ 5 over the year;
-- fill shortfall (order fill price vs that day's close, from Alpaca order history): average ≤ 10 bp per trade;
+- fill shortfall (order fill price vs that day's close, from Alpaca order history): average ≤ 10 bp per trade,
+  counting fills from the first logged rebalance onward (the one-time setup orders queued 2026-11-18 and filled at the
+  2026-11-19 open are excluded — decided 2026-11-20 before any paper-year fill was scored);
 - zero unexplained orders, positions or state errors.
 Failing any of these means fixing the plumbing, not changing the model.
+
+**Pre-registered promotion / stop rules for every paper sleeve** (2026-11-20, before any sleeve had data; encoded in
+`scorecard.py`, which judges them daily and posts to Discord). Nothing is judged before its minimum n. A PASS only
+sends a recommendation; **real money is never allocated automatically**, the user decides. A STOP is a recommendation
+to end that experiment. Rules change only at a scheduled review, logged below, and a changed rule restarts its n.
+
+| Experiment | Benchmark | Min n | Pass test (all must hold) | Stop |
+|---|---|---|---|---|
+| Stock model (Alpaca paper #1) | frozen-model backtest over the same days (QQQ for context) | 250 logged sessions | the four execution thresholds above (TE ≤ 3%/yr, missed ≤ 5, mean fill shortfall ≤ 10 bp, no positions outside universe + SGOV) | none automatic: −10%/−20% drawdown tiers alert; decide at the scheduled review |
+| Options iron fly (Alpaca paper #2) | 0 (no trade) | 120 closed trades | mean P&L per trade > 0 with t > 2, at the logged worst-case fills (natural − $0.05) | account equity −10% from peak |
+| Sports paper bets | market price (implied probability) | 200 settled bets | ROI bootstrap 95% CI > 0, and ROI > 0 in both chronological halves | ROI < −10% after ≥ 100 settled bets |
+| Polymarket IPO brackets | naive IPO price × 1.15 | 30 resolved IPO events | bracket-implied CRPS lower than the naive baseline (paired sign test p < 0.05) | none (no money at risk) |
 
 | Date | Change | Test | Result |
 |---|---|---|---|
