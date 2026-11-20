@@ -165,9 +165,9 @@ def sports():
     # ponytail: column names guessed from sports.py's spec (built in parallel); add aliases here if it differs
     df = pd.read_csv(SPORTS)
     pnl_c, stake_c = _col(df, "pnl", "profit"), _col(df, "stake")
-    pm_c = _col(df, "model_prob", "p_model", "model_p", "prob_model")
-    pk_c = _col(df, "market_prob", "p_market", "implied_prob", "market_price", "price")
-    y_c = _col(df, "outcome", "won", "result", "y")
+    pm_c = _col(df, "p_elo_home", "model_prob", "p_model", "model_p", "prob_model")
+    pk_c = _col(df, "p_mkt_home", "market_prob", "p_market", "implied_prob", "market_price", "price")
+    y_c = _col(df, "home_payout", "outcome", "won", "result", "y")
     stake = pd.to_numeric(df[stake_c], errors="coerce").fillna(0) if stake_c else pd.Series(0.0, index=df.index)
     pnl = pd.to_numeric(df[pnl_c], errors="coerce") if pnl_c else pd.Series(np.nan, index=df.index)
     bet = (stake > 0) & pnl.notna()
