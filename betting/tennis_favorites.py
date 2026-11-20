@@ -36,9 +36,15 @@ from polymarket_exec import public_book
 
 GAMMA_BASE = "https://gamma-api.polymarket.com"
 TIMEOUT = 20
-ENTRY_LO, ENTRY_HI = 0.80, 0.95
+ENTRY_LO, ENTRY_HI = 0.80, 0.97        # widened 0.95 -> 0.97 on 2026-11-20 for the heavy-favourite test below
+# Test 2, pre-registered 2026-11-20 (before any of its trades): 'heavy favourites' = entries with
+# 0.90 <= ask <= 0.97 logged on/after HEAVY_FROM. Basis: 15,825 ATP/WTA matches 2021-24 — favourites with a
+# de-vigged Pinnacle chance >= 0.90 won 95.8-99.3% vs 92-96% priced (favourite-longshot bias). Pass bar:
+# >= 300 settled, mean ROI > 0 with bootstrap 95% CI > 0, same sign in both halves. Test 1 (0.80-0.95)
+# stays scorable as the entry_ask <= 0.95 subset.
+HEAVY_LO, HEAVY_HI, HEAVY_FROM = 0.90, 0.97, "2026-11-20"
 FLAT_STAKE = 100.0                     # dollars per trade, flat by the rule
-TAKER_FEE_RATE = 0.03                  # fee = rate * p * (1-p) per share
+TAKER_FEE_RATE = 0.05                  # fee = rate * p * (1-p) per share; Polymarket sports rate 0.03 -> 0.05 on 2026-07-10
 MATCH_SLUG = re.compile(r"^(atp|wta)-(?!doubles-).+-(\d{4}-\d{2}-\d{2})$")  # singles only, per the frozen rule
 SKIP_WORDS = ("spread", "set", "total", "tiebreak", "games")
 
@@ -234,6 +240,22 @@ def report():
     print("Wimbledon retro benchmark: 97.4% won, +11% ROI. Sustained agreement "
           "across 100+ forward trades = go-live case; divergence = the retro was "
           "selection bias.")
+    conn = get_connection()
+    heavy = conn.execute("SELECT pnl_per_dollar FROM tennis_fav_trades WHERE status IN ('won','lost') "
+                         "AND entry_ask BETWEEN ? AND ? AND logged_at >= ? ORDER BY logged_at",
+                         (HEAVY_LO, HEAVY_HI, HEAVY_FROM)).fetchall()
+    conn.close()
+    h = [r[0] for r in heavy]
+    print(f"=== Test 2: heavy favourites {HEAVY_LO:.2f}-{HEAVY_HI:.2f}, from {HEAVY_FROM} (pass: n>=300, CI>0, both halves>0) ===")
+    if h:
+        import random
+        random.seed(0)
+        boots = sorted(sum(random.choices(h, k=len(h))) / len(h) for _ in range(2000))
+        half = len(h) // 2
+        print(f"settled {len(h)}; mean ROI {sum(h) / len(h):+.2%}; 95% CI {boots[50]:+.2%}..{boots[1949]:+.2%}; "
+              f"halves {sum(h[:half]) / max(half, 1):+.2%} / {sum(h[half:]) / max(len(h) - half, 1):+.2%}")
+    else:
+        print("no settled heavy-favourite trades yet")
 
 
 if __name__ == "__main__":
