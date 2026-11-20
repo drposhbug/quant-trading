@@ -129,7 +129,25 @@ def gamma_find_event(home_full, away_full, commence_time=None):
                       and teams_match_any(away_full, ev.get("title", ""))
                       and (lo is None or lo <= (ev.get("endDate") or "") <= hi)]
         if candidates:
-            # prefer the one ending soonest (the next meeting, not a distant
+            # Series (same teams on consecutive days, MLB/WNBA/NBA playoffs): "ends soonest" picked
+            # the wrong game's token (sharp_snapshot_study.py). Prefer an exact game match first:
+            # gameStartTime within 3h of kickoff, else the slug's trailing date == kickoff date.
+            if lo:
+                ko_dt = datetime.fromisoformat(lo.replace("Z", "+00:00"))
+                def _start(e):
+                    s = e.get("gameStartTime") or next(
+                        (m.get("gameStartTime") for m in e.get("markets") or [] if m.get("gameStartTime")), None)
+                    try:
+                        return datetime.fromisoformat(str(s).replace(" ", "T").replace("Z", "+00:00")) if s else None
+                    except ValueError:
+                        return None
+                exact = [e for e in candidates if _start(e) and abs((_start(e) - ko_dt).total_seconds()) <= 3 * 3600]
+                if not exact:  # slug dates are US Eastern; kickoffs after 20:00 ET fall on the next UTC day
+                    days = {(ko_dt - timedelta(hours=5)).strftime("%Y-%m-%d"), ko_dt.strftime("%Y-%m-%d")}
+                    exact = [e for e in candidates if (e.get("slug") or "")[-10:] in days]
+                if exact:
+                    return min(exact, key=lambda e: abs(((_start(e) or ko_dt) - ko_dt).total_seconds()))
+            # fallback: the one ending soonest (the next meeting, not a distant
             # rematch; also outranks all-day novelty markets on the same teams)
             candidates.sort(key=lambda e: e.get("endDate") or "9999")
             return candidates[0]
