@@ -18,7 +18,7 @@ from trump_study import FEED, TOPICS
 PM_CSV = "signals/prediction_markets.csv"
 RELEVANT = re.compile(r"tesla|spacex|musk|nvidia|apple|microsoft|google|alphabet|amazon|meta\b|largest company|"
                       r"fed\b|rate (cut|hike)|fomc|recession|tariff|china|trade deal|shutdown|s&p|nasdaq|robotaxi|"
-                      r"starship|xai|ai\b|cpi|inflation|earnings", re.I)
+                      r"starship|xai|ai\b|cpi|inflation|earnings|anthropic|openai|\bipo\b|initial public offering", re.I)
 UA = {"User-Agent": "quant-research-monitor"}
 
 
