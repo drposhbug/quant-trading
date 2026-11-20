@@ -46,7 +46,9 @@ def main():
                 print("market closed for the day")
                 one_pass()  # lets after-close bookkeeping (alerts, state) run once
                 return
-            time.sleep(300)  # before the open: wait inside the job
+            sh(sys.executable, "monitor.py")  # before the open: monitor only snapshots prediction markets + posts, then
+            save_state()                      # exits ("market closed") — gives a pre-open odds record for IPO days
+            time.sleep(300)
             continue
         one_pass()
         to_close = (dt.datetime.fromisoformat(clock["next_close"]) - now).total_seconds() / 60
