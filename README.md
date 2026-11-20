@@ -1,6 +1,6 @@
 # quant-trading
 
-Research-driven quant model for TSLA, SPCX (SpaceX, Nasdaq since 2026-06-12) mega-cap tech (AAPL, MSFT, NVDA, GOOGL, AMZN, META), the AI compute chain (AVGO, TSM, AMD, ORCL) and Anthropic (ANT, trades once listed).
+Research-driven quant model for TSLA, SPCX (SpaceX, Nasdaq since 2026-06-12) mega-cap tech (AAPL, MSFT, NVDA, GOOGL, AMZN, META), the AI compute chain (AVGO, TSM, AMD, ORCL). (Anthropic/ANT was considered and removed before listing; MATH.md change log.)
 It runs in the cloud on GitHub Actions, sends alerts to Discord and paper-trades on Alpaca.
 
 **Start here:** [MATH.md](MATH.md) explains what was proven and what failed.

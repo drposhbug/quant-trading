@@ -82,6 +82,7 @@ Failing any of these means fixing the plumbing, not changing the model.
 | 2026-11-18 | Earnings haircut removed from monitor.py (never backtested; live ≠ tested). | — | — |
 | 2026-11-19 | vol_target 0.25 → 0.20, decided before the freeze. | Engine on ^NDX 1985–2026 (no hindsight universe, includes 2000–02 and 2008); rule set before the run: revert if MaxDD at 25% is worse than −45%. | NDX buy&hold: CAGR 14.1%, Sharpe 0.63, MaxDD −83%. Engine 15/20/25%: Sharpe 0.77/0.78/0.77, MaxDD −31/−39/−46.5%, CAGR 9.9/11.8/12.6%. 2000–02: NDX −77%, engine −41%. Bar tripped → 20%. |
 | 2026-11-19 | Model frozen. | — | — |
+| 2026-11-19 | ANT (Anthropic) removed from UNIVERSE before it listed (weight was 0, so no position change). | 10 large tech IPOs 2012–2024 vs QQQ: median −40% in year 1, −64% over 3 years; bought after this model's 60-day rule, median −33% over the next year; 7 of 10 lagged. Hand-picked famous IPOs (selection caveat). | Removed. SPCX (−8% since its June 2026 IPO, 5% cap) stays until the scheduled review. |
 | 2026-11-19 | Measurement fixes (cost drift, rank IC, excess-return alpha); no trading-rule change. | Backtest re-run: costs on the trade from drifted weights incl. first entry; rank IC over names valid on both sides; HAC alpha on T-bill excess returns. | Model Sharpe 1.262 → 1.259, EW 1.261 → 1.255; QQQ alpha t 3.54 → 3.29; EW alpha t 1.03 → 0.67; PBO 0.187 → 0.182. No §0 verdict changes. |
 
 ## 1. Notation

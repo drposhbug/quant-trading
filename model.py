@@ -9,10 +9,11 @@ CORE = ["TSLA", "SPCX", "AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META"]
 # AI compute chain, picked from supply links rather than past returns (correlations.py): TPUs/custom silicon (AVGO),
 # foundry (TSM), GPUs (AMD), cloud capacity (ORCL). All sell into the same AI capex that drives NVDA/MSFT/GOOGL/AMZN.
 AI_CHAIN = ["AVGO", "TSM", "AMD", "ORCL"]
-# ANT = Anthropic (S-1 filed 2026-10-26 for Nasdaq "ANT"). No prices yet: it carries weight 0 until it has min_hist days.
-UNIVERSE = CORE + AI_CHAIN + ["ANT"]
+# ANT (Anthropic) was listed here until 2026-11-19 and removed before it ever traded: large tech IPOs trailed QQQ by a
+# median 40% in year 1 (33% even when bought after the 60-day rule), see MATH.md change log.
+UNIVERSE = CORE + AI_CHAIN
 BENCH = "QQQ"
-EVENT_CAPS = {"SPCX": 0.05, "ANT": 0.05}  # fresh IPOs: lockups, thin history, event risk (report §SPCX)
+EVENT_CAPS = {"SPCX": 0.05}  # fresh IPOs: lockups, thin history, event risk (report §SPCX)
 
 # Fixed a priori from the research (not tuned on this data). backtest.py measures how much a grid around them overfits.
 P = dict(
@@ -36,7 +37,7 @@ def names_of(px):
 
 def load_prices(start="2014-01-01"):
     px = yf.download(UNIVERSE + [BENCH], start=start, auto_adjust=True, progress=False, threads=False)["Close"]
-    return px.reindex(columns=UNIVERSE + [BENCH]).dropna(how="all")  # reindex: not-yet-listed names (ANT) stay as NaN
+    return px.reindex(columns=UNIVERSE + [BENCH]).dropna(how="all")  # reindex: a not-yet-listed name stays as NaN
 
 
 def scores(px, p=P):

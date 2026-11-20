@@ -18,7 +18,6 @@ w = target_weights(px)
 assert (w >= 0).all().all() and (w.sum(axis=1) <= 1 + 1e-9).all()
 for c in w:
     assert (w[c] <= EVENT_CAPS.get(c, P["cap"]) + 1e-12).all(), c
-assert px["ANT"].notna().any() or (w["ANT"] == 0).all()  # unlisted name (no prices) never trades
 for sz in ("invvol", "hrp"):  # 4. HRP path: same limits, no lookahead
     d = px.index[-150]
     hw = target_weights(px.loc[:d], {**P, "sizing": sz}).loc[d]

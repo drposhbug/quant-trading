@@ -64,15 +64,15 @@ def fake_nf(method, path, **kw):
     calls.append((method, path, kw.get("json")))
     if path == "/account": return {"equity": "100000"}
     if path == "/positions": return []
-    if path.startswith("/assets/"): return {"fractionable": path != "/assets/ANT"}
+    if path.startswith("/assets/"): return {"fractionable": path != "/assets/SPCX"}
     return {}
 monitor.alpaca = fake_nf
-_, lines = monitor.rebalance({"ANT": 0.03}, nodata=set(), last={"ANT": 120.0})
-o = [c[2] for c in calls if c[0] == "POST" and c[2]["symbol"] == "ANT"]
+_, lines = monitor.rebalance({"SPCX": 0.03}, nodata=set(), last={"SPCX": 120.0})
+o = [c[2] for c in calls if c[0] == "POST" and c[2]["symbol"] == "SPCX"]
 assert o and o[0]["qty"] == str(int(0.03 * 100000 * 0.98 / 120)) and "notional" not in o[0], o
 calls.clear()
-_, lines = monitor.rebalance({"ANT": 0.03}, nodata=set(), last={"ANT": 5000.0})
-assert not [c for c in calls if c[0] == "POST" and c[2]["symbol"] == "ANT"] and any(l.startswith("INFO ANT") for l in lines), lines
+_, lines = monitor.rebalance({"SPCX": 0.03}, nodata=set(), last={"SPCX": 5000.0})
+assert not [c for c in calls if c[0] == "POST" and c[2]["symbol"] == "SPCX"] and any(l.startswith("INFO SPCX") for l in lines), lines
 assert not any(l.startswith("FAILED") for l in lines), lines
 
 # Missed rebalance: previous sessions after the last completed rebalance are reported once and accumulate.
