@@ -1,4 +1,6 @@
 {
  "spreads": {},
- "done": []
+ "done": [],
+ "peak_equity": 100000.0,
+ "orphans": []
 }
