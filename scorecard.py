@@ -11,6 +11,7 @@ import json
 import math
 import os
 import re
+import sqlite3
 
 import numpy as np
 import pandas as pd
@@ -26,6 +27,7 @@ OPT_TRADES, OPT_STATE = oe.TRADES, oe.STATE
 SPORTS = "signals/sports_ledger.csv"
 PM = "signals/prediction_markets.csv"
 STATE = "scorecard_state.json"
+FAV_DB = "betting/paper_favorites.sqlite3"  # favourites paper ledgers, written by the daily workflow; read-only here
 
 # Pre-registered 2026-11-20, before any sleeve had data. Same text as the MATH.md table; change both or neither,
 # and only at a scheduled review (a changed rule restarts that sleeve's n).
@@ -43,6 +45,22 @@ RULES = {
     "ipo": dict(name="Polymarket IPO brackets", bench="naive IPO price x 1.15", min_n=30, unit="resolved IPO events",
                 test="bracket-implied CRPS lower than the naive baseline, paired sign test p < 0.05",
                 stop="none (no money at risk)"),
+    "tennis_fav": dict(name="Tennis favourites", bench="Polymarket ask + taker fee", min_n=300,
+                       unit="settled heavy favs (ask 0.90-0.97, from 2026-11-20)",
+                       test="mean ROI > 0, bootstrap 95% CI > 0, ROI > 0 in both chronological halves",
+                       stop="none (paper only)"),
+    "sport_fav": dict(name="Soccer/NBA favourites", bench="Polymarket ask + taker fee", min_n=300,
+                      unit="settled per group (soccer 0.80-0.95, NBA 0.85-0.97)",
+                      test="per group: mean ROI > 0, bootstrap 95% CI > 0, ROI > 0 in both halves",
+                      stop="none (paper only)"),
+    "other_fav": dict(name="Other-sports favourites (exploratory)", bench="Polymarket ask + taker fee", min_n=300,
+                      unit="settled NFL/NHL/MLB favs (0.85-0.97)",
+                      test="as Soccer/NBA; exploratory (no historical basis): a pass motivates a study, not money",
+                      stop="none (paper only)"),
+    "any_fav": dict(name="Any-category favourites", bench="Polymarket ask + taker fee", min_n=200,
+                    unit="settled (0.90-0.97, 7-30 days out, objective resolution)",
+                    test="mean ROI > 0, bootstrap 95% CI > 0, ROI > 0 in both chronological halves",
+                    stop="none (paper only)"),
 }
 TE_MAX, MISSED_MAX, FILL_MAX_BP, OPT_DD_STOP, SPORTS_STOP_N, SPORTS_STOP_ROI = 0.03, 5, 10.0, -0.10, 100, -0.10
 
@@ -212,7 +230,59 @@ def ipo():
     return dict(n=n, markets=len(gone), verdict=verdict(n, RULES["ipo"]["min_n"], None))
 
 
-SLEEVES = {"stocks": stocks, "options": options, "sports": sports, "ipo": ipo}
+def _fav_pnl(sql, params=()):
+    """Chronological pnl_per_dollar from the favourites ledger, opened read-only; [] if the file or table is missing."""
+    if not os.path.exists(FAV_DB):
+        return []
+    conn = sqlite3.connect(f"file:{os.path.abspath(FAV_DB)}?mode=ro", uri=True)
+    try:
+        return [r[0] for r in conn.execute(sql, params)]
+    except sqlite3.OperationalError:  # table not created yet
+        return []
+    finally:
+        conn.close()
+
+
+def fav_stats(pnl, min_n):
+    """Flat-stake ledger: ROI per $1, bootstrap CI, halves; PASS needs n >= min_n, CI > 0 and both halves > 0."""
+    p, k = np.asarray(pnl, float), np.ones(len(pnl))
+    s = dict(n=len(p), roi=roi(p, k), ci=None, halves=None)
+    if len(p) >= 2:
+        s["ci"] = bootstrap_roi(p, k)
+        h = len(p) // 2
+        s["halves"] = (roi(p[:h], k[:h]), roi(p[h:], k[h:]))
+    passed = bool(s["roi"] and s["roi"] > 0 and s["ci"] and s["ci"][0] > 0 and all(x > 0 for x in s["halves"]))
+    s["verdict"] = verdict(s["n"], min_n, passed)
+    return s
+
+
+SETTLED = "status IN ('won','lost') ORDER BY logged_at, id"
+
+
+def tennis_fav():
+    return fav_stats(_fav_pnl("SELECT pnl_per_dollar FROM tennis_fav_trades WHERE entry_ask BETWEEN 0.90 AND 0.97 "
+                              f"AND logged_at >= '2026-11-20' AND {SETTLED}"), RULES["tennis_fav"]["min_n"])
+
+
+def sport_fav():
+    g = {x: fav_stats(_fav_pnl(f"SELECT pnl_per_dollar FROM sport_fav_trades WHERE tour=? AND {SETTLED}", (x,)),
+                      RULES["sport_fav"]["min_n"]) for x in ("soccer", "nba")}
+    vs = [v["verdict"] for v in g.values()]
+    v = "PASS" if "PASS" in vs else "FAIL" if all(x == "FAIL" for x in vs) else "INSUFFICIENT_N"
+    return dict(n=max(x["n"] for x in g.values()), groups=g, verdict=v)  # n = the furthest-along group
+
+
+def other_fav():
+    return fav_stats(_fav_pnl(f"SELECT pnl_per_dollar FROM sport_fav_trades WHERE tour='other' AND {SETTLED}"),
+                     RULES["other_fav"]["min_n"])
+
+
+def any_fav():
+    return fav_stats(_fav_pnl(f"SELECT pnl_per_dollar FROM any_fav_trades WHERE {SETTLED}"), RULES["any_fav"]["min_n"])
+
+
+SLEEVES = {"stocks": stocks, "options": options, "sports": sports, "ipo": ipo,
+           "tennis_fav": tennis_fav, "sport_fav": sport_fav, "other_fav": other_fav, "any_fav": any_fav}
 
 
 def build():
@@ -257,7 +327,19 @@ def summary(k, s):
         br = ("n/a" if s["brier_model"] is None else
               f"model {s['brier_model']:.3f} vs market {s['brier_market']:.3f} (n {s['n_brier']})")
         return f"ROI {_p(s['roi'])} CI {ci}, halves {halves}; Brier {br}"
+    if k == "sport_fav":
+        return "; ".join(f"{g} n {v['n']} {_fav_line(v)} {v['verdict']}" for g, v in s["groups"].items())
+    if k in ("tennis_fav", "other_fav", "any_fav"):
+        return _fav_line(s)
     return f"{s['markets']} resolved bracket markets; collecting data"
+
+
+def _fav_line(s):
+    if not s["n"]:
+        return "no settled trades yet"
+    ci = "n/a" if not s["ci"] else f"[{s['ci'][0]:+.1%}, {s['ci'][1]:+.1%}]"
+    halves = "n/a" if not s["halves"] else "/".join(_p(x) for x in s["halves"])
+    return f"ROI {_p(s['roi'])} CI {ci} halves {halves}"
 
 
 def markdown(card):
@@ -271,15 +353,15 @@ def markdown(card):
 def report(card):
     """One Discord message, <= 1900 chars."""
     lines = [f"📋 **Scorecard {card['date']}** (paper only; pre-registered rules, MATH.md)"]
-    for k in SLEEVES:
-        s = card[k]
-        lines.append(f"**{RULES[k]['name']}** {s['n']}/{RULES[k]['min_n']} → `{s['verdict']}`\n{summary(k, s)[:300]}")
-    for k in SLEEVES:
+    for k in SLEEVES:  # alerts first: the length cap truncates from the end
         if card[k]["verdict"] == "PASS":
             lines.append(f"✅ **{RULES[k]['name']} passed its pre-registered test.** Recommendation only: you decide "
                          f"whether to allocate real money. Nothing is allocated automatically.")
         elif card[k]["verdict"] == "STOP":
             lines.append(f"🛑 **{RULES[k]['name']} breached its loss limit** ({RULES[k]['stop']}). Recommend stopping it.")
+    for k in SLEEVES:
+        s = card[k]
+        lines.append(f"**{RULES[k]['name']}** {s['n']}/{RULES[k]['min_n']} → `{s['verdict']}`\n{summary(k, s)[:170]}")
     msg = "\n".join(lines)
     return msg if len(msg) <= 1900 else msg[:1897] + "..."
 

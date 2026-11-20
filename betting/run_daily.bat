@@ -24,6 +24,5 @@ rem logged to the positions table. Never live from here -- going live needs
 rem --live AND POLYMARKET_LIVE=1 AND a key, deliberately. For the real
 rem strategy cadence run it as its own loop: py trader.py --loop 60
 py trader.py --once --quiet >> daily_run.log 2>&1
-rem Pre-registered tennis favorites paper test (free: Gamma + CLOB only).
-rem PM lists tennis ~1 day out, so 3x daily catches nearly every listing.
-py tennis_favorites.py >> daily_run.log 2>&1
+rem Favourites paper tests (tennis, soccer/NBA, any-category) run in the cloud
+rem (.github/workflows/daily.yml) so betting/paper_favorites.sqlite3 is the single ledger.

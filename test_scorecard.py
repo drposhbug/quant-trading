@@ -12,6 +12,7 @@ T = tempfile.mkdtemp()
 P = lambda f: os.path.join(T, f)
 sc.EQUITY_LOG, sc.STOCK_STATE, sc.OPT_TRADES, sc.OPT_STATE = P("eq.csv"), P("st.json"), P("opt.csv"), P("ost.json")
 sc.SPORTS, sc.PM, sc.STATE = P("sports.csv"), P("pm.csv"), P("sc_state.json")
+sc.FAV_DB = P("fav.sqlite3")
 
 # ---- metrics math
 assert abs(sc.max_drawdown([100, 120, 90, 130]) - (90 / 120 - 1)) < 1e-12
@@ -85,9 +86,46 @@ sc.monitor.alpaca = lambda m, p, **k: {"equity": "101000"} if p == "/account" el
 assert sc.stocks()["checks"]["positions"] is False
 print("stocks checks passed")
 
+# ---- favourites ledgers (sqlite, read-only)
+import sqlite3
+assert all(sc.SLEEVES[k]()["verdict"] == "INSUFFICIENT_N" for k in ("tennis_fav", "sport_fav", "other_fav", "any_fav"))
+db = sqlite3.connect(sc.FAV_DB)
+db.execute("CREATE TABLE tennis_fav_trades (id INTEGER PRIMARY KEY, logged_at TEXT, entry_ask REAL, status TEXT, pnl_per_dollar REAL)")
+assert sc.sport_fav()["verdict"] == "INSUFFICIENT_N"  # file exists, sport table not yet: no crash
+win = lambda i: 0.08 if i % 50 else -1.0  # 98% wins at ~0.92: ROI ~ +5.8%
+db.executemany("INSERT INTO tennis_fav_trades VALUES (NULL,?,?,?,?)",
+               [(f"2026-11-{20 + i // 100:02d}T{i % 24:02d}", 0.92, "won" if win(i) > 0 else "lost", win(i)) for i in range(320)]
+               + [("2026-11-19T00", 0.92, "lost", -1.0)] * 50  # before the heavy test began: excluded
+               + [("2026-11-21T00", 0.85, "lost", -1.0)] * 50  # below 0.90: Test 1 only, excluded
+               + [("2026-11-21T00", 0.92, "open", None)] * 5)
+db.execute("CREATE TABLE sport_fav_trades (id INTEGER PRIMARY KEY, logged_at TEXT, tour TEXT, status TEXT, pnl_per_dollar REAL)")
+db.executemany("INSERT INTO sport_fav_trades VALUES (NULL,?,?,?,?)",
+               [(f"t{i:04d}", "soccer", "won" if win(i) > 0 else "lost", win(i)) for i in range(310)]
+               + [(f"t{i:04d}", "nba", "lost", -1.0) for i in range(40)]
+               + [(f"t{i:04d}", "other", "won", 0.05) for i in range(10)])
+db.execute("CREATE TABLE any_fav_trades (id INTEGER PRIMARY KEY, logged_at TEXT, status TEXT, pnl_per_dollar REAL)")
+db.executemany("INSERT INTO any_fav_trades VALUES (NULL,?,?,?)",
+               [(f"t{i:04d}", "lost" if i % 5 == 0 else "won", -1.0 if i % 5 == 0 else 0.05) for i in range(210)])
+db.commit()
+db.close()
+t = sc.tennis_fav()
+assert t["n"] == 320 and t["ci"][0] > 0 and t["verdict"] == "PASS", t
+sp = sc.sport_fav()
+assert sp["n"] == 310 and sp["groups"]["soccer"]["verdict"] == "PASS" and sp["groups"]["nba"]["verdict"] == "INSUFFICIENT_N"
+assert sp["verdict"] == "PASS" and "soccer n 310" in sc.summary("sport_fav", sp), sp
+o = sc.other_fav()
+assert o["n"] == 10 and o["verdict"] == "INSUFFICIENT_N"
+a = sc.any_fav()
+assert a["n"] == 210 and a["roi"] < 0 and a["verdict"] == "FAIL", a
+assert sc.fav_stats([0.1] * 100 + [-0.2] * 100 + [0.3] * 100, 300)["verdict"] == "FAIL"  # first half < 0
+print("favourites checks passed")
+
 # ---- report length + dedupe
 card = sc.build()
 assert card["stocks"]["verdict"] != "ERROR" and card["sports"]["verdict"] == "STOP", card
+assert card["tennis_fav"]["verdict"] == "PASS" and card["any_fav"]["verdict"] == "FAIL", card
+msg = sc.report(card)
+assert "Tennis favourites passed" in msg and "Any-category favourites" in msg and len(msg) <= 1900, (len(msg), msg)
 big = {**card, "sports": {**card["sports"], "error": "x" * 5000, "verdict": "ERROR"}}
 assert len(sc.report(big)) <= 1900 and len(sc.report(card)) <= 1900
 assert "Scorecard" in sc.markdown(card)

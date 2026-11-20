@@ -23,7 +23,8 @@ ingest scripts and trainers.
 import os
 import sqlite3
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_data.sqlite3")
+# SPORTS_DB_PATH overrides (the cloud favourites ledger uses betting/paper_favorites.sqlite3)
+DB_PATH = os.environ.get("SPORTS_DB_PATH") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_data.sqlite3")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS matches (

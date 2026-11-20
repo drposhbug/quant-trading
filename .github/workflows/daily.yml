@@ -1,9 +1,10 @@
 name: daily
 on:
   schedule:
-    # Every day incl. weekends, off-peak. 14:23 UTC posts the scorecard (~09:23 ET); 02:23 UTC is the backup if that
-    # run was dropped (GitHub cron is best-effort). scorecard_state.json keeps it to one post per New York day.
-    - cron: "23 2,14 * * *"
+    # Every 3 hours, every day: the favourites paper tests need entries before game start / within their windows.
+    # The scorecard step runs only from 15:23 UTC on (~10:23 ET); the later runs are backups (GitHub cron is
+    # best-effort) and scorecard_state.json keeps it to one post per New York day.
+    - cron: "23 */3 * * *"
   workflow_dispatch:
 permissions:
   contents: write
@@ -27,8 +28,31 @@ jobs:
           if [ -f sports.py ]; then python -c "import sports; sports.run_daily()"; else echo "no sports.py yet"; fi
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      - name: Paper test tennis_favorites (public Polymarket data, no secrets, never orders)
+        continue-on-error: true
+        working-directory: betting
+        env:
+          SPORTS_DB_PATH: ${{ github.workspace }}/betting/paper_favorites.sqlite3
+        run: python tennis_favorites.py
+      - name: Paper test sport_favorites (public Polymarket data, no secrets, never orders)
+        continue-on-error: true
+        working-directory: betting
+        env:
+          SPORTS_DB_PATH: ${{ github.workspace }}/betting/paper_favorites.sqlite3
+        run: python sport_favorites.py
+      - name: Paper test any_favorites (public Polymarket data, no secrets, never orders)
+        continue-on-error: true
+        working-directory: betting
+        env:
+          SPORTS_DB_PATH: ${{ github.workspace }}/betting/paper_favorites.sqlite3
+        run: python any_favorites.py
       - name: Scorecard
-        run: python scorecard.py
+        run: |
+          if [ "$(date -u +%H)" -ge 15 ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python scorecard.py
+          else
+            echo "scorecard runs from 15 UTC (one post per New York day)"
+          fi
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
@@ -42,5 +66,6 @@ jobs:
           git config user.email "monitor-bot@users.noreply.github.com"
           git add signals/ 2>/dev/null || true
           git add scorecard_state.json 2>/dev/null || true  # separate add: a missing file would abort the one above
+          git add betting/paper_favorites.sqlite3 2>/dev/null || true
           # the monitor job may have pushed meanwhile: rebase onto it, keeping this run's files on conflict
           git diff --cached --quiet || (git commit -m "daily state" && git pull --rebase -X theirs && git push)

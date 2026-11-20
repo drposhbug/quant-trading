@@ -90,6 +90,10 @@ to end that experiment. Rules change only at a scheduled review, logged below, a
 | Options iron fly (Alpaca paper #2) | 0 (no trade) | 120 closed trades | mean P&L per trade > 0 with t > 2, at the logged worst-case fills (natural − $0.05) | account equity −10% from peak |
 | Sports paper bets | market price (implied probability) | 200 settled bets | ROI bootstrap 95% CI > 0, and ROI > 0 in both chronological halves | ROI < −10% after ≥ 100 settled bets |
 | Polymarket IPO brackets | naive IPO price × 1.15 | 30 resolved IPO events | bracket-implied CRPS lower than the naive baseline (paired sign test p < 0.05) | none (no money at risk) |
+| Tennis favourites ([tennis_favorites.py](betting/tennis_favorites.py), heavy-favourite test) | Polymarket ask + taker fee 0.05·p(1−p) | 300 settled entries with ask 0.90–0.97 logged from 2026-11-20 | mean ROI > 0, bootstrap 95% CI > 0, ROI > 0 in both chronological halves | none (paper only) |
+| Soccer/NBA favourites ([sport_favorites.py](betting/sport_favorites.py)) | Polymarket ask + taker fee 0.05·p(1−p) | 300 settled per group | per group (soccer: favourite's win-YES, price and ask 0.80–0.95, EPL/La Liga/Bundesliga/Serie A/Ligue 1/MLS/UCL; NBA: moneyline favourite 0.85–0.97; entry ≥ 30 min before gameStartTime, hold to settlement): mean ROI > 0, bootstrap 95% CI > 0, ROI > 0 in both halves | none (paper only) |
+| Other-sports favourites, exploratory ([sport_favorites.py](betting/sport_favorites.py)) | Polymarket ask + taker fee 0.05·p(1−p) | 300 settled | NFL/NHL/MLB moneyline favourite 0.85–0.97, same rules and test; no historical basis, so a pass motivates a study, not money | none (paper only) |
+| Any-category favourites ([any_favorites.py](betting/any_favorites.py)) | Polymarket ask + market's taker fee | 200 settled | non-sports, non-price markets; side priced and asked 0.90–0.97, spread ≤ 0.03, 7–30 days to end, volume ≥ $10k, objective resolution source: mean ROI > 0, bootstrap 95% CI > 0, ROI > 0 in both halves | none (paper only) |
 
 | Date | Change | Test | Result |
 |---|---|---|---|
