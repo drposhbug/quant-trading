@@ -24,8 +24,8 @@ assert not any(c[0] == "POST" and c[2]["symbol"] in ("AAPL", "ANT") for c in ord
 buy = [c[2] for c in orders if c[0] == "POST"]
 assert ("DELETE", "/orders", None) == calls[0]  # stale open orders cancelled before anything else
 assert {"symbol": "MSFT", "notional": 4900.0, "side": "buy", "type": "market", "time_in_force": "day"} in buy, buy
-sgov = [b for b in buy if b["symbol"] == "SGOV"]  # idle 85% -> T-bills: 0.85 * 100k * 0.98
-assert len(sgov) == 1 and abs(sgov[0]["notional"] - 83300.0) < 0.01, buy
+sgov = [b for b in buy if b["symbol"] == "SGOV"]  # idle 85% -> T-bills: 0.85 * 100k * 0.98, less AAPL's skipped $100 trim
+assert len(sgov) == 1 and abs(sgov[0]["notional"] - 83200.0) < 0.01, buy
 assert len(buy) == 2, buy
 assert orders.index(("DELETE", "/positions/NVDA", None)) < len(orders) - 1  # sells before the buy
 
@@ -83,3 +83,29 @@ msg = monitor.missed_rebalance(st, _dt.date(2026, 11, 23))
 assert "2026-11-20" in msg and st["missed"] == ["2026-11-20"], (msg, st)
 assert monitor.missed_rebalance({"rebalanced": "2026-11-20"}, _dt.date(2026, 11, 23)) is None
 print("fractionable + missed-rebalance checks passed")
+
+# 2026-11-20 case: many small stock overweights, each under the 1% band. T-bills must not be bought with money that is
+# still in stocks: orders placed + positions kept must not exceed equity (no margin).
+names = ["AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META"]
+def fake2(method, path, **kw):
+    calls.append((method, path, kw.get("json")))
+    return {"equity": "100000"} if path == "/account" else [{"symbol": s, "market_value": "5800"} for s in names] if path == "/positions" else {}
+monitor.alpaca = fake2
+calls.clear()
+monitor.rebalance({s: 0.05 for s in names}, nodata=set())  # targets 4900 each, held 5800: every trim is $900 < $1000 band
+posts = [c[2] for c in calls if c[0] == "POST"]
+assert [p["symbol"] for p in posts] == ["SGOV"], posts
+assert posts[0]["notional"] + 6 * 5800 <= 100000 * 0.98 + 0.01, posts  # was 68600 + 34800 = 103.4% of equity
+print("skipped-trim cash check passed")
+
+# Netting can ask to sell more T-bills than are held (stocks over target, little SGOV): close SGOV, never oversell it.
+def fake3(method, path, **kw):
+    calls.append((method, path, kw.get("json")))
+    return {"equity": "100000"} if path == "/account" else (
+        [{"symbol": s, "market_value": "17000"} for s in names] + [{"symbol": "SGOV", "market_value": "2000"}]) if path == "/positions" else {}
+monitor.alpaca = fake3
+calls.clear()
+monitor.rebalance({s: 0.165 for s in names}, nodata=set())  # stock targets 16170, held 17000: six skipped $830 trims; SGOV target 980
+assert ("DELETE", "/positions/SGOV", None) in calls, calls
+assert not [c for c in calls if c[0] == "POST"], calls  # no notional SGOV sale larger than the holding, no stock orders
+print("T-bill oversell check passed")

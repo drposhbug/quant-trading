@@ -102,6 +102,23 @@ to end that experiment. Rules change only at a scheduled review, logged below, a
 | 2026-11-19 | Model frozen. | — | — |
 | 2026-11-19 | ANT (Anthropic) removed from UNIVERSE before it listed (weight was 0, so no position change). | 10 large tech IPOs 2012–2024 vs QQQ: median −40% in year 1, −64% over 3 years; bought after this model's 60-day rule, median −33% over the next year; 7 of 10 lagged. Hand-picked famous IPOs (selection caveat). | Removed. SPCX (−8% since its June 2026 IPO, 5% cap) stays until the scheduled review. |
 | 2026-11-19 | Measurement fixes (cost drift, rank IC, excess-return alpha); no trading-rule change. | Backtest re-run: costs on the trade from drifted weights incl. first entry; rank IC over names valid on both sides; HAC alpha on T-bill excess returns. | Model Sharpe 1.262 → 1.259, EW 1.261 → 1.255; QQQ alpha t 3.54 → 3.29; EW alpha t 1.03 → 0.67; PBO 0.187 → 0.182. No §0 verdict changes. |
+| 2026-11-21 | Live plumbing fixes, no trading-rule change: the T-bill order nets out skipped small stock trims and never sells more T-bills than are held (on 2026-11-20 it had left stocks 5.7 pts over target and cash at −$3.6k); the QQQ freshness check now runs on the unfilled data (it could never fire); the drawdown anchor is the $100,000 start, not the 2026-11-20 snapshot. Set-up errors annotated: the first orders (queued 2026-11-18 17:17 ET, before the freeze at 20%) were sized at the 25% target, 46% invested vs 38%, and the 2026-11-19 rebalance never ran (GitHub cron). Together they cost about 1.6 pts of the account's −5.0% over 11-19/20 (model −3.4%). | test_monitor.py (three regression tests). Decision record: reports/Decision 2026-11-21.md, reviewed by Astra 6.2 and Grok. | Account kept, not reset. |
+
+**Run the paper account as if it were real money** (adopted 2026-11-21, after the first drawdown; the paper year is
+also a test of the operator):
+- **No resets.** The account is never deleted, re-created or restarted because of its P&L. Losses are counted from
+  the $100,000 start. Bad starts are annotated in the change log, not erased.
+- **No manual trades.** Every order comes from monitor.py. Any manual action (a trade, a forced run, editing
+  state.json or positions) is logged in the change log with date and reason, and counts against the paper year's
+  "zero unexplained orders" threshold.
+- **No decisions in a drawdown.** Between 2026-11-21 and the 2026-12-12 interim review only repairs are allowed. That
+  review's agenda is fixed now: measurement (tracking error on end-of-day equity, a definition of drift), the defect
+  list in `reports/Decision 2026-11-21.md`, the prediction-market sleeves. Stock parameters and the no-trade band are
+  out of scope until 2027-11-19.
+- **Real-money gate.** Before any real money follows this model: 250 logged sessions passing the execution thresholds
+  above; at least one −10% drawdown sat through with no manual intervention; a written dollar loss limit; real money
+  sized so that a −40% fall (the engine's 2000–02 case on ^NDX) is survivable without selling; and staged entry
+  (one third at a time, at least a month apart), never sized on the 23% backtest.
 
 ## 1. Notation
 

@@ -65,9 +65,13 @@ def rebalance(w, nodata, last=None):
         return equity, [f"SKIPPED rebalance: no price data for held {', '.join(stale)}"]
     w = {**w, CASH_ETF: max(0.0, 1 - sum(w.values()))}  # whatever the model leaves in cash goes to T-bills
     diffs = {s: w.get(s, 0) * equity * 0.98 - held.get(s, 0) for s in set(UNIVERSE) | set(held) | {CASH_ETF}}  # 2% cash buffer; held names outside the universe get sold
+    skip = {s for s, d in diffs.items() if abs(d) < max(50, 0.01 * equity) and not (s in held and w.get(s, 0) == 0)}
+    # Stock trims/adds too small to trade stay in the book, so T-bills get what is actually left over. Without this,
+    # a dozen skipped trims left stocks 5.7 pts over target on 2026-11-20 and SGOV was still bought in full: cash -$3.6k.
+    diffs[CASH_ETF] += sum(diffs[s] for s in skip - {CASH_ETF})
     lines, frac = [], {}
     for s, d in sorted(diffs.items(), key=lambda kv: kv[1]):  # sells first to free cash
-        exit_all = s in held and w.get(s, 0) == 0
+        exit_all = s in held and (w.get(s, 0) == 0 or d <= -held[s])  # target 0, or told to sell the whole holding or more (T-bills after netting)
         if abs(d) < max(50, 0.01 * equity) and not exit_all:
             continue
         try:
@@ -197,7 +201,8 @@ def run(state):
 
     px = yf.download(UNIVERSE + [BENCH], start=(now - dt.timedelta(days=800)).date().isoformat(),
                      auto_adjust=True, progress=False, threads=False)
-    C = px["Close"].reindex(columns=UNIVERSE + [BENCH]).dropna(how="all").ffill()  # a gap in today's partial row would blank that name's vol -> weight 0 -> full sell
+    raw = px["Close"].reindex(columns=UNIVERSE + [BENCH]).dropna(how="all")
+    C = raw.ffill()  # a gap in today's partial row would blank that name's vol -> weight 0 -> full sell
     r = C / C.shift(1) - 1
     vol = r.iloc[:-1].tail(P["vol_win"]).std()
     msgs = []
@@ -209,7 +214,7 @@ def run(state):
             alerted.append(f"move:{s}")
 
     q = C[BENCH]
-    if pd.isna(q.iloc[-1]) or q.notna().sum() < P["regime_ma"]:  # failed QQQ download: NaN < MA is False -> would trade unhalved
+    if pd.isna(raw[BENCH].iloc[-1]) or q.notna().sum() < P["regime_ma"]:  # checked on the unfilled row (ffill hid a missing bar): a stale QQQ close must not set today's regime; the loop retries in minutes
         msgs.append("⚠️ QQQ data missing — regime unknown, skipping today's checks and rebalance.")
         for m in msgs:
             discord(m)
