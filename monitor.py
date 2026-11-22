@@ -17,6 +17,10 @@ import yfinance as yf
 import signals
 from model import BENCH, P, UNIVERSE, target_weights
 
+# Owner override 2026-11-21: dip trade, fully invested. Same inverse-vol basket and caps, but no vol-target scaling
+# and no risk-off halving. Ends the frozen-model paper test (MATH.md change log). Revert: LIVE = P.
+LIVE = {**P, "vol_target": float("inf"), "regime_scale": 1.0}
+
 NY = zoneinfo.ZoneInfo("America/New_York")
 STATE = "state.json"
 HOOK = os.environ.get("DISCORD_WEBHOOK_URL")
@@ -221,11 +225,11 @@ def run(state):
         return
     regime = "risk-on" if q.iloc[-1] >= q.rolling(P["regime_ma"]).mean().iloc[-1] else "risk-off"
     if state.get("regime") and state["regime"] != regime:
-        msgs.append(f"🚦 Regime flip: **{regime}** (QQQ vs 200-day MA). Exposure {'restored' if regime == 'risk-on' else 'halved'} at the close rebalance if it holds.")
+        msgs.append(f"🚦 Regime flip: **{regime}** (QQQ vs 200-day MA). Info only: the live book is fully invested in both regimes (LIVE override).")
     state["regime"] = regime
 
     if (closing or FORCE) and state.get("rebalanced") != today:
-        w = target_weights(C).iloc[-1]
+        w = target_weights(C, LIVE).iloc[-1]
         table = "\n".join(f"`{s:5}` {w[s]:6.1%}" for s in UNIVERSE if w[s] > 0)
         summary = f"📊 **Daily target** ({today}, {regime}) — gross {w.sum():.0%}, cash {1 - w.sum():.0%}\n{table}"
         if AK:
