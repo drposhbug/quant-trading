@@ -95,9 +95,9 @@ assert abs(sp["implied_move"] - 6 / 100.4) < 1e-3
 c_mid = 6 - 2 * tv(106)
 c_nat = 2 * 3 * 0.95 - 2 * tv(106) * 1.05
 assert abs(sp["limit_credit"] - (c_nat - 0.05)) < 0.006, sp  # natural minus $0.05 (paper fills only marketable)
-assert sp["qty"] == math.floor(500 / ((6 - sp["limit_credit"]) * 100)) == 2, sp
+assert sp["qty"] == math.floor(oe.RISK * 100_000 / ((6 - sp["limit_credit"]) * 100)) == 10, sp
 assert [l["side"] for l in sp["legs"]] == ["sell", "sell", "buy", "buy"]
-assert oe.build(chain(), 100.4, 30_000)[1].startswith("qty < 1")
+assert oe.build(chain(), 100.4, 9_000)[1].startswith("qty < 1")
 
 # --- liquidity skips
 ch = chain()
@@ -290,5 +290,13 @@ reset(positions=held())  # positions owned by a tracked spread are not orphans
 msgs.clear()
 oe.run({"spreads": {"NVDA": dict(OPEN)}}, at(11, 0))
 assert not any("does not track" in m for m in msgs), msgs
+
+# --- a report past the 30-day calendar must not stop the scan (audit options_sleeve-1: min() of nothing)
+far = oe.earnings
+oe.earnings = lambda sym, today: (D(2027, 1, 28), "amc") if sym == oe.UNIVERSE[0] else far(sym, today)
+reset()
+msgs.clear()
+oe.entries({"spreads": {}, "done": [], "peak_equity": 100_000}, at(15, 45), 100_000, SESS)  # no ValueError
+oe.earnings = far
 
 print("all options checks passed")

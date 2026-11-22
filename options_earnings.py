@@ -42,7 +42,8 @@ SK, SS = os.environ.get("ALPACA_API_KEY"), os.environ.get("ALPACA_SECRET_KEY")  
 TRADE = "https://paper-api.alpaca.markets/v2"  # paper only, hard-coded on purpose
 DATA = "https://data.alpaca.markets"
 DRY = os.environ.get("DRY_RUN") == "1"
-RISK, MAX_OPEN, MAX_DD, MAX_SPREAD, MIN_OI, MAX_DAYS = 0.005, 4, 0.10, 0.20, 100, 7
+# RISK 0.005 -> 0.02 on 2026-11-21 (owner): at $500 one contract's max loss ($600-1,950) skipped most of the universe
+RISK, MAX_OPEN, MAX_DD, MAX_SPREAD, MIN_OI, MAX_DAYS = 0.02, 4, 0.10, 0.20, 100, 7
 EXIT_FROM, EXIT_TO = dt.time(9, 45), dt.time(10, 30)
 DEAD = ("canceled", "expired", "rejected", "done_for_day")
 
@@ -316,8 +317,8 @@ def entries(state, now, equity, sess):
     held = {re.match(r"[A-Z]+", p["symbol"]).group() for p in alpaca("GET", "/positions") if p.get("asset_class") == "us_option"}
     dd = equity / state["peak_equity"] - 1
     for sym in UNIVERSE:
-        if not (ev := earnings(sym, today)):
-            continue
+        if not (ev := earnings(sym, today)) or ev[0] >= sess[-1]:  # report past the 30-day calendar: min() of nothing
+            continue                                                   # would kill the scan for every later name
         entry, reaction = event_days(*ev, sess)
         key = f"{sym}:{ev[0]}"
         if entry != today or key in state["done"]:
