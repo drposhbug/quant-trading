@@ -109,3 +109,15 @@ monitor.rebalance({s: 0.165 for s in names}, nodata=set())  # stock targets 1617
 assert ("DELETE", "/positions/SGOV", None) in calls, calls
 assert not [c for c in calls if c[0] == "POST"], calls  # no notional SGOV sale larger than the holding, no stock orders
 print("T-bill oversell check passed")
+
+# Fed + meme radar filters (signals.py)
+import signals
+assert signals.fed_relevant("press", "Minutes of the Federal Open Market Committee, October 27-28, 2026")
+assert signals.fed_relevant("press", "Federal Reserve issues FOMC statement")
+assert not signals.fed_relevant("press", "Federal Reserve announces College Fed Challenge winners")
+assert signals.fed_relevant("speech", "Jefferson, Monetary Policy amid Frequent and Complex Shocks")
+assert not signals.fed_relevant("speech", "Waller, Opening Remarks")
+rows = [dict(ticker="GME", mentions=300, mentions_24h_ago=40, rank=2), dict(ticker="NVDA", mentions=515, mentions_24h_ago=1546, rank=1),
+        dict(ticker="MS", mentions=38, mentions_24h_ago=8, rank=11), dict(ticker="NEW", mentions=60, mentions_24h_ago=None, rank=9)]
+assert signals.surges(rows, {"GME"}) == [("GME", 300, 40, 2, True), ("NEW", 60, 0, 9, False)]
+print("radar checks passed")

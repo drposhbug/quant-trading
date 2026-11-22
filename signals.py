@@ -81,3 +81,42 @@ def new_trump_posts(seen):
             tickers = sorted({x for _, tks in hits for x in tks})
             out.append(([t for t, _ in hits], tickers, text, link))
     return out
+
+
+# ---------------------------------------------------------------- Fed + meme-stock radar (added 2026-11-21)
+FED_FEEDS = {"press": "https://www.federalreserve.gov/feeds/press_all.xml",
+             "speech": "https://www.federalreserve.gov/feeds/speeches.xml"}
+FED_PRESS = re.compile(r"FOMC|Open Market|monetary policy|federal funds|discount rate|interest rate|balance sheet|Beige Book", re.I)
+FED_SPEECH = re.compile(r"monetary|economy|economic|outlook|inflation|labor|rates?\b|policy|financial stability", re.I)
+
+
+def fed_relevant(kind, title):
+    return bool((FED_PRESS if kind == "press" else FED_SPEECH).search(title))
+
+
+def new_fed_items(seen):
+    """[(kind, title, link)] for policy-relevant Fed press releases and speeches not in `seen`."""
+    out = []
+    for kind, url in FED_FEEDS.items():
+        r = requests.get(url, headers=UA, timeout=20)
+        r.raise_for_status()
+        for i in ET.fromstring(r.content).iter("item"):
+            title, link = (i.findtext("title") or "").strip(), i.findtext("link")
+            if link not in seen and fed_relevant(kind, title):
+                out.append((kind, title, link))
+    return out
+
+
+def surges(rows, trending, min_mentions=50, ratio=3):
+    """Reddit mention spikes from ApeWisdom rows: >= min_mentions today and >= ratio x yesterday (floor 10)."""
+    return [(x["ticker"], x["mentions"], x.get("mentions_24h_ago") or 0, x["rank"], x["ticker"] in trending)
+            for x in rows if x["mentions"] >= min_mentions and x["mentions"] >= ratio * max(x.get("mentions_24h_ago") or 0, 10)]
+
+
+def meme_surges():
+    rows = _get("https://apewisdom.io/api/v1.0/filter/all-stocks/page/1")["results"]
+    try:
+        trending = {s["symbol"] for s in _get("https://api.stocktwits.com/api/2/trending/symbols.json")["symbols"]}
+    except Exception:  # StockTwits is context only
+        trending = set()
+    return surges(rows, trending)

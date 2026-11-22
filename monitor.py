@@ -125,7 +125,7 @@ def rebalance(w, nodata, last=None):
 
 
 def alt_data(state):
-    """Snapshot prediction markets; alert on new market-relevant Trump posts. Never raises."""
+    """Snapshot prediction markets; alert on Trump posts, Fed policy news and Reddit meme surges. Never raises."""
     try:
         n, errs = signals.snapshot_prediction_markets()
         print(f"prediction markets: {n} rows", *errs)
@@ -145,6 +145,30 @@ def alt_data(state):
         state["seen_posts"] = (prev + [p[3] for p in posts if p[3] not in seen])[-500:]
     except Exception as e:
         print("trump feed failed:", e)
+    try:
+        first_run = "seen_fed" not in state
+        prev = state.get("seen_fed", [])
+        items = signals.new_fed_items(set(prev))
+        for kind, title, link in ([] if first_run else items):
+            who, _, what = title.partition(", ") if kind == "speech" else ("", "", title)
+            discord(f"🏦 **Fed {'speech by ' + who if kind == 'speech' else 'announcement'}:** {what or title}\n{link}\n"
+                    "_Fed news can move interest rates and tech stocks. Info only, the bot doesn't trade on it._")
+        state["seen_fed"] = (prev + [l for _, _, l in items])[-200:]
+    except Exception as e:
+        print("fed feed failed:", e)
+    try:
+        today = dt.datetime.now(NY).date().isoformat()
+        done = [k for k in state.get("seen_memes", []) if k.startswith(today)]
+        for tk, n, before, rank, st in signals.meme_surges():
+            if f"{today}:{tk}" in done:
+                continue
+            discord(f"🔥 **Meme surge: {tk}** was mentioned {n} times on Reddit in the last day, up from {before} "
+                    f"(#{rank} most talked-about){', and it is trending on StockTwits' if st else ''}.\n"
+                    "_Hype spikes like this often fade within days. Info only, the bot doesn't trade these._")
+            done.append(f"{today}:{tk}")
+        state["seen_memes"] = done
+    except Exception as e:
+        print("meme radar failed:", e)
 
 
 TRUMP_NOTE = "_Context only: 0 of 295 tests found these posts predict daily returns (reports/trump_results.md)._"
