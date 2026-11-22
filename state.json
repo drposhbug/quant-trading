@@ -10,7 +10,7 @@
   "https://www.trumpstruth.org/statuses/43646"
  ],
  "alerted": {
-  "2026-11-20": [
+  "2026-11-21": [
    "move:TSLA",
    "move:NVDA",
    "move:AVGO",
@@ -20,7 +20,7 @@
  },
  "regime": "risk-off",
  "rebalanced": "2026-11-20",
- "session_checked": "2026-11-20",
+ "session_checked": "2026-11-21",
  "missed": [
   "2026-11-19"
  ],
