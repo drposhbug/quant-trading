@@ -121,3 +121,7 @@ rows = [dict(ticker="GME", mentions=300, mentions_24h_ago=40, rank=2), dict(tick
         dict(ticker="MS", mentions=38, mentions_24h_ago=8, rank=11), dict(ticker="NEW", mentions=60, mentions_24h_ago=None, rank=9)]
 assert signals.surges(rows, {"GME"}) == [("GME", 300, 40, 2, True), ("NEW", 60, 0, 9, False)]
 print("radar checks passed")
+assert signals.musk_topics("Tesla's FSD V15 Goes to Wide Release Next Month, Musk Says") == ["Tesla"]
+assert signals.musk_topics("Film Review: Musk - The Northern Express") == []
+assert signals.musk_topics("Musk says SpaceX will catch Starship again") == ["SpaceX"]
+print("musk checks passed")

@@ -169,6 +169,23 @@ def alt_data(state):
         state["seen_memes"] = done
     except Exception as e:
         print("meme radar failed:", e)
+    try:  # Musk: X is paywalled, so read news headlines about his posts; one alert per topic per day
+        first_run = "seen_musk" not in state
+        prev = state.get("seen_musk", [])
+        today = dt.datetime.now(NY).date().isoformat()
+        for topics, title, link in ([] if first_run else signals.musk_news(set(prev))):
+            new = [t for t in topics if f"{today}:{t}" not in prev]
+            if new:
+                tk = " ".join(sorted({signals.MUSK_TOPICS[t][1] for t in new} - {""}))
+                discord(f"🚀 **Musk news ({', '.join(new)}{', ' + tk if tk else ''}):** {title}\n[Read the story]({link})\n"
+                        "_From news coverage of his posts, so it can lag X by minutes to hours. Info only._")
+                prev += [f"{today}:{t}" for t in new]
+            prev.append(link)
+        if first_run:
+            prev = [l for _, _, l in signals.musk_news(set())]
+        state["seen_musk"] = prev[-300:]
+    except Exception as e:
+        print("musk feed failed:", e)
 
 
 TRUMP_NOTE = "_Context only: 0 of 295 tests found these posts predict daily returns (reports/trump_results.md)._"

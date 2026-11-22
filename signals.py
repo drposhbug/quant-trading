@@ -120,3 +120,34 @@ def meme_surges():
     except Exception:  # StockTwits is context only
         trending = set()
     return surges(rows, trending)
+
+
+# ---------------------------------------------------------------- Musk via news coverage (free; X itself is paywalled)
+MUSK_FEED = ("https://news.google.com/rss/search?q=%22Musk%22%20(says%20OR%20posted%20OR%20tweeted%20OR%20%22on%20X%22)"
+             "%20when%3A1d&hl=en-US&gl=US&ceid=US:en")
+MUSK_VERB = re.compile(r"\b(says?|said|posts?|posted|tweets?|tweeted|touts?|announces?|reveals?|claims?|warns?|"
+                       r"confirms?|teases?|on X)\b", re.I)
+MUSK_TOPICS = {"Tesla": (r"Tesla|FSD|robotaxi|Cybertruck|Cybercab|Optimus", "TSLA"),
+               "SpaceX": (r"SpaceX|Starship|Starlink", "SPCX"),
+               "xAI": (r"xAI|Grok", ""),
+               "AI chips": (r"Nvidia|chips?\b|GPU|Dojo|AI[5-6]\b", "NVDA"),
+               "Politics/tariffs": (r"tariff|Trump|DOGE|China|Fed\b", "")}
+
+
+def musk_topics(title):
+    """Topics of a headline that reports Musk saying/posting something market-relevant; [] otherwise."""
+    if not (re.search(r"\bMusk\b", title) and MUSK_VERB.search(title)):
+        return []
+    return [t for t, (pat, _) in MUSK_TOPICS.items() if re.search(pat, title, re.I)]
+
+
+def musk_news(seen):
+    """[(topics, title, link)] for new matching headlines (Google News RSS, minutes-to-hours behind X)."""
+    r = requests.get(MUSK_FEED, headers=UA, timeout=20)
+    r.raise_for_status()
+    out = []
+    for i in ET.fromstring(r.content).iter("item"):
+        title, link = (i.findtext("title") or "").strip(), i.findtext("link")
+        if link not in seen and (tp := musk_topics(title)):
+            out.append((tp, title, link))
+    return out
