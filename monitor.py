@@ -8,6 +8,7 @@ import datetime as dt
 import json
 import os
 import zoneinfo
+from urllib.parse import quote
 
 import numpy as np
 import pandas as pd
@@ -70,6 +71,16 @@ def market_clock(now):
 
 
 CASH_ETF = "SGOV"  # 0-3 month T-bills: idle cash earns ~the T-bill rate instead of 0
+
+
+def ask_link(now, equity, day, regime):
+    """A claude.ai link with today's numbers pre-filled, so the owner can ask why from Discord (webhooks are one-way)."""
+    acct = f"account ${equity:,.0f} ({equity / START - 1:+.1%} since the $100,000 start), " if equity else ""
+    q = (f"My paper-trading bot holds big tech stocks, about 99% invested, rebalanced daily. As of {now:%b %d %Y}: {acct}"
+         f"Nasdaq trend {'up' if regime == 'risk-on' else 'down'} vs its 200-day average. Last day's moves: "
+         + ", ".join(f"{s} {x:+.1%}" for s, x in day.items())
+         + ". Search today's news and explain in plain English, no jargon, why these stocks moved and what to watch next.")
+    return f"❓ [**Ask Claude why**](https://claude.ai/new?q={quote(q)}) (opens a chat with today's numbers filled in)"
 
 
 def rebalance(w, nodata, last=None):
@@ -242,20 +253,28 @@ def run(state):
 
     if (closing or FORCE) and state.get("rebalanced") != today:
         w = target_weights(C, LIVE).iloc[-1]
-        mix = ", ".join(f"{NAMES[s]} {w[s]:.0%}" for s in w[UNIVERSE].sort_values(ascending=False).index if w[s] > 0)
+        order = w[UNIVERSE].sort_values(ascending=False).index
+        mix = "\n".join(f"• {NAMES[s]} {w[s]:.0%}" for s in order if w[s] > 0)
+        day = r[UNIVERSE].iloc[-1].dropna().sort_values()
+        moves = "\n".join(f"• {NAMES[s]} {'up' if x > 0 else 'down'} {abs(x):.1%}" for s, x in
+                          list(day.items())[:3] + [kv for kv in list(day.items())[-2:] if kv[1] > 0])
         trend = "up (Nasdaq above its 200-day average)" if regime == "risk-on" else "down (Nasdaq below its 200-day average)"
-        summary = (f"📊 **Daily update, {now:%a %b %d}**\nMarket trend: {trend}\n"
-                   f"Plan: {w.sum():.0%} in big tech stocks, {1 - w.sum():.0%} in cash. Nothing for you to do, the bot trades it.\n"
-                   f"Split: {mix}")
+        summary = (f"📊 **Daily update, {now:%a %b %d}**\n\n"
+                   f"📈 **Market trend:** {trend}\n\n"
+                   f"🔍 **Biggest moves on the last trading day:**\n{moves}\n\n"
+                   f"🎯 **Plan:** {w.sum():.0%} in big tech stocks, {1 - w.sum():.0%} in cash. Nothing for you to do, the bot trades it.\n{mix}")
+        equity = None
         if AK:
             equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()}, C.iloc[-1].dropna().to_dict())
-            summary += (f"\n💰 **Paper account: ${equity:,.0f}** ({'up' if equity >= START else 'down'} {abs(equity / START - 1):.1%} since the $100,000 start)\n"
-                        + ("Trades: " + "; ".join(map(plain, orders)) if orders else "No trades needed today."))
+            summary = (summary.replace("\n\n📈", f"\n\n💰 **Paper account: ${equity:,.0f}**\n"
+                                       f"{'Up' if equity >= START else 'Down'} {abs(equity / START - 1):.1%} since the $100,000 start\n\n📈", 1)
+                       + "\n\n🧾 **Trades:**\n" + ("\n".join(f"• {plain(o)}" for o in orders) if orders else "No trades needed today."))
             if dd_msg := drawdown_alert(state, equity):
                 msgs.append(dd_msg)
             if closing:  # one row per day at the close rebalance; track.py compares it with the backtest
                 log_equity(today, equity, w.sum(), regime)
-        msgs.append(summary)
+        msgs.append(summary[:1990])
+        msgs.append(ask_link(now, equity, day, regime))
         # failed/skipped orders retry next run (diffs come from live positions, so fills aren't repeated);
         # a forced midday run must not block the real closing rebalance
         if closing and not (AK and any(o.startswith(("FAILED", "SKIPPED")) for o in orders)):

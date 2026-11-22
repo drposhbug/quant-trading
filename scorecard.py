@@ -393,7 +393,7 @@ def report(card):
         s = card[k]
         lines.append(f"**{RULES[k]['name']}**: {plain(k, s)}. {s['n']} of {RULES[k]['min_n']} needed "
                      f"before grading, {STATUS.get(s['verdict'], s['verdict'])}.")
-    msg = "\n".join(lines)
+    msg = "\n\n".join(lines)
     return msg if len(msg) <= 1900 else msg[:1897] + "..."
 
 
