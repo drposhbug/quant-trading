@@ -40,11 +40,11 @@ print("all checks passed")
 st = {}
 assert monitor.drawdown_alert(st, 100_000) is None
 assert monitor.drawdown_alert(st, 95_000) is None
-assert "-10.0%" in monitor.drawdown_alert(st, 90_000)
+assert "down 10%" in monitor.drawdown_alert(st, 90_000)
 assert monitor.drawdown_alert(st, 89_000) is None  # same tier: no repeat
-assert "deep" in monitor.drawdown_alert(st, 80_000)
+assert "deep loss" in monitor.drawdown_alert(st, 80_000)
 assert monitor.drawdown_alert(st, 97_000) is None and st["dd_tier"] == 0  # recovered past -5%: re-armed
-assert "review" in monitor.drawdown_alert(st, 89_000)
+assert "let it ride" in monitor.drawdown_alert(st, 89_000)
 print("drawdown checks passed")
 
 # Equity log: one row per day, retries replace.

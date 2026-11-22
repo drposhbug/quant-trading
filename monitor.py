@@ -20,6 +20,18 @@ from model import BENCH, P, UNIVERSE, target_weights
 # Owner override 2026-11-21: dip trade, fully invested. Same inverse-vol basket and caps, but no vol-target scaling
 # and no risk-off halving. Ends the frozen-model paper test (MATH.md change log). Revert: LIVE = P.
 LIVE = {**P, "vol_target": float("inf"), "regime_scale": 1.0}
+NAMES = {"TSLA": "Tesla", "SPCX": "SpaceX", "AAPL": "Apple", "MSFT": "Microsoft", "NVDA": "Nvidia", "GOOGL": "Google",
+         "AMZN": "Amazon", "META": "Meta", "AVGO": "Broadcom", "TSM": "TSMC", "AMD": "AMD", "ORCL": "Oracle",
+         "SGOV": "T-bills (cash)"}
+START = 100_000
+
+
+def plain(order):
+    """'BUY  AAPL $9,767' -> 'buying $9,767 of Apple' for Discord; FAILED/SKIPPED/INFO lines pass through."""
+    side, sym, *rest = order.split()
+    if side not in ("BUY", "SELL"):
+        return order
+    return f"{'buying' if side == 'BUY' else 'selling'} {rest[0]} of {NAMES.get(sym, sym)}{' (all of it)' if '(close)' in rest else ''}"
 
 NY = zoneinfo.ZoneInfo("America/New_York")
 STATE = "state.json"
@@ -128,9 +140,9 @@ TRUMP_NOTE = "_Context only: 0 of 295 tests found these posts predict daily retu
 
 # Pre-committed drawdown tiers (reports/Trading psychology and behavior.md): decided now, not mid-drawdown.
 # Alerts only. Cutting risk automatically would be an untested model change; any change goes through backtest.py.
-DD_TIERS = [(-0.10, "review: inside the backtest's normal range (max drawdown -27%). Rule: no action."),
-            (-0.20, "deep: in the worst tail of backtest drawdowns. Rule: decide on lowering vol_target at the next "
-                    "scheduled review, after re-running backtest.py — never same-day.")]
+DD_TIERS = [(-0.10, "Drops like this happened in testing and recovered. Recommended: do nothing, let it ride."),
+            (-0.20, "This is a deep loss, as bad as the worst stretches in testing. Recommended: don't panic-sell; "
+                    "talk it through before changing anything.")]
 
 
 def missed_rebalance(state, today):
@@ -145,7 +157,7 @@ def missed_rebalance(state, today):
     if not missed:
         return None
     state["missed"] = sorted(set(state.get("missed", [])) | set(missed))
-    return f"⚠️ **Missed rebalance** on {', '.join(missed)} (last completed {last}). Total missed this year: {len(state['missed'])}."
+    return f"⚠️ **The bot didn't trade on {', '.join(missed)}** (last trade day {last}), usually a GitHub hiccup. It catches up by itself. Days missed so far: {len(state['missed'])}."
 
 
 EQUITY_LOG = "signals/equity_log.csv"
@@ -170,7 +182,7 @@ def drawdown_alert(state, equity):
     tier = sum(dd <= t for t, _ in DD_TIERS)
     if tier > state.get("dd_tier", 0):
         state["dd_tier"] = tier
-        return f"📉 **Drawdown {dd:.1%}** from peak ${peak:,.0f} — {DD_TIERS[tier - 1][1]}"
+        return f"📉 **The account is down {-dd:.0%} from its high** of ${peak:,.0f}. {DD_TIERS[tier - 1][1]}"
     return None
 
 
@@ -214,27 +226,31 @@ def run(state):
     for s in UNIVERSE:
         z = r[s].iloc[-1] / vol[s] if vol[s] > 0 else np.nan
         if abs(z) > 2.5 and f"move:{s}" not in alerted:
-            msgs.append(f"⚡ **{s}** {r[s].iloc[-1]:+.2%} today ({z:+.1f}σ vs 60d vol)")
+            msgs.append(f"⚡ **{NAMES[s]} is {'up' if z > 0 else 'down'} {abs(r[s].iloc[-1]):.1%} today**, a big move for it (about {abs(z):.0f}x a normal day). Nothing to do, the bot rebalances near the close.")
             alerted.append(f"move:{s}")
 
     q = C[BENCH]
     if pd.isna(raw[BENCH].iloc[-1]) or q.notna().sum() < P["regime_ma"]:  # checked on the unfilled row (ffill hid a missing bar): a stale QQQ close must not set today's regime; the loop retries in minutes
-        msgs.append("⚠️ QQQ data missing — regime unknown, skipping today's checks and rebalance.")
+        msgs.append("⚠️ Couldn't get today's market prices. The bot is waiting and will try again in a few minutes.")
         for m in msgs:
             discord(m)
         return
     regime = "risk-on" if q.iloc[-1] >= q.rolling(P["regime_ma"]).mean().iloc[-1] else "risk-off"
     if state.get("regime") and state["regime"] != regime:
-        msgs.append(f"🚦 Regime flip: **{regime}** (QQQ vs 200-day MA). Info only: the live book is fully invested in both regimes (LIVE override).")
+        msgs.append(f"🚦 **The market's trend just turned {'up' if regime == 'risk-on' else 'down'}** (the Nasdaq crossed its 200-day average). No change to the plan: the bot stays fully invested either way.")
     state["regime"] = regime
 
     if (closing or FORCE) and state.get("rebalanced") != today:
         w = target_weights(C, LIVE).iloc[-1]
-        table = "\n".join(f"`{s:5}` {w[s]:6.1%}" for s in UNIVERSE if w[s] > 0)
-        summary = f"📊 **Daily target** ({today}, {regime}) — gross {w.sum():.0%}, cash {1 - w.sum():.0%}\n{table}"
+        mix = ", ".join(f"{NAMES[s]} {w[s]:.0%}" for s in w[UNIVERSE].sort_values(ascending=False).index if w[s] > 0)
+        trend = "up (Nasdaq above its 200-day average)" if regime == "risk-on" else "down (Nasdaq below its 200-day average)"
+        summary = (f"📊 **Daily update, {now:%a %b %d}**\nMarket trend: {trend}\n"
+                   f"Plan: {w.sum():.0%} in big tech stocks, {1 - w.sum():.0%} in cash. Nothing for you to do, the bot trades it.\n"
+                   f"Split: {mix}")
         if AK:
             equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()}, C.iloc[-1].dropna().to_dict())
-            summary += f"\n🧾 Paper account ${equity:,.0f}\n" + ("\n".join(orders) or "no trades needed")
+            summary += (f"\n💰 **Paper account: ${equity:,.0f}** ({'up' if equity >= START else 'down'} {abs(equity / START - 1):.1%} since the $100,000 start)\n"
+                        + ("Trades: " + "; ".join(map(plain, orders)) if orders else "No trades needed today."))
             if dd_msg := drawdown_alert(state, equity):
                 msgs.append(dd_msg)
             if closing:  # one row per day at the close rebalance; track.py compares it with the backtest

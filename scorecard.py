@@ -350,9 +350,39 @@ def markdown(card):
                       *rows, "", "| Experiment | Benchmark | Min n | Pass test | Stop |", "|---|---|---|---|---|", *rules])
 
 
+STATUS = {"INSUFFICIENT_N": "too early to tell", "PASS": "✅ passed", "FAIL": "❌ failed", "STOP": "🛑 stop it",
+          "NOT_SCORED": "not graded", "ERROR": "⚠️ error"}
+
+
+def plain(k, s):
+    """One plain-English line per experiment for Discord (the markdown report keeps the full numbers)."""
+    if "error" in s:
+        return "couldn't read its data today"
+    if k == "stocks":
+        if not s["equity"]:
+            return "no account data"
+        r = s["equity"] / 100_000 - 1
+        return f"${s['equity']:,.0f}, {'up' if r >= 0 else 'down'} {abs(r):.1%} since the $100,000 start"
+    if k == "options":
+        return f"${s['equity']:,.0f}, {s['open']} trades open" if s["equity"] else "no account data"
+    if k == "ipo":
+        return f"{s['markets']} IPO bets finished; still collecting"
+    if k == "sport_fav":
+        return "; ".join(f"{g}: {_bets(v)}" for g, v in s["groups"].items())
+    return _bets(s)
+
+
+def _bets(s):
+    if not s.get("n"):
+        return s.get("note", "no finished bets yet")
+    roi = s.get("roi")
+    res = "result n/a" if roi is None else f"{'up' if roi >= 0 else 'down'} {abs(roi):.1%} so far"
+    return f"{s['n']} finished bet{'s' * (s['n'] != 1)}, {res}"
+
+
 def report(card):
     """One Discord message, <= 1900 chars."""
-    lines = [f"📋 **Scorecard {card['date']}** (paper only; pre-registered rules, MATH.md)"]
+    lines = [f"📋 **Daily report card, {card['date']}** (all paper money, nothing real at risk)"]
     for k in SLEEVES:  # alerts first: the length cap truncates from the end
         if card[k]["verdict"] == "PASS":
             lines.append(f"✅ **{RULES[k]['name']} passed its pre-registered test.** Recommendation only: you decide "
@@ -361,7 +391,8 @@ def report(card):
             lines.append(f"🛑 **{RULES[k]['name']} breached its loss limit** ({RULES[k]['stop']}). Recommend stopping it.")
     for k in SLEEVES:
         s = card[k]
-        lines.append(f"**{RULES[k]['name']}** {s['n']}/{RULES[k]['min_n']} → `{s['verdict']}`\n{summary(k, s)[:170]}")
+        lines.append(f"**{RULES[k]['name']}**: {plain(k, s)}. {s['n']} of {RULES[k]['min_n']} needed "
+                     f"before grading, {STATUS.get(s['verdict'], s['verdict'])}.")
     msg = "\n".join(lines)
     return msg if len(msg) <= 1900 else msg[:1897] + "..."
 
