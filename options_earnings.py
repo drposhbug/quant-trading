@@ -53,7 +53,7 @@ def discord(msg):
         print(msg)
         return
     try:
-        requests.post(HOOK, json={"content": msg[:1990]}, timeout=10).raise_for_status()
+        requests.post(HOOK, json={"content": msg[:1990], "allowed_mentions": {"parse": []}}, timeout=10).raise_for_status()
     except requests.RequestException as e:  # str(e) can contain the webhook URL (public logs)
         print("discord failed:", type(e).__name__)
 

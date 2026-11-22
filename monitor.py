@@ -47,7 +47,8 @@ def discord(msg):
         print(msg)
         return
     try:  # swallow here so no caller can print a traceback containing the webhook URL (public Actions logs)
-        requests.post(HOOK, json={"content": msg[:1990]}, timeout=10).raise_for_status()
+        # allowed_mentions: outside text (headlines, posts) must never ping @everyone/@here/users/roles
+        requests.post(HOOK, json={"content": msg[:1990], "allowed_mentions": {"parse": []}}, timeout=10).raise_for_status()
         return True
     except requests.RequestException as e:
         print("discord failed:", type(e).__name__, getattr(e.response, "status_code", ""))
@@ -175,7 +176,7 @@ def alt_data(state):
         today = dt.datetime.now(NY).date().isoformat()
         for topics, title, link in ([] if first_run else signals.musk_news(set(prev))):
             new = [t for t in topics if f"{today}:{t}" not in prev]
-            if new:
+            if new and (link or "").startswith("https://news.google.com/"):  # only link to the feed's own host
                 tk = " ".join(sorted({signals.MUSK_TOPICS[t][1] for t in new} - {""}))
                 discord(f"🚀 **Musk news ({', '.join(new)}{', ' + tk if tk else ''}):** {title}\n[Read the story]({link})\n"
                         "_From news coverage of his posts, so it can lag X by minutes to hours. Info only._")
