@@ -1,0 +1,23 @@
+date,list,variant,sha,name,close,nn_score,nn_rank,nn_weight,trend_score,trend_rank,trend_weight
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,AAPL,349.08,0.35034,9.0,0.25,1.15229,10.0,0.25
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,MSFT,492.5,-0.04864,7.0,0.2094,0.19324,8.0,0.2119
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,GOOGL,282.1,-0.20327,3.0,0.0372,-0.38072,2.0,0.0376
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,META,597.6,-0.4751,1.0,0.0308,0.1968,9.0,0.1245
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,ORCL,113.68,-0.13451,6.0,0.0428,-0.71876,1.0,0.0217
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,INTC,59.66,0.8231,10.0,0.057,0.10892,4.0,0.0289
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,AMZN,255.39,-0.20396,2.0,0.043,0.13714,6.0,0.087
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,CSCO,96.8,-0.15521,5.0,0.072,0.13485,5.0,0.0729
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,IBM,233.0,0.212,8.0,0.1955,-0.1924,3.0,0.0494
+2026-11-23,end-2014,v4 the machine picks its own patterns,5ad844f,QCOM,165.38,-0.16474,4.0,0.0495,0.16096,7.0,0.1002
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,TSLA,385.46,0.26534,10.0,0.1201,0.11923,6.0,0.0544
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,SPCX,133.35,0.73683,11.0,0.05,-0.11142,5.0,0.0387
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,AAPL,349.08,0.00828,7.0,0.1435,1.15229,12.0,0.25
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,MSFT,492.5,0.20074,9.0,0.2287,0.19324,9.0,0.2072
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,NVDA,165.05,-0.6095,1.0,0.0213,-0.22586,4.0,0.0193
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,GOOGL,282.1,-0.34151,2.0,0.0406,-0.38072,2.0,0.0368
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,AMZN,255.39,0.06239,8.0,0.0939,0.13714,7.0,0.085
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,META,597.6,-0.04813,5.0,0.0672,0.1968,10.0,0.1217
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,AVGO,313.55,-0.07686,4.0,0.0286,-0.28644,3.0,0.0259
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,TSM,363.6,-0.3095,3.0,0.0287,0.14983,8.0,0.052
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,AMD,453.46,-0.01514,6.0,0.036,0.47149,11.0,0.0652
+2026-11-23,shipped,v4 the machine picks its own patterns,5ad844f,ORCL,113.68,0.79021,12.0,0.0936,-0.71876,1.0,0.0212
