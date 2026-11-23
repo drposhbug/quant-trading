@@ -1,0 +1,40 @@
+name: learn
+on:
+  schedule:
+    # Monthly self-review (learn.py). GitHub cron is best-effort, so days 1-3 back each other up; learn.py counts
+    # only the first run of a month.
+    - cron: "37 14 1-3 * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Run again even if this month was already reviewed (counts as another review)"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: learn
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Monthly self-review (reads public prices, never orders; the trading bot reads signals/live_config.json)
+        run: python learn.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          FORCE: ${{ inputs.force && '1' || '0' }}
+      - name: Save result
+        run: |
+          git config user.name "monitor-bot"
+          git config user.email "monitor-bot@users.noreply.github.com"
+          git add signals/live_config.json signals/learn_state.json signals/learn_log.csv 2>/dev/null || true
+          git add reports/growth_odds.md reports/tilt_odds.md reports/mini_trend_odds.md reports/exit_odds.md 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "monthly self-review" && git pull --rebase -X theirs && git push)

@@ -140,3 +140,15 @@ _up = ["TSLA", "AAPL", "MSFT"]  # the three strongest risers that are not held a
 assert (_tilt[_up] > _live[_up]).all() and (_tilt[UNIVERSE[-3:]] < _live[UNIVERSE[-3:]]).all(), (_tilt / _live).round(2).to_dict()
 assert np.allclose(monitor.tilted(_px.iloc[:-30]).iloc[-1], monitor.tilted(_px).iloc[-31])  # no lookahead
 print("trend tilt checks passed")
+
+# Self-review config (learn.py): each setting selects the matching book; a broken or missing file falls back to today's book.
+import json, os, tempfile
+_keep, monitor.CONFIG = monitor.CONFIG, os.path.join(tempfile.mkdtemp(), "live_config.json")
+assert monitor.live_weights(_px).equals(monitor.tilted(_px))  # no file -> default
+for _cfg, _want in (({"tilt": "none"}, target_weights(_px, monitor.LIVE)), ({"exposure": "engine"}, target_weights(_px)), ({}, monitor.tilted(_px))):
+    json.dump(_cfg, open(monitor.CONFIG, "w"))
+    assert monitor.live_weights(_px).equals(_want), _cfg
+open(monitor.CONFIG, "w").write("{not json")
+assert monitor.live_weights(_px).equals(monitor.tilted(_px))
+monitor.CONFIG = _keep
+print("live config checks passed")

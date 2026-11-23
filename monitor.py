@@ -22,6 +22,20 @@ from model import BENCH, P, UNIVERSE, target_weights, EVENT_CAPS, scores
 # and no risk-off halving. Ends the frozen-model paper test (MATH.md change log). Revert: LIVE = P.
 LIVE = {**P, "vol_target": float("inf"), "regime_scale": 1.0}
 
+CONFIG, DEFAULT = "signals/live_config.json", {"exposure": "full", "tilt": "long"}
+
+
+def live_weights(px):
+    """The live book as set by learn.py's monthly self-review (CONFIG). A missing or unreadable file means DEFAULT,
+    the book of 2026-11-23, so a bad write can never stop the rebalance."""
+    try:
+        cfg = {**DEFAULT, **json.load(open(CONFIG))}
+    except (OSError, ValueError):
+        cfg = DEFAULT
+    if cfg["exposure"] == "engine":  # the original cut-loss rules: 20% vol target, halved below QQQ's 200-day
+        return target_weights(px)
+    return tilted(px) if cfg["tilt"] == "long" else target_weights(px, LIVE)
+
 
 def tilted(px, w_trend=1.0):
     """When to go heavier (2026-11-23, tilt_odds.py): LIVE weights x2 for the top third of names by the model's trend
@@ -305,7 +319,7 @@ def run(state):
     state["regime"] = regime
 
     if (closing or FORCE) and state.get("rebalanced") != today:
-        w = tilted(C).iloc[-1]
+        w = live_weights(C).iloc[-1]
         order = w[UNIVERSE].sort_values(ascending=False).index
         mix = "\n".join(f"• {NAMES[s]} {w[s]:.0%}" for s in order if w[s] > 0)
         day = r[UNIVERSE].iloc[-1].dropna().sort_values()

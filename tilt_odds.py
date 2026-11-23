@@ -64,6 +64,7 @@ def main():
     with open("reports/tilt_odds.md", "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
     print("\n".join(out))
+    return t, ok
 
 
 if __name__ == "__main__":

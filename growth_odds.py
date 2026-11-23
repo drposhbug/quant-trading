@@ -88,6 +88,7 @@ def main():
     with open("reports/growth_odds.md", "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
     print("\n".join(out))
+    return ta, tb
 
 
 if __name__ == "__main__":
