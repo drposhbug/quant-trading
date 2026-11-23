@@ -15,13 +15,16 @@ import math
 
 import pandas as pd
 
-from model import BENCH, load_prices, target_weights, backtest_returns
+from model import BENCH, load_prices, backtest_returns
+from monitor import live_weights
 
 
 def compare(log):
     """log: equity_log rows indexed by date (>= 2 rows). Live vs backtest model vs QQQ over the logged days."""
     px = load_prices(start=(log.index[0] - pd.Timedelta(days=500)).date().isoformat())
-    m = backtest_returns(px, target_weights(px))
+    # The book the bot holds now (monitor.live_weights reads the self-review's settings), not the retired engine.
+    # Days before 2026-11-24 were traded under earlier rules (engine to 11-20, untilted on 11-23), so they will not match.
+    m = backtest_returns(px, live_weights(px))
     idx = log.index  # compound the model across sessions between logged dates (a missed day spans two sessions live)
     model = pd.Series([(1 + m[(m.index > a) & (m.index <= b)]).prod() - 1 for a, b in zip(idx[:-1], idx[1:])], index=idx[1:])
     live = log.equity.pct_change().iloc[1:]
