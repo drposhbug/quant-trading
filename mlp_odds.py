@@ -21,8 +21,9 @@ experiment; research_notes/mlp loop/round 2.md). Rule 1 and its three experiment
   no download and cannot see a later price. Every variant is scored on the same months and the same names.
 - The experiments are the four written in lab/queue.md before any of them ran, in that order, one change each, in
   this file only, each with a new VARIANT name and VARIANT["judged_from"] set to the day it is run. One try per
-  idea. --dev counts them and refuses a fifth (BUDGET): more tries on the same 71 months would only find noise.
-  Only the owner can raise the budget, with a row in MATH.md's change log.
+  idea. --dev counts them and refuses one more (BUDGET): more tries on the same 71 months would only find noise.
+  Only the owner can raise the budget, with a row in MATH.md's change log. Raised once, from 4 to 5, on 2026-11-23,
+  before any of the five ran: the owner asked for a machine that builds its own inputs (discover_odds.py).
 - The yardstick is the live book, not the previous network. A change is kept only if ALL hold on the end-2014 list:
   growth odds against the live book >= 0.90, above 0.5 in each half, and above 0.5 when any one year is left out
   (the official bar, applied to the development years); and its rank IC is above the live trend score's, also when
@@ -58,7 +59,7 @@ from universe_study import TECH10_2014, load_extra
 FIRST, EVERY, FWD, SEEDS = 500, 21, 21, (0, 1, 2)
 DEV_END, LOG = "2021-12-31", "reports/mlp_lab_log.csv"
 DEV_PX, GRID_START = "lab/dev_prices.csv", "2016-01-28"  # lists()[0] as downloaded 2026-11-23, cut at DEV_END; the first forecast day
-RULE, BUDGET, BAR, MIN_FWD = "2", 4, 0.90, 252
+RULE, BUDGET, BAR, MIN_FWD = "2", 5, 0.90, 252
 FORECASTS, FORWARD = "signals/mlp_forecasts.csv", "signals/mlp_forward.csv"
 NAME = "mlp: a neural network refitted every month"
 VARIANT = {"name": "v1 baseline", "judged_from": "2022-01-01", "target": "relative", "hidden": 16, "l2": 1e-3,

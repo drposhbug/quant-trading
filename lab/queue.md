@@ -1,7 +1,8 @@
-# Network lab: the four experiments
+# Network lab: the experiments
 
 Written 2026-11-23, before any of them ran. This list is the whole budget under rule 2 (mlp_odds.py docstring):
-`python mlp_odds.py --dev` counts the runs and refuses a fifth. Run them in this order. Do not add, swap, split or
+four for the scheduled task and a fifth the owner added the same day (at the end). `python mlp_odds.py --dev`
+counts the runs and refuses one more. Run them in this order. Do not add, swap, split or
 re-run one, and do not design a change from a verdict or from the worst-month lines: both reviewers named that as
 the way a loop fits anecdotes. Sources: `research_notes/mlp loop/round 2.md`.
 
@@ -53,7 +54,16 @@ budgeted round.
 - Earnings-shock input: needs announcement dates. Grok: 0.75 that it repeats the null already logged.
 - Dollar volume: needs volume.
 
-## After the four
+## 5. `v4 the machine picks its own patterns`  (added by the owner, 2026-11-23; run by hand, not by the scheduled task)
+
+The owner asked for a model that "looks for unique trends and makes its own correlations" instead of using the
+textbook inputs. It is a separate file, discover_odds.py, whose docstring is the full definition, fixed before it
+was scored: 945 candidate patterns built from each stock's open, high, low, close and volume and 15 outside
+series; every 21 sessions it keeps the 10 that held up in both halves of what it has seen; one equal vote each.
+Run once with `python discover_odds.py --dev`, same bar as the four above. The budget went from 4 to 5 for it.
+Whatever its verdict, it has a forward record of its own (signals/discover_*.csv).
+
+## After the five
 
 The lab is closed to history. New evidence comes only from the forward record (signals/mlp_forecasts.csv and
 signals/mlp_forward.csv), which grows by one day at a time.
