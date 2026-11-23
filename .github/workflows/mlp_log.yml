@@ -29,5 +29,6 @@ jobs:
         run: |
           git config user.name "monitor-bot"
           git config user.email "monitor-bot@users.noreply.github.com"
-          git add signals/mlp_forecasts.csv signals/mlp_forward.csv 2>/dev/null || true
+          git add signals/mlp_forecasts.csv 2>/dev/null || true
+          git add signals/mlp_forward.csv 2>/dev/null || true  # separate add: a file that does not exist yet would abort the one above
           git diff --cached --quiet || (git commit -m "network forward record" && git pull --rebase -X theirs && git push)
