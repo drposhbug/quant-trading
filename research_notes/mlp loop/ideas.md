@@ -39,3 +39,54 @@ Monthly verdicts can turn the lockbox into another development set, even through
 ## 5. Honest prior
 
 **25%** that the development-selected finalist achieves higher lockbox CAGR than live on the end-2014 list. That judgment uses your reported results. The negative IC on the deciding list weighs more heavily than the favorable hindsight basket. I’d keep the live tilt and log the challenger’s timestamped disagreements until prospective returns justify switching.
+---
+
+# Grok
+
+## 1. Inputs, target and training data
+
+P(real month-ahead rank value) on 10–12 megacap tech names. ~1,150 tests left only slow trend. Mean rank-IC SE for 2016–2021 is ~0.04.
+
+1. **0.18 — PIT universe.** Every point-in-time S&P 500 name that day with ≥252 sessions. Target: next-21-session return minus that day’s equal-weight mean. Same feature formulas. Score on the book. Reason: ~250 weights need more than twelve names.
+
+2. **0.14 — Overnight residual momentum.** Sum of log(open / prior close) over t−126…t−21 and t−63…t−21, minus β̂ times the same QQQ sum, divided by 60-session vol, z-scored in the book. β̂ is the slope of 60 daily close-to-close returns on QQQ. Reason: the drift that survived is overnight.
+
+3. **0.12 — Skip-month residual momentum.** (Return from t−252 to t−21) minus β̂ times QQQ over that window, divided by the std of residuals from that 60-day fit, z-scored. Replaces raw 126- and 252-session returns. Reason: the live signal with the market leg removed. Similar betas cap the gain.
+
+4. **0.11 — Rank target.** Percentile of next-21 relative return inside the training universe that day; squared error on the percentile. Reason: the tilt only uses thirds, and dollar errors are single-name spikes.
+
+5. **0.08 — Orthogonal target.** Next-21 relative return minus a past-only, same-day cross-sectional fit on the live trend score. Keep only if residual rank IC > 0. Reason: the rest mostly reprints the tilt.
+
+6. **0.07 — Earnings residual.** If an earnings date is in the last 63 sessions: (close two sessions after / close the session before − 1) / 60-day vol × exp(−days/63); else 0. Reason: one dated shock on a one-month clock.
+
+7. **0.05 — Dollar volume.** log(21-day mean of close×volume) − log(252-day mean), z-scored. Reason: participation beside price.
+
+8. **0.05 — Idio vol.** Std of residuals from the 60-day QQQ regression, z-scored, low scored high. Reason: the vol input you have still contains QQQ.
+
+**Skip:** macro, ^IRX, VIX level, prediction-market odds, presidential posts, candlesticks, RSI, 1–5 session reversal, extra layers, LSTMs. Shared factors and already-null families. Twelve names, one beta.
+
+## 2. Training design
+
+Do item 1 first. Keep 16 tanh units, the 21-session refit, and 3 seeds. The hidden layer is variance; the rows are the fix. Fit a linear item-3 score on the same PIT rows. If its 2016–2021 rank IC on the book matches the net, ship the linear score.
+
+## 3. Learning from mistakes
+
+Development years only:
+
+1. **Halves and names.** Rank IC in 2016–2018, in 2019–2021, and after dropping each name. A miss on a half or a name → revert.
+2. **Trend clone.** Corr(forecast, live score), and rank IC after a same-day regression on that score. Corr > ~0.7 and residual IC ≤ 0 → drop raw 63/126/252 returns.
+3. **Disagreement.** Rank IC in months the forecast’s thirds differ from the trend’s. ≤ 0 → revert.
+4. **Sides and turnover.** Hit rate of each predicted third, and membership turnover. A weak side → move that multiplier toward 1×. Turnover up with flat IC → more L2, or 8 units.
+5. **Permute the six worst months.** IC loss from the 5-session return or QQQ’s 21-session return → drop that input. Loss spread across inputs → revert.
+
+## 4. Guardrails
+
+The biggest leak is selecting every pass on the same 2016–2021 path, then handing the lockbox one survivor. +0.01 is ~0.3 SE. Overlapping 21-session labels make a daily bootstrap look tighter than ~72 months.
+
+**Rule to add:** five passes, budget fixed now. A keep also needs rank IC up by ≥0.05 in 2016–2018 and by ≥0.05 in 2019–2021, on the end-2014 top 10, with residual-to-trend IC ≥ 0 in both halves. Keeps, stops, and the mistakes note use data through 2021 only.
+
+## 5. Honest prior
+
+**0.12.** On the end-2014 list, rank IC is −0.02 and the net leads in 7% of bootstraps. The 94% case is the hindsight twelve. The lockbox is one leadership path.
+
+Keep the trend tilt. Use PIT membership, a no-trade band on the monthly score, and shrink the tilt toward inverse-vol when trend-score dispersion is small. One linear residual-momentum score, pre-registered, reported once, then frozen.
