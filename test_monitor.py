@@ -125,3 +125,18 @@ assert signals.musk_topics("Tesla's FSD V15 Goes to Wide Release Next Month, Mus
 assert signals.musk_topics("Film Review: Musk - The Northern Express") == []
 assert signals.musk_topics("Musk says SpaceX will catch Starship again") == ["SpaceX"]
 print("musk checks passed")
+
+# Trend tilt (tilt_odds.py): names that have been rising get more than their LIVE weight, fallers less; same gross, caps hold.
+import numpy as np, pandas as pd
+from model import UNIVERSE, BENCH, P, target_weights
+_rng = np.random.default_rng(0)
+_idx = pd.bdate_range("2024-01-01", periods=420)
+_drift = dict(zip(UNIVERSE, np.linspace(0.002, -0.002, len(UNIVERSE))))  # first names rise, last names fall
+_px = pd.DataFrame({s: 100 * np.exp(np.cumsum(_rng.normal(_drift.get(s, 0), 0.01, len(_idx)))) for s in UNIVERSE + [BENCH]}, index=_idx)
+_live, _tilt = target_weights(_px, monitor.LIVE).iloc[-1], monitor.tilted(_px).iloc[-1]
+assert 0.8 * _live.sum() < _tilt.sum() <= _live.sum() + 1e-9, (_tilt.sum(), _live.sum())  # never more invested than the live book; a capped name's excess sits in cash
+assert (_tilt <= P["cap"] + 1e-9).all() and _tilt["SPCX"] <= 0.05 + 1e-9
+_up = ["TSLA", "AAPL", "MSFT"]  # the three strongest risers that are not held at an event cap (SPCX sits at its 5% cap either way)
+assert (_tilt[_up] > _live[_up]).all() and (_tilt[UNIVERSE[-3:]] < _live[UNIVERSE[-3:]]).all(), (_tilt / _live).round(2).to_dict()
+assert np.allclose(monitor.tilted(_px.iloc[:-30]).iloc[-1], monitor.tilted(_px).iloc[-31])  # no lookahead
+print("trend tilt checks passed")

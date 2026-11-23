@@ -16,11 +16,22 @@ import requests
 import yfinance as yf
 
 import signals
-from model import BENCH, P, UNIVERSE, target_weights
+from model import BENCH, P, UNIVERSE, target_weights, EVENT_CAPS, scores
 
 # Owner override 2026-11-21: dip trade, fully invested. Same inverse-vol basket and caps, but no vol-target scaling
 # and no risk-off halving. Ends the frozen-model paper test (MATH.md change log). Revert: LIVE = P.
 LIVE = {**P, "vol_target": float("inf"), "regime_scale": 1.0}
+
+
+def tilted(px, w_trend=1.0):
+    """When to go heavier (2026-11-23, tilt_odds.py): LIVE weights x2 for the top third of names by the model's trend
+    score, x0.5 for the bottom third, same gross, same caps. A name with no score yet stays at x1. w_trend=0 gives the
+    'heavier in what just fell' arm, which lost and exists only for the study. Revert: use target_weights(C, LIVE)."""
+    w = target_weights(px, LIVE)
+    rank = scores(px, {**P, "w_trend": w_trend}).where(w > 0).rank(axis=1, pct=True)
+    t = w * np.select([rank > 2 / 3, rank <= 1 / 3], [2.0, 0.5], 1.0)
+    caps = pd.Series({c: EVENT_CAPS.get(c, P["cap"]) for c in w.columns})
+    return t.div(t.sum(axis=1), axis=0).mul(w.sum(axis=1), axis=0).fillna(0).clip(upper=caps, axis=1)
 NAMES = {"TSLA": "Tesla", "SPCX": "SpaceX", "AAPL": "Apple", "MSFT": "Microsoft", "NVDA": "Nvidia", "GOOGL": "Google",
          "AMZN": "Amazon", "META": "Meta", "AVGO": "Broadcom", "TSM": "TSMC", "AMD": "AMD", "ORCL": "Oracle",
          "SGOV": "T-bills (cash)"}
@@ -294,7 +305,7 @@ def run(state):
     state["regime"] = regime
 
     if (closing or FORCE) and state.get("rebalanced") != today:
-        w = target_weights(C, LIVE).iloc[-1]
+        w = tilted(C).iloc[-1]
         order = w[UNIVERSE].sort_values(ascending=False).index
         mix = "\n".join(f"• {NAMES[s]} {w[s]:.0%}" for s in order if w[s] > 0)
         day = r[UNIVERSE].iloc[-1].dropna().sort_values()
@@ -306,7 +317,10 @@ def run(state):
                    f"🔍 **Biggest moves on the last trading day:**\n{moves}\n\n"
                    f"🎯 **Plan:** {w.sum():.0%} in big tech stocks, {1 - w.sum():.0%} in cash. Nothing for you to do, the bot trades it.\n{mix}")
         equity = None
-        if AK:
+        if AK and not is_open:  # orders queued while shut fill at the next open, wherever it gaps: 46% bought at the old
+            # target on 2026-11-19, and $55k bought 8.1% above Friday's closes on 2026-11-23. The 15:30 rebalance trades.
+            summary += "\n\n🧾 **Trades:** none sent, the market is closed. The bot trades at its next 3:30pm ET rebalance."
+        elif AK:
             equity, orders = rebalance(w.to_dict(), {s for s in UNIVERSE if C[s].isna().all()}, C.iloc[-1].dropna().to_dict())
             summary = (summary.replace("\n\n📈", f"\n\n💰 **Paper account: ${equity:,.0f}**\n"
                                        f"{'Up' if equity >= START else 'Down'} {abs(equity / START - 1):.1%} since the $100,000 start\n\n📈", 1)
