@@ -5,6 +5,11 @@ on:
     # (2026-11-19: no run fired during market hours), so whichever start fires first runs loop_monitor.py, which keeps
     # passing every 2-5 min until the close. Later starts queue behind it (concurrency) and exit fast after the close.
     - cron: "17 12-20 * * 1-5"
+    # Off-hours news watch (added 2026-11-23): the Huang rehire news broke while no run was scheduled (last pass Sat
+    # 19:34 ET, Trump's "rehire Jensen" post Sun 21:54 ET, NVDA +33% at Mon open). Off-hours a pass only snapshots
+    # prediction markets and sends news alerts; it never trades. Public repo, so these minutes are free.
+    - cron: "47 * * * 0,6"      # weekends, hourly
+    - cron: "47 0-11 * * 1-5"   # weekday nights / pre-market, hourly until the 12:17 market-day start
   workflow_dispatch:
     inputs:
       force:
