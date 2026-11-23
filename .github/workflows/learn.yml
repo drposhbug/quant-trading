@@ -36,5 +36,5 @@ jobs:
           git config user.name "monitor-bot"
           git config user.email "monitor-bot@users.noreply.github.com"
           git add signals/live_config.json signals/learn_state.json signals/learn_log.csv 2>/dev/null || true
-          git add reports/growth_odds.md reports/tilt_odds.md reports/mini_trend_odds.md reports/exit_odds.md 2>/dev/null || true
+          git add reports/growth_odds.md reports/tilt_odds.md reports/mini_trend_odds.md reports/exit_odds.md reports/mlp_odds.md 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "monthly self-review" && git pull --rebase -X theirs && git push)

@@ -7,7 +7,8 @@ Written 2026-11-23. What it may change on its own, both already built into monit
   tilt      long-trend tilt on <-> off. On while P(tilted grows faster than untilted) >= 0.5 on the end-2014 list
             (tilt_odds.py).
 A setting changes only after 3 monthly reviews in a row ask for the same change, so one odd month cannot flip the book.
-Every other rule tested so far (equal weight, buying dips, short trends, the learning rule, five selling rules) is
+Every other rule tested so far (equal weight, buying dips, short trends, the learning rule, five selling rules, and
+the neural network in mlp_odds.py, which is refitted on its latest results at every review) is
 re-tested against its own pre-registered bar. One that passes 3 reviews in a row is flagged on Discord for wiring in;
 it is never switched on automatically, because its live code does not exist yet.
 The bot cannot invent rules. New ideas still come from a person or a model session and enter through a test like these.
@@ -22,6 +23,7 @@ import numpy as np
 import exit_odds
 import growth_odds
 import mini_trend_odds
+import mlp_odds
 import tilt_odds
 from monitor import CONFIG, DEFAULT, discord
 
@@ -65,7 +67,7 @@ def main():
     p_full = run(growth_odds)[1].filter(like="decides", axis=0)["P(arm grows faster)"]
     tt, tok = run(tilt_odds)
     p_tilt = tt.loc[f"{TREND} | end-2014 list (decides)", "P(arm grows faster)"]
-    passing = sorted([n for n in tok if n != TREND] + list(run(mini_trend_odds)[1]) + list(run(exit_odds)[1]))
+    passing = sorted([n for n in tok if n != TREND] + list(run(mini_trend_odds)[1]) + list(run(exit_odds)[1]) + list(run(mlp_odds)[1]))
 
     want = {"exposure": "full" if (p_full > 0.5).all() else "engine", "tilt": "long" if p_tilt >= 0.5 else "none"}
     changed, pending = [], []
@@ -98,7 +100,7 @@ def main():
             f"• **Fully invested vs the cut-loss rules:** fully invested made more money in {p_full.min():.0%} to {p_full.max():.0%} "
             f"of simulated histories. The account is **{WORDS['exposure'][cfg['exposure']]}**.\n"
             f"• **Trend tilt** (more in what has been rising for months): ahead in {p_tilt:.0%}. The tilt is **{WORDS['tilt'][cfg['tilt']]}**.\n"
-            f"• **12 other rules re-tested** (equal weight, buying dips, short trends, selling rules): "
+            f"• **13 other rules re-tested** (equal weight, buying dips, short trends, selling rules, a neural network that retrains each month): "
             + ("none passed." if not passing else "passed this month: " + ", ".join(passing) + ".") + "\n\n"
             + ("✅ **Changed:** " + "; ".join(changed) + "." if changed else "Nothing changed.")
             + ("\n⏳ " + "; ".join(pending) + "." if pending else "")
