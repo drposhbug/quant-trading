@@ -25,10 +25,16 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Forward record (reads public prices, never orders, posts nothing)
         run: python mlp_odds.py --log --refresh
+      - name: Pattern-finder's forward record (discover_odds.py; same prices, never orders, posts nothing)
+        continue-on-error: true  # a failure here must not lose the network's rows
+        run: python discover_odds.py --log
       - name: Save
         run: |
           git config user.name "monitor-bot"
           git config user.email "monitor-bot@users.noreply.github.com"
           git add signals/mlp_forecasts.csv 2>/dev/null || true
           git add signals/mlp_forward.csv 2>/dev/null || true  # separate add: a file that does not exist yet would abort the one above
+          git add signals/discover_forecasts.csv 2>/dev/null || true
+          git add signals/discover_forward.csv 2>/dev/null || true
+          git add signals/discover_found.csv 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "network forward record" && git pull --rebase -X theirs && git push)
