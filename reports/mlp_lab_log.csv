@@ -1,5 +1,6 @@
-time,variant,inputs,ic,ic_t,p_vs_live,cagr_arm,cagr_live,ic_min_drop_name,ic_min_drop_year,status
-2026-11-23 17:54,v1 baseline,14,0.0162,0.43,0.222,0.2624,0.2848,-0.0144,-0.0228,kept
-2026-11-23 17:59,v2 + the live trend score as an input,15,-0.0495,-1.25,0.036,0.2329,0.2848,-0.0771,-0.0749,reverted
-2026-11-23 18:03,v2 learns the ranking of next-month returns instead of their size,14,0.0534,1.27,0.517,0.285,0.2848,0.0296,0.0113,reverted
-2026-11-23 18:06,v2 6- and 12-month momentum with QQQ's move removed and the last month skipped,14,-0.0325,-0.8,0.328,0.2722,0.2848,-0.0688,-0.0792,reverted
+time,variant,inputs,ic,ic_t,p_vs_live,cagr_arm,cagr_live,ic_min_drop_name,ic_min_drop_year,status,rule,ic_live,gain_min_drop_name,gain_min_drop_year,p_half1,p_half2,p_min_drop_year,partial_ic
+2026-11-23 17:54,v1 baseline,14,0.0162,0.43,0.222,0.2624,0.2848,-0.0144,-0.0228,kept,,,,,,,,
+2026-11-23 17:59,v2 + the live trend score as an input,15,-0.0495,-1.25,0.036,0.2329,0.2848,-0.0771,-0.0749,reverted,,,,,,,,
+2026-11-23 18:03,v2 learns the ranking of next-month returns instead of their size,14,0.0534,1.27,0.517,0.285,0.2848,0.0296,0.0113,reverted,,,,,,,,
+2026-11-23 18:06,v2 6- and 12-month momentum with QQQ's move removed and the last month skipped,14,-0.0325,-0.8,0.328,0.2722,0.2848,-0.0688,-0.0792,reverted,,,,,,,,
+2026-11-23 18:37,v1 baseline,14,0.0141,0.37,0.222,0.2624,0.2848,,,reference,2,0.0057,-0.0329,-0.0207,0.426,0.196,0.057,0.0911
