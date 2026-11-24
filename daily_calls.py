@@ -87,6 +87,9 @@ RULES name and its tally starts again at zero; the old tally is kept.
    - Information entries, each one idea fixed in advance and judged on its own, never through the learner:
      busy/quiet month (21 sessions), earnings surprise (21), profitability (21), about to report (5). An entry
      whose data file is missing is not logged. Their definitions are in the info_ functions.
+   - Luck is measured on blocks of twice the horizon (42 and 10 sessions; 5 at one session). Changed after the
+     first v4 run had been read, on Grok's point that blocks one horizon long share part of their outcomes with
+     their neighbours, which made the bar about 15% too easy. It can only make the learner speak less often.
    - Judged as in 7: the past test from the next open, then new days by the evidence score. Ten machine results
      are read on the market board in the past test, so about four readings in ten would show one narrow pass by
      luck alone. A pass needs a wide margin, or confirmation on new days.
@@ -298,7 +301,7 @@ def believe(ic, hz, rng, core, last=None):
     variance. Near-copies share one weight instead of voting many times."""
     if last is None:
         last = np.where(~np.isnan(ic).all(0))[0][-1]  # the latest day whose outcome is known
-    size = max(hz, 5)
+    size = 5 if hz == 1 else 2 * hz  # blocks twice the horizon: neighbouring blocks then share little of their outcomes
     nb = (last + 1 - WARM) // size
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
@@ -619,7 +622,7 @@ def main():
     if raw["c"].index[-1].date() == now.date() and now.hour < 16:  # the session is still open: its last bar is not a close
         raw, outside = {k: f.iloc[:-1] for k, f in raw.items()}, outside.iloc[:-1]
         member = member.iloc[:-1] if member is not None else None
-    stocks, info = list(raw["c"].columns), "not rebuilt on this run"
+    stocks, info, sharp = list(raw["c"].columns), "not rebuilt on this run", ""
     c = raw["c"].ffill(limit=21)  # a company's last price stands for 21 sessions, so a call made just before it left exits there
     day = f"{c.index[-1].date()}"
 
@@ -639,6 +642,10 @@ def main():
                                                raw["o"], beta, sec, member, extra)
             rec = past(ic, zg, grid, c, raw["o"], names, member, np.array([at[n] for n in uni]), np.array([at[n] for n in UNIVERSE]))
         info = [n for n in names if n in ENTRY_H]
+        wob, n_typ = float(np.nanmedian(np.nanstd(ic[:len(names) - len(info), 0, :], axis=1))), len(uni)
+        sharp = (f" **How sharp the instrument is:** over {WORDS[HORIZONS[0]].split(' (')[0]} one day's ranking score wobbles by {wob:.3f}. If the {n_typ} stocks "
+                 f"moved independently it would be {1 / np.sqrt(n_typ - 1):.3f}, so the list carries the information of about "
+                 f"{n_typ * (1 / np.sqrt(n_typ - 1) / wob) ** 2:.0f} independent stocks (about 28 before the market and the sectors were taken out).")
         old = pd.DataFrame(past_test(rec, day))
         old.to_csv(PAST, index=False)  # rewritten each day: it is a summary of old days, not a log of new ones
         base = {(r.model, r.horizon, r.board): (r.right, r.calls) for r in old.itertuples()}
@@ -687,7 +694,7 @@ def main():
              f"{spy.pct_change().loc[big.index[-1]]:+.1%}). After a shock the market's moves have run about twice their normal size for a month, "
              "in either direction, and the direction has not been predictable. Nothing here acts on it; reports/news_stop_odds.md shows what "
              "holding half the book after a shock would have done.")
-    report(cat(calls, new), scored, cat(beliefs, found), cat(probs, pnew), pscored, old, cat(stand, snew), shock)
+    report(cat(calls, new), scored, cat(beliefs, found), cat(probs, pnew), pscored, old, cat(stand, snew), shock + sharp)
     print(f"daily calls for {day}: {len(new)} calls logged, {len(pnew)} probabilities, {len(due)} calls and {len(pdue)} stocks scored; "
           f"{len(stocks)} companies, membership by date: {member is not None}, information entries: {info}")
 
