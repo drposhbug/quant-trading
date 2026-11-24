@@ -15,17 +15,11 @@
   "https://www.trumpstruth.org/statuses/43701"
  ],
  "alerted": {
-  "2026-11-23": [
-   "move:TSLA",
-   "move:NVDA",
-   "move:GOOGL",
-   "move:TSM",
-   "move:ORCL"
-  ]
+  "2026-11-24": []
  },
  "regime": "risk-off",
  "rebalanced": "2026-11-23",
- "session_checked": "2026-11-23",
+ "session_checked": "2026-11-24",
  "missed": [
   "2026-11-19"
  ],
