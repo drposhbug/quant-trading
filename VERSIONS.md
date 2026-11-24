@@ -40,10 +40,12 @@ middle of a loss to make the loss stop.
 | B1.0 | 2026-11-19 | Frozen model: inverse-volatility weights, 20% volatility target, cuts exposure when the market trend turns down | retired 2026-11-21; kept as the comparison |
 | B2.0 | 2026-11-21 | Fully invested, no volatility target (owner's decision, by growth odds) | superseded |
 | **B2.1** | 2026-11-23 | Trend tilt: twice the weight in the third of names with the strongest 12-month trend, half in the weakest third. No orders while the market is closed | **live** |
-| B2.2 | 2026-11-23 | Half of every position for 21 sessions after a market shock. On the past: worst fall 25% against 36% (31% against 41% on the current names), worst day halved, 0.8% a year less growth | shadow; the owner's choice |
+| B2.2 | 2026-11-23 | Half of every position for 21 sessions after a market shock. On the past: worst fall 25% against 36% (31% against 41% on the current names), worst day halved, 0.8% a year less growth; on the Nasdaq-100 since 1986 it ends with more money in only 11% of simulated histories | shadow; not taken, because the owner's aim is growth (2026-11-23) |
 | B2.3 | 2026-11-23 | Half weight after a shock only in the names that fall hardest. On the past: worst fall about 4 points smaller, growth 0.0% to 1.8% a year lower | shadow |
+| B3.0 | 2026-11-23 | Steady 1.25x: the live book with a quarter more, on borrowed money. On the past: ends with more money in 84% of simulated histories on the Nasdaq-100 since 1986 (72% with dearer borrowing) and 99% on the end-2014 list; +1.2% a year on the index, +4% on the list; worst fall 90% against 83% in 2000-2002, 41% against 34% on the list | shadow; cleared its bars; on the agenda of the 2026-12-12 review |
 
-Rejected on the past and not kept: five selling rules, closing out completely after a shock, selling a stock after
+Rejected on the past and not kept: steady 1.5x (grows faster, but the worst fall is 95%), borrowing in calm times and
+cutting after shocks (grows slower than steady borrowing), five selling rules, closing out completely after a shock, selling a stock after
 its own shock, dropping the tilt after a shock or when wild, trimming the hardest-falling names all the time.
 The bot re-tests its own settings each month (learn.py) and the daily shadow is in
 [reports/shadow_versions.md](reports/shadow_versions.md).

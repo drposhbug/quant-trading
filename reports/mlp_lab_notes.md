@@ -153,3 +153,19 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
   halving everything after a shock.
 - Versions: VERSIONS.md now lists every version of the bot and of the machine and how a change is made. Two
   candidate versions of the bot run in shadow from 2026-11-24 (reports/shadow_versions.md).
+
+## 2026-11-23, last (by hand): calculated risk
+
+- The owner's instruction: do whatever makes the most money, and sometimes take a calculated risk. By that aim,
+  holding half after a shock is not taken: over forty years of the Nasdaq-100 it ended with less money in nine
+  simulated histories out of ten.
+- The calculated risk that the data supports is small, steady borrowing. Holding 1.25 times the book ended with
+  more money in 84% of simulated histories since 1986 and 99% on the stock list chosen without hindsight, about
+  1.2% and 4% a year more. It became candidate version B3.0 and runs in shadow from 2026-11-24.
+- What it costs: every fall is a quarter deeper. In a crash like 2000-2002 the book would have fallen 90%
+  instead of 83%. And its advantage on the index came from the last twenty years; in the first twenty it was a
+  coin flip.
+- More than that is not calculated: 1.5 times grew faster still but fell 95% in 2000-2002, and 3 times ended
+  below not borrowing at all. Borrowing in calm times and cutting after shocks did worse than steady borrowing.
+- Nothing was switched on. B3.0 is on the agenda of the 2026-12-12 review, after the monthly self-review has
+  re-tested it; the order code would need a tested change for borrowing first.

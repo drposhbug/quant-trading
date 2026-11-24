@@ -11,6 +11,8 @@ Candidates (VERSIONS.md has their history and their results on the past):
                                     2.5 of its normal daily moves either way (news_stop_odds.py)
   B2.3  trim amplifiers after shock half weight, for the same 21 sessions, only in the third of names that fall
                                     hardest on the market's down days (downside_beta_odds.py)
+  B3.0  steady 1.25x                the live book with a quarter more, on borrowed money at the T-bill rate + 1.5%
+                                    (managed_exposure_odds.py): the calculated risk that cleared its bars
 A candidate goes live in one of two ways, both written down before the fact (VERSIONS.md): it passes the growth bar
 in the monthly self-review three times running, or the owner chooses it as a risk setting.
 """
@@ -19,6 +21,7 @@ import pandas as pd
 
 from daily_calls import bars
 from downside_beta_odds import downside
+from managed_exposure_odds import financed
 from model import BENCH, UNIVERSE, backtest_returns
 from monitor import tilted
 from news_stop_odds import signals
@@ -39,8 +42,8 @@ def main():
     after = shock.astype(float).rolling(HOLD, min_periods=1).max() > 0
     wide, amp = pd.DataFrame({k: after for k in w.columns}), downside(px).rank(axis=1, pct=True) > 2 / 3
     books = {"B2.1 live book (trend tilt, fully invested)": w, "B2.2 half after a shock": w * np.where(wide, 0.5, 1.0),
-             "B2.3 trim amplifiers after a shock": w * np.where(amp & wide, 0.5, 1.0)}
-    ret = {k: (backtest_returns(px, wt) + (1 - wt.sum(axis=1)).shift(1).fillna(0) * rf).loc[START:] for k, wt in books.items()}
+             "B2.3 trim amplifiers after a shock": w * np.where(amp & wide, 0.5, 1.0), "B3.0 steady 1.25x (borrowing a quarter)": w * 1.25}
+    ret = {k: (backtest_returns(px, wt) + financed(wt.sum(axis=1), rf, 0.015)).loc[START:] for k, wt in books.items()}
     live = ret["B2.1 live book (trend tilt, fully invested)"]
     day, last = px.index[-1], shock[shock].index[-1] if shock.any() else None
     left = HOLD - (len(px.loc[last:]) - 1) if last is not None else 0

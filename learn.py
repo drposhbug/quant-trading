@@ -68,10 +68,16 @@ def main():
     def shadow():  # the bot's candidates in shadow (VERSIONS.md, B2.2 and others); a failure here must not stop the review
         try:
             import news_stop_odds
-            return list(run(news_stop_odds)[1])
+            out = list(run(news_stop_odds)[1])
         except Exception as e:
             print(f"closing-out rules not re-tested this month: {e!r}")
-            return []
+            out = []
+        try:
+            import managed_exposure_odds
+            return out + list(run(managed_exposure_odds)[1])
+        except Exception as e:
+            print(f"borrowing rules not re-tested this month: {e!r}")
+            return out
 
     p_full = run(growth_odds)[1].filter(like="decides", axis=0)["P(arm grows faster)"]
     tt, tok = run(tilt_odds)
@@ -109,7 +115,7 @@ def main():
             f"• **Fully invested vs the cut-loss rules:** fully invested made more money in {p_full.min():.0%} to {p_full.max():.0%} "
             f"of simulated histories. The account is **{WORDS['exposure'][cfg['exposure']]}**.\n"
             f"• **Trend tilt** (more in what has been rising for months): ahead in {p_tilt:.0%}. The tilt is **{WORDS['tilt'][cfg['tilt']]}**.\n"
-            f"• **19 other rules re-tested** (equal weight, buying dips, short trends, selling rules, holding less after news shocks, a neural network that retrains each month): "
+            f"• **24 other rules re-tested** (equal weight, buying dips, short trends, selling rules, holding less after news shocks, borrowing modestly, a neural network that retrains each month): "
             + ("none passed." if not passing else "passed this month: " + ", ".join(passing) + ".") + "\n\n"
             + ("✅ **Changed:** " + "; ".join(changed) + "." if changed else "Nothing changed.")
             + ("\n⏳ " + "; ".join(pending) + "." if pending else "")

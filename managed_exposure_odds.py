@@ -101,20 +101,29 @@ def main():
     out = ["# Calculated risk: borrowing modestly, and more in calm times than after shocks\n",
            "Rules written in managed_exposure_odds.py before the run. P = share of simulated histories in which the arm ends with more money than the current rule at 1x.\n",
            t.rename(columns={"CAGR arm": "growth a year", "MaxDD arm": "worst fall"}).to_markdown(floatfmt=".3f"), ""]
-    ix, b14 = "Nasdaq-100 since 1986 (decides)", "end-2014 list (decides)"
+    ix, b14, ok = "Nasdaq-100 since 1986 (decides)", "end-2014 list (decides)", {}
     for arm in ARMS:
         a, b, one = t.loc[f"{arm} | {ix}"], t.loc[f"{arm} | {b14}"], t.loc[f"1x (the current rule) | {ix}"]
         grow = min(a["P base"], b["P base"]) >= 0.75 and min(a["P stress"], b["P stress"]) >= 0.5
         bounded = a["MaxDD arm"] >= one["MaxDD arm"] - 0.10
+        if grow and bounded:
+            ok[arm] = min(a["P base"], b["P base"])
         verdict = "**clears both bars: candidate B3.0**" if grow and bounded else "grows faster, at a price (worst fall not bounded)" if grow else "does not clear the growth bar"
         out.append(f"- **{arm}**: {verdict}. Index since 1986: P {a['P base']:.2f} (stress {a['P stress']:.2f}), worst fall {a['MaxDD arm']:.0%} against {one['MaxDD arm']:.0%} at 1x. "
                    f"End-2014 list: P {b['P base']:.2f} (stress {b['P stress']:.2f}).")
     out.append("\n## Reading: the steady multiple that would have grown fastest (base costs)\n")
     for name, (best, gbest, curve) in kelly.items():
         out.append(f"- {name}: {best:.2f}x ({gbest:.1%} a year). " + ", ".join(f"{L:.2f}x {v:.1%}" for L, v in curve.items() if L in (0.5, 1.0, 1.25, 1.5, 2.0, 3.0)))
+    out += ["\n## What the bars do not show (written after the first run, 2026-11-23; no bar was changed)\n",
+            "- The calculated-risk bar counts points of worst fall. In the 2000-2002 crash the index at 1x fell 83% and at 1.25x 90%: 7 points, "
+            "but that is 17 cents left of each dollar against 10 cents, about 40% less money at the bottom. Both are ruinous.",
+            "- On the index the advantage of 1.25x comes from the second half of the 40 years; in the first half it was a coin flip.",
+            "- The recent lists say the fastest growth was at 3x. That is a decade of unusually strong technology shares speaking, not a law: "
+            "since 1986 the top is at about 1.75x, flat from 1.25x to 2x, and 3x did worse than 1x."]
     with open("reports/managed_exposure_odds.md", "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(out) + "\n")
     print("\n".join(out))
+    return t, ok
 
 
 if __name__ == "__main__":
