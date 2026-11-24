@@ -63,5 +63,6 @@ jobs:
           git add signals/calls_standouts.csv 2>/dev/null || true
           git add reports/daily_calls.md 2>/dev/null || true
           git add lab/fundamentals.csv 2>/dev/null || true
+          git add lab/earnings.csv 2>/dev/null || true
           git add reports/shadow_versions.md 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "network forward record" && git pull --rebase -X theirs && git push)

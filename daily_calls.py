@@ -257,6 +257,29 @@ def info_earnings(c):
     return pd.DataFrame(sur, index=c.index, columns=c.columns).where(live), pd.DataFrame(soon, index=c.index, columns=c.columns).where(live)
 
 
+def refresh_earnings():
+    """Keep lab/earnings.csv current where the full download does not exist (the GitHub job): fetch only the last
+    two weeks and the month ahead, and swap those days into the file. Any failure leaves the file as it was."""
+    if not os.path.exists(EARN):
+        return
+    try:
+        import datetime as dt
+
+        import earnings_data as e
+        if len(list(e.CACHE.glob("*.json"))) > 2000:  # the owner's machine has the whole download: nothing to do here
+            return
+        cut = dt.date.today() - dt.timedelta(days=e.REFRESH_DAYS + 4)
+        e.START = cut
+        e.fetch(verbose=False)
+        new, old = e.dedupe(e.parse_cache())[0], pd.read_csv(EARN, dtype=str)
+        new = new.assign(date=pd.to_datetime(new["date"]).dt.strftime("%Y-%m-%d"))
+        keep = pd.concat([old[old["date"] < f"{cut}"], new[new["date"] >= f"{cut}"][list(old.columns)].astype(str).replace({"nan": "", "None": ""})])
+        if len(keep) >= len(old) - 400:  # a refresh that would lose many rows is a failed refresh
+            keep.to_csv(EARN, index=False)
+    except Exception as err:
+        print(f"earnings file not refreshed: {err!r}")
+
+
 def info_profit(c):
     """Gross profit over assets as first reported, usable from the session after the filing date; or None."""
     if not os.path.exists(FUND):
@@ -633,6 +656,7 @@ def main():
     if not logged or not ((probs["date"] == day) & (probs["rules"] == PRULES)).any():
         x = np.log(outside[list(OUTSIDE)].ffill()).diff()
         beta, sec = groups(c, outside["SPY"].ffill(), outside[SECTORS].ffill())
+        refresh_earnings()
         sur, soon = info_earnings(c)
         extra = {k: f for k, f in (("busy", info_busy(c, raw["v"])), ("surprise", sur), ("soon", soon), ("profit", info_profit(c))) if f is not None}
         at = {n: i for i, n in enumerate(stocks)}
