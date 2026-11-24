@@ -87,7 +87,7 @@ def main():
         v = "real" if abs(r["t over quarters"]) >= 3 and same_sign else "a hint" if abs(r["t over quarters"]) >= 2 and same_sign else "no pattern"
         out.append(f"- **{lab}**: {v} ({r['average per event']:+.2%} an event, t {r['t over quarters']:+.1f}).")
     out.append(f"\n- Size of the reaction: on the reaction session a stock moved {ev['size'].median():.1f} times its normal daily move (typical event); "
-               f"one event in ten moved more than {ev['size'].quantile(0.9):.1f} times. The typical move was {ev['hold'].abs().median():.1%} against the average stock, up {np.mean(ev['hold'] > 0):.0%} of the time.")
+               f"one event in ten moved more than {ev['size'].quantile(0.9):.1f} times. The typical move was {ev['hold'].abs().median():.1%} against the average stock, up {np.mean(ev['hold'].dropna() > 0):.0%} of the time.")
     with open("reports/earnings_event_results.md", "w", encoding="utf-8", newline="\n") as fh:
         fh.write("\n".join(out) + "\n")
     print("\n".join(out))
