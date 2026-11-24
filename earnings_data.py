@@ -159,6 +159,24 @@ def _write(day: dt.date, j: dict) -> None:
     tmp.replace(_cache_file(day))
 
 
+def _keep_known_time(day: dt.date, j: dict) -> None:
+    """Nasdaq shows pre-market/after-hours only while a date is upcoming; once it passes, the page says
+    'time-not-supplied'. Carry a time seen in an earlier fetch of the same page forward (marked _time_from_cache),
+    so the daily job accumulates timing history from now on."""
+    f = _cache_file(day)
+    if not f.exists():
+        return
+    try:
+        old = (json.loads(f.read_text(encoding="utf-8")).get("data") or {}).get("rows") or []
+    except (OSError, ValueError):
+        return
+    known = {r.get("symbol"): r.get("time") for r in old if r.get("time") in WHEN}
+    for r in (j.get("data") or {}).get("rows") or []:
+        if r.get("time") not in WHEN and r.get("symbol") in known:
+            r["time"] = known[r["symbol"]]
+            r["_time_from_cache"] = True
+
+
 def fetch(through: dt.date | None = None, verbose: bool = True) -> dict:
     """Download every weekday page not yet cached (plus the last REFRESH_DAYS and all future dates).
 
@@ -199,6 +217,7 @@ def fetch(through: dt.date | None = None, verbose: bool = True) -> dict:
                     break
                 continue
             fails = 0
+            _keep_known_time(d, j)
             _write(d, j)
             stats["fetched"] += 1
             if verbose and (i % 100 == 0 or i == len(todo)):
