@@ -47,5 +47,9 @@ jobs:
           git add signals/calls.csv 2>/dev/null || true
           git add signals/calls_scored.csv 2>/dev/null || true
           git add signals/calls_beliefs.csv 2>/dev/null || true
+          git add signals/calls_probs.csv 2>/dev/null || true
+          git add signals/calls_probs_scored.csv 2>/dev/null || true
+          git add signals/calls_past.csv 2>/dev/null || true
+          git add signals/calls_standouts.csv 2>/dev/null || true
           git add reports/daily_calls.md 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "network forward record" && git pull --rebase -X theirs && git push)
