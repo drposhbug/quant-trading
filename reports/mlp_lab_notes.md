@@ -112,3 +112,18 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
 - Removing the shared moves made the instrument sharper, though less than hoped: the list is now worth about 74
   independent stocks, up from about 28.
 - Still to come: the two earnings entries, when the earnings file has finished downloading.
+
+## 2026-11-23, after the day's summary (by hand): the bad-news gap test
+
+- The owner's point: news like a chief executive being reinstated obviously sends the stock up. It did: Nvidia
+  opened 33% higher on 2026-11-23. But the whole move was in the opening price; from that open to the close it
+  lost 1.2%.
+- The opposite hint (stocks that open more than 10% down keep falling) was tested as the project's first event
+  test: only the stocks it happened to, from the open, on the list that includes dead companies. No pattern:
+  1,209 cases, and exactly half fell further over the next five sessions while half bounced. The average loss of
+  about 1% comes from a few disasters.
+- A reading, not a verdict: stocks that opened more than 10% UP then lagged the average stock (t -3.3), mostly
+  in the earlier years. Buying obvious good news at the open has, if anything, lost money.
+- Started the same evening: two more data sets that are not prices, both ranked highest by the research:
+  company announcements filed with the SEC (8-K filings, with the second they became public) and short interest
+  with its true publication dates. The earnings calendar is still downloading.
