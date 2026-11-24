@@ -39,6 +39,12 @@ jobs:
         env:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
           ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+      - name: Candidate versions of the bot, in shadow (shadow_book.py; reads prices, has no order code, posts nothing)
+        continue-on-error: true
+        run: python shadow_book.py
+        env:
+          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
       - name: Save
         run: |
           git config user.name "monitor-bot"
@@ -57,4 +63,5 @@ jobs:
           git add signals/calls_standouts.csv 2>/dev/null || true
           git add reports/daily_calls.md 2>/dev/null || true
           git add lab/fundamentals.csv 2>/dev/null || true
+          git add reports/shadow_versions.md 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "network forward record" && git pull --rebase -X theirs && git push)
