@@ -19,14 +19,15 @@ RULES name and its tally starts again at zero; the old tally is kept.
 1. About 500 stocks instead of ten: the S&P 500 members of 2026-11-18 (lab/universe.csv, frozen: a name that stops
    trading drops out and is not replaced) plus the book's names. Alpaca's adjusted daily bars from 2016. The list is
    today's survivors, which biases what is learned from the past but not the score on days that have not happened.
-2. The 345 patterns of discover_odds.patterns(). No multiplied pairs.
+2. The 332 patterns of discover_odds.patterns() (15 outside series here; the first pattern-finder had 16 and
+   345). No multiplied pairs.
 3. A noise bar instead of a top ten ("shrink, don't crown"). For each horizon a pattern's daily rank IC is averaged in
    blocks (21 sessions; 5 for the shorter horizons) and its strength is t = sum of blocks / sqrt(sum of squares). The
-   bar is what the best of all 345 reaches by luck: the 95th percentile, over 500 random re-signings of the blocks, of
+   bar is what the best of all 332 reaches by luck: the 95th percentile, over 500 random re-signings of the blocks, of
    the largest |t|. A pattern votes with weight |t| - bar in the direction it earned, and not at all if its latest 252
    known sessions point the other way. If nothing clears the bar the machine says NO VIEW. That is an answer.
    A second entry, "best guess", is logged beside it so there is a call to watch every day: the same vote with the
-   bar lowered to 2 (SOFT), which a pattern clears one time in twenty by luck alone, so with 345 patterns some of
+   bar lowered to 2 (SOFT), which a pattern clears one time in twenty by luck alone, so with 332 patterns some of
    its voters are always luck. Added after a dry run on 2026-11-23 showed the sure entry silent at 21 and 5 sessions
    and trusting only versions of the 12-month trend at 1; no outcome had been seen and no call logged.
 4. Three horizons, each learned on its own outcomes: the next 21 sessions (the official board), the next 5 and the
@@ -38,7 +39,7 @@ RULES name and its tally starts again at zero; the old tally is kept.
    trading costs) and the rank IC. A call is right when favoured beat avoided. The tally counts only calls that do not
    overlap (every 5th or 21st), each board and horizon on its own, beside what a coin would get.
    The crowd is counted too (the owner's point, 2026-11-23: many lucky-looking things at once may be one real thing
-   nobody proved). Each day: how many of the 345 stand out one at a time (|t| above 2), beside how many the same
+   nobody proved). Each day: how many of the 332 stand out one at a time (|t| above 2), beside how many the same
    re-signings give by luck. Far more than luck means something real is in there even where no single pattern
    clears the bar; the best-guess entry is the one that trades on it. Near-copies of one pattern count many times.
 7. The verdict has two stages (changed 2026-11-23, before any call had come due and before the past record below
@@ -50,9 +51,12 @@ RULES name and its tally starts again at zero; the old tally is kept.
       before this record was computed. Its weak spots: the list is today's surviving companies, which flatters
       every entry a little; and six machine results are read on the market board (two entries, three horizons),
       so one narrow pass has about a 1 in 4 chance of being luck.
-   B. New days confirm or contradict. Checked at 20, 40, 60... non-overlapping new calls: confirmed if right more
-      often than a coin would be 19 times in 20 at that count. Earliest: a month at 1 session, five months at 5,
-      twenty at 21. An entry that failed A is marked so whatever B shows early.
+   B. New days confirm or contradict, by a running evidence score that may be read after every call
+      (evidence(): the likelihood of "right more often than a coin", averaged over every hit rate above 50%,
+      against a coin). Luck alone takes it to 20 at most 1 time in 20, however often one looks. Confirmed at 20.
+      Typical wait: about 160 non-overlapping calls if the true hit rate is 60%, 800 at 55%, 2,400 at 53%. It
+      replaces checks at 20, 40, 60 calls, which could not confirm anything much below 60%. An entry that failed
+      A is marked so whatever B shows early.
    Nothing here trades or touches the bot. An entry that passes A and is confirmed in B is worth a costed test.
 8. Probabilities (PRULES, added 2026-11-23 before any call had come due). Every call carries the chance that it
    comes true, and each of the book's names the chance that it beats the typical stock (the median of the market
@@ -61,6 +65,13 @@ RULES name and its tally starts again at zero; the old tally is kept.
    most 100 calls (5,000 stock outcomes per tenth); every real result since is added on top, so the probabilities
    learn from what comes true. They are scored as well: the Brier score against a coin's 0.25, and how often each
    band of stated chance came true.
+9. The clock (RULES v3, 2026-11-23, before any call had been scored). A call made after the close cannot be traded
+   at that close. Every outcome, in learning, in the past test and on new days, now runs from the next session's
+   open to the close hz sessions after the call (ahead()). Found the same night by two routes. The trend's whole
+   one-session edge sits in the overnight step that an after-close call misses: +2.8 bp a night (t 2.5) against
+   -2.2 bp in the daytime, on about 500 names since 2017. And Astra's first-principles review named the execution
+   clock as the first thing to fix (research_notes/Smarter machine 2026-11-23/). The v2 calls logged for
+   2026-11-23 are kept in the files and are never scored.
 Priors written before the first call. Grok: about 20% that it shows real skill at 21 sessions on a wide list, 12% at 5,
 under 10% at 1, each lower after trading costs. A logged, unedited "nothing there" is the most likely useful result.
 """
@@ -71,14 +82,15 @@ import warnings
 import numpy as np
 import pandas as pd
 import requests
+from scipy.special import betainc, betaln
 from scipy.stats import binom
 
 from discover_odds import patterns, z
 from model import UNIVERSE
 
-RULES = "v2 2026-11-23"
+RULES = "v3 2026-11-23"
 UNI, CALLS, SCORED, BELIEFS, REPORT = "lab/universe.csv", "signals/calls.csv", "signals/calls_scored.csv", "signals/calls_beliefs.csv", "reports/daily_calls.md"
-PROBS, PSCORED, PAST, PRULES = "signals/calls_probs.csv", "signals/calls_probs_scored.csv", "signals/calls_past.csv", "p1 2026-11-23"
+PROBS, PSCORED, PAST, PRULES = "signals/calls_probs.csv", "signals/calls_probs_scored.csv", "signals/calls_past.csv", "p2 2026-11-23"
 STAND = "signals/calls_standouts.csv"
 STEP, CAL0, CAP_CALLS, CAP_NAMES = 5, 904, 100, 5000  # old days: every 5th session from session 904 (WARM + two years of record)
 HORIZONS, START, MIN_NAMES, WARM, FLIPS, RECENT, NEED, PASS, SOFT = (21, 5, 1), "2016-01-01", 100, 400, 500, 252, 20, 15, 2.0
@@ -132,11 +144,24 @@ def rank_ic(r, ry):
     return np.where(n >= MIN_NAMES, ic, np.nan)
 
 
+def ahead(c, op, hz):
+    """What a call can actually earn, [day x stock]: bought at the next session's open, the first price after an
+    after-close call, and held to the close hz sessions after the call. A missing open falls back to the close."""
+    return c.shift(-hz) / op.shift(-1).fillna(c) - 1
+
+
+def evidence(k, n):
+    """How strongly k right calls out of n speak for "right more often than a coin" (docstring, 7B): 1 is nothing,
+    20 confirms. 2^(n+1) B(k+1, n-k+1) I_1/2(n-k+1, k+1), the average over every hit rate above 50% of the likelihood
+    against a coin. Under a coin it is a fair bet at every step, so it ever reaches 20 at most 1 time in 20."""
+    return float(np.exp((n + 1) * np.log(2) + betaln(k + 1, n - k + 1)) * betainc(n - k + 1, k + 1, 0.5))
+
+
 def learn(c, o, h, l, v, x):
     """(pattern names, today's z-score of every pattern [pattern x stock], daily rank IC [pattern x horizon x day],
     every pattern's z-scores on the old days used for the record [pattern x old day x stock], those days).
     A day's IC for horizon hz exists only once its outcome is known, hz sessions later."""
-    ry = [(c.shift(-hz) / c - 1).rank(axis=1).values for hz in HORIZONS]
+    ry = [ahead(c, o * c, hz).rank(axis=1).values for hz in HORIZONS]  # o is open/close, so o * c is the open
     grid = np.arange(CAL0, len(c), STEP)
     names, today, ic, zg = [], [], [], []
     for name, val in patterns(c, o, h, l, v, x, OUTSIDE):
@@ -162,7 +187,7 @@ def believe(ic, hz, rng, last=None):
     norm = np.sqrt((bm ** 2).sum(1))
     norm[norm == 0] = np.inf
     t = bm.sum(1) / norm
-    lucky = np.abs(rng.choice([-1.0, 1.0], size=(FLIPS, nb)) @ bm.T / norm)  # what luck alone does to all 345 at once
+    lucky = np.abs(rng.choice([-1.0, 1.0], size=(FLIPS, nb)) @ bm.T / norm)  # what luck alone does to all 332 at once
     bar, crowd = np.quantile(lucky.max(1), 0.95), (lucky > SOFT).sum(1)
     vote = lambda cut: np.sign(t) * np.maximum(np.abs(t) - cut, 0) * (np.sign(recent) == np.sign(t))
     # the crowd: how many patterns stand out one at a time, beside how many luck gives (typically, and at most 19 times in 20)
@@ -190,13 +215,13 @@ def rank_names(w, zrow):
     return (w[:, None] * np.nan_to_num(zrow)).sum(0) / np.where(heard > 0, heard, np.nan)
 
 
-def past(ic, zg, grid, c, names, mkt, book):
+def past(ic, zg, grid, c, op, names, mkt, book):
     """Each entry's record on old days: every STEP-th session the call is rebuilt with only what was known that day
     and checked against what followed. {(entry, horizon): market and book [calls, right]; hit and n per tenth of the
     market ranking (how many names beat the typical one; tenth 9 is the most favoured)}. mkt, book: column positions."""
     rec, trend = {}, (np.arange(len(names)) == names.index(TREND)).astype(float)
     for hi, hz in enumerate(HORIZONS):
-        f = (c.shift(-hz) / c - 1).values
+        f = ahead(c, op, hz).values
         for gi, d in enumerate(grid):
             if d + hz >= len(c):
                 break
@@ -252,16 +277,16 @@ def chance(right, n, since=(0, 0), cap=CAP_CALLS, soft=10):
     return ((right + soft) / (n + 2 * soft) * m + since[0]) / (m + since[1]) if m + since[1] else 0.5
 
 
-def score_due(calls, scored, c):
+def score_due(calls, scored, c, op):
     """Rows for calls whose horizon has now passed: what favoured did against avoided, the rank IC, and for each
     tenth of the ranking how many names beat the typical one."""
     done, rows = set(zip(scored["date"], scored["horizon"], scored["model"], scored["board"], scored["rules"])), []
-    for r in calls[calls["view"] == 1].itertuples():
+    for r in calls[(calls["view"] == 1) & (calls["rules"] == RULES)].itertuples():
         k = c.index.get_indexer([pd.Timestamp(r.date)])[0]
         if k < 0 or k + r.horizon >= len(c) or (r.date, r.horizon, r.model, r.board, r.rules) in done:
             continue
         order = r.order.split()
-        ret, n3 = (c.iloc[k + r.horizon] / c.iloc[k] - 1).reindex(order), len(order) // 3
+        ret, n3 = (c.iloc[k + r.horizon] / op.iloc[k + 1].fillna(c.iloc[k]) - 1).reindex(order), len(order) // 3
         fav, avo, ok = ret.iloc[:n3].mean(), ret.iloc[-n3:].mean(), ret.notna().values
         tenth = np.minimum((np.arange(len(order))[::-1] * 10) // len(order), 9)[ok]
         beat = (ret.values[ok] > np.nanmedian(ret.values)).astype(float)
@@ -273,16 +298,16 @@ def score_due(calls, scored, c):
     return rows
 
 
-def score_names(probs, pscored, calls, c):
+def score_names(probs, pscored, calls, c, op):
     """Rows for the book's stocks whose horizon has passed: did the stock beat the typical stock of the market list?"""
     done, rows, med = set(zip(pscored["date"], pscored["horizon"], pscored["model"], pscored["name"])), [], {}
-    for r in probs[~probs["name"].str.startswith("*")].itertuples():
+    for r in probs[~probs["name"].str.startswith("*") & (probs["rules"] == PRULES)].itertuples():
         k = c.index.get_indexer([pd.Timestamp(r.date)])[0]
         if k < 0 or k + r.horizon >= len(c) or (r.date, r.horizon, r.model, r.name) in done:
             continue
-        ret, key = c.iloc[k + r.horizon] / c.iloc[k] - 1, (r.date, r.horizon)
+        ret, key = c.iloc[k + r.horizon] / op.iloc[k + 1].fillna(c.iloc[k]) - 1, (r.date, r.horizon)
         if key not in med:  # the typical stock: the median of the market list as ranked that day
-            pool = calls[(calls["date"] == r.date) & (calls["horizon"] == r.horizon) & (calls["model"] == "trend") & (calls["board"] == "market")]["order"]
+            pool = calls[(calls["date"] == r.date) & (calls["horizon"] == r.horizon) & (calls["model"] == "trend") & (calls["board"] == "market") & (calls["rules"] == RULES)]["order"]
             med[key] = ret.reindex(pool.iloc[0].split()).median() if len(pool) else np.nan
         if pd.notna(ret.get(r.name, np.nan)) and pd.notna(med[key]):
             rows.append({"date": r.date, "horizon": r.horizon, "model": r.model, "name": r.name, "p": r.p,
@@ -303,8 +328,9 @@ def report(calls, scored, beliefs, probs, pscored, old, stand):
     out = ["# Daily calls: what the machine predicted and what came true\n",
            f"Updated after the close on {day}. Rules \"{RULES}\", written in daily_calls.py before the first call. It never trades.\n",
            "Each day after the close the machine ranks about 500 stocks for three horizons. The top third is *favoured*, the "
-           "bottom third *avoided*. When the horizon has passed, a call is **right** if favoured did better than avoided "
-           "(before trading costs). There are three entries. **Sure**: only patterns whose record beats what the best of 345 "
+           "bottom third *avoided*. Every result is measured from the next morning's open, the first price anyone could trade at after the call. "
+           "When the horizon has passed, a call is **right** if favoured did better than avoided "
+           "(before trading costs). There are three entries. **Sure**: only patterns whose record beats what the best of 332 "
            "reaches by luck; if there is none it says \"no view\". **Best guess**: every pattern that stands out one at a time, "
            "so some of its voters are luck. **Trend ranking**: a plain 12-month trend, the yardstick. "
            "Every call carries a probability, and the probabilities are checked too (last section). "
@@ -323,7 +349,8 @@ def report(calls, scored, beliefs, probs, pscored, old, stand):
                 verdict = "yardstick" if r.Index == "trend" else "**passes**" if r.passed else "right more often than a coin, but its gain is not clearly above zero: fails" if often else "no better than a coin"
                 out.append(f"| {board} | {WORDS[hz]} | {WHO[r.Index][4:]} | {r.calls:.0f} | {r.right:.0f} ({r.right / r.calls:.0%}) | {r.coin} | {pct(r.gap)} | {r.t:+.1f} | {verdict} |")
     out += ["\n## The tally on new days\n",
-            "New days confirm or contradict the past. Only calls that do not overlap are counted, and an entry is checked at 20, 40, 60... calls.\n",
+            "New days confirm or contradict the past. Only calls that do not overlap are counted. \"Evidence\" starts at 1 and 20 confirms; "
+            "it can be read every day without fooling ourselves, because luck alone reaches 20 at most 1 time in 20.\n",
             "| Board | Horizon | Who | Calls counted | Right | A coin gets | Favoured minus avoided | Rank IC | All calls, overlapping | Says |",
             "|---|---|---|---|---|---|---|---|---|---|"]
     for board in ("market", "book"):
@@ -336,8 +363,9 @@ def report(calls, scored, beliefs, probs, pscored, old, stand):
                     out.append(f"| {board} | {WORDS[hz]} | {who} | 0 | | | | | | nothing has come due yet |")
                     continue
                 lo, hi = binom.ppf([0.025, 0.975], n, 0.5).astype(int)
-                cp = n // NEED * NEED  # the latest checkpoint reached
-                says = "yardstick" if m == "trend" else f"too early: {n} of {NEED} calls" if not cp else "confirmed on new days" if k["right"].iloc[:cp].sum() > binom.ppf(0.95, cp, 0.5) else f"not confirmed at {cp} calls"
+                hits = k["right"].cumsum().values
+                ev = max(evidence(int(hits[i]), i + 1) for i in range(n))  # the strongest it has been on any day so far
+                says = "yardstick" if m == "trend" else f"confirmed on new days (evidence {ev:.0f})" if ev >= NEED else f"not yet: evidence {ev:.1f} of the {NEED} needed"
                 if m != "trend" and not ok.get((m, hz, board), 0):
                     says += " (failed the past test)"
                 out.append(f"| {board} | {WORDS[hz]} | {who} | {n} | {k['right'].sum()} | {lo} to {hi} | {pct((k['favoured'] - k['avoided']).mean())} | "
@@ -350,9 +378,9 @@ def report(calls, scored, beliefs, probs, pscored, old, stand):
     for hz in HORIZONS:
         out.append(f"### The {WORDS[hz]}\n")
         b = beliefs[(beliefs["date"] == day) & (beliefs["horizon"] == hz) & (beliefs["rules"] == RULES)]
-        for r in stand[(stand["date"] == day) & (stand["horizon"] == hz)].itertuples():
+        for r in stand[(stand["date"] == day) & (stand["horizon"] == hz) & (stand["rules"] == RULES)].itertuples():
             more = "More than luck: something real is in there, even where no single pattern proves it." if r.standouts > r.luck_high else "About what luck gives."
-            out.append(f"- Patterns that stand out one at a time: **{r.standouts}** of 345. Luck alone usually gives about {r.luck_typical:.0f} and rarely more than {r.luck_high:.0f}. {more}")
+            out.append(f"- Patterns that stand out one at a time: **{r.standouts}** of 332. Luck alone usually gives about {r.luck_typical:.0f} and rarely more than {r.luck_high:.0f}. {more}")
         for m, who in WHO.items():
             row = {bd: cur[(cur["date"] == day) & (cur["horizon"] == hz) & (cur["model"] == m) & (cur["board"] == bd)] for bd in ("market", "book")}
             if row["market"].empty or not row["market"]["view"].iloc[0]:
@@ -430,7 +458,7 @@ def main():
     c = raw["c"].ffill()
     day = f"{c.index[-1].date()}"
 
-    due, pdue = score_due(calls, scored, c), score_names(probs, pscored, calls, c)
+    due, pdue = score_due(calls, scored, c, raw["o"]), score_names(probs, pscored, calls, c, raw["o"])
     scored, pscored = cat(scored, due), cat(pscored, pdue)
     new, found, pnew = [], [], []
     logged = ((calls["date"] == day) & (calls["rules"] == RULES)).any()
@@ -440,7 +468,7 @@ def main():
             warnings.simplefilter("ignore", RuntimeWarning)
             names, today, ic, zg, grid = learn(c, raw["o"] / raw["c"], raw["h"] / raw["c"], raw["l"] / raw["c"], raw["v"].replace(0, np.nan), x)
             at = {n: i for i, n in enumerate(stocks)}
-            rec = past(ic, zg, grid, c, names, np.array([at[n] for n in uni]), np.array([at[n] for n in UNIVERSE]))
+            rec = past(ic, zg, grid, c, raw["o"], names, np.array([at[n] for n in uni]), np.array([at[n] for n in UNIVERSE]))
         old = pd.DataFrame(past_test(rec, day))
         old.to_csv(PAST, index=False)  # rewritten each day: it is a summary of old days, not a log of new ones
         base = {(r.model, r.horizon, r.board): (r.right, r.calls) for r in old.itertuples()}
@@ -448,7 +476,7 @@ def main():
         for hi, hz in enumerate(HORIZONS):
             votes, bar, t, crowd = believe(ic[:, hi, :], hz, np.random.default_rng(0))
             votes["trend"], sure = (np.arange(len(names)) == names.index(TREND)).astype(float), votes["machine"]
-            if not ((stand["date"] == day) & (stand["horizon"] == hz)).any():
+            if not ((stand["date"] == day) & (stand["horizon"] == hz) & (stand["rules"] == RULES)).any():
                 snew.append({"date": day, "horizon": hz, "standouts": crowd[0], "luck_typical": round(crowd[1]), "luck_high": round(crowd[2]), "rules": RULES})
             if not logged:
                 found += [{"date": day, "horizon": hz, "rules": RULES, "pattern": names[k], "direction": "higher is better" if sure[k] > 0 else "lower is better",
