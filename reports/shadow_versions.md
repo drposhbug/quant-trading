@@ -6,6 +6,12 @@ Updated after the close on 2026-11-23. Counting from 2026-11-24. Computed from t
 
 No session has been counted yet: the first is 2026-11-24.
 
+## Sleeves in shadow: holding only overnight
+
+Separate small books, not part of the bot. On the past, meme and crypto stocks made their gains between the close and the next open and lost during the day (reports/meme_crypto_results.md). The lists were chosen with hindsight, so only these new days count.
+
+No session has been counted yet: the first is 2026-11-24.
+
 ## How a candidate becomes the bot's rule
 
 1. Growth: the monthly self-review (learn.py) re-tests it against the live book; three passes in a row flag it for switching on.

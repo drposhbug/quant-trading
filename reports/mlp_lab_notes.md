@@ -169,3 +169,20 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
   below not borrowing at all. Borrowing in calm times and cutting after shocks did worse than steady borrowing.
 - Nothing was switched on. B3.0 is on the agenda of the 2026-12-12 review, after the monthly self-review has
   re-tested it; the order code would need a tested change for borrowing first.
+
+## 2026-11-23, very last (by hand): meme stocks, crypto stocks and candles
+
+- The owner asked whether there are patterns in meme and crypto stocks and in candles there. Unlike the large
+  companies, yes. Four tests with rules written first (reports/meme_crypto_results.md):
+- Nights against days: both groups made their gains between the close and the next open and lost during the
+  day. Meme stocks +0.16% a night and -0.11% a day; crypto stocks +0.50% a night and -0.10% a day. For meme
+  stocks it has faded and trading costs eat what is left. For crypto stocks a large part is simply Bitcoin
+  rising while most of the clock is outside market hours.
+- Spikes fade: a meme stock that jumps more than 15% on heavy volume lagged the others over the next five
+  sessions two times in three.
+- Bitcoin's overnight move is already in the crypto stocks' opening price; nothing is left after the open.
+- Candles: one pattern of 39 survived, and backwards: the "hammer" after a five-day fall, read in the textbooks
+  as a turn upwards, was followed by a further fall.
+- These lists were chosen knowing which names became famous, so the finds are leads. Two overnight-only books
+  now run in shadow (reports/shadow_versions.md); the fade and the hammer are reasons not to buy, which a book
+  that only buys can use only by staying out.

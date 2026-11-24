@@ -50,6 +50,18 @@ its own shock, dropping the tilt after a shock or when wild, trimming the hardes
 The bot re-tests its own settings each month (learn.py) and the daily shadow is in
 [reports/shadow_versions.md](reports/shadow_versions.md).
 
+## Sleeves (separate small books; none exists in the account yet)
+
+| Version | Date | What it is | Result on the past | Status |
+|---|---|---|---|---|
+| S1.0 | 2026-11-23 | Crypto stocks held only overnight: bought at the close, sold at the next open | +0.50% a night before costs (t 2.7), positive in both halves; the stocks lost 0.10% a day in the daytime. Much of this is Bitcoin rising while most of the clock is outside market hours | shadow |
+| S2.0 | 2026-11-23 | Meme stocks held only overnight | +0.16% a night (t 5.2), but fading (0.25% then 0.07%) and about zero after costs in the later half | shadow |
+
+Found in the same study and not tradeable by a book that only buys: meme stocks that spike more than 15% on heavy
+volume lag over the next five sessions (t -3.2); a "hammer" candle after a five-day fall is followed by a further
+fall, the opposite of the textbook (the one candle pattern of 39 to survive). Crypto stocks open with Bitcoin's
+overnight move already in the price; nothing is left to trade after the open.
+
 ## The machine (the research model; it never trades)
 
 | Version | Date | What changed | Result on the past | Status |

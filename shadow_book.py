@@ -13,6 +13,9 @@ Candidates (VERSIONS.md has their history and their results on the past):
                                     hardest on the market's down days (downside_beta_odds.py)
   B3.0  steady 1.25x                the live book with a quarter more, on borrowed money at the T-bill rate + 1.5%
                                     (managed_exposure_odds.py): the calculated risk that cleared its bars
+Sleeves (separate small books, not changes to the bot's book; from meme_crypto_study.py, lists chosen with hindsight):
+  S1.0  crypto stocks, nights only  bought at each close and sold at the next open, equal weights, 10 bp a night
+  S2.0  meme stocks, nights only    the same on the meme list
 A candidate goes live in one of two ways, both written down before the fact (VERSIONS.md): it passes the growth bar
 in the monthly self-review three times running, or the owner chooses it as a risk setting.
 """
@@ -22,6 +25,7 @@ import pandas as pd
 from daily_calls import bars
 from downside_beta_odds import downside
 from managed_exposure_odds import financed
+from meme_crypto_study import CRYPTO, MEME
 from model import BENCH, UNIVERSE, backtest_returns
 from monitor import tilted
 from news_stop_odds import signals
@@ -62,6 +66,23 @@ def main():
             tot = (1 + r).prod() - 1
             out.append(f"| {k} | {len(r)} | {tot:+.2%} | {tot - ((1 + live).prod() - 1):+.2%} | {dd(r):.2%} | {r.min():+.2%} | {books[k].iloc[-1].sum():.0%} |")
         out.append("\nA few weeks of this say almost nothing: the candidates differ from the live book only after shocks. Their record on the past is in VERSIONS.md.")
+    s = bars(sorted(set(MEME + CRYPTO)))
+    s = {k: f.loc[:day] for k, f in s.items()}
+    ok = [n for n in s["c"].columns if s["c"][n].notna().sum() >= 250]
+    night, full = s["o"][ok] / s["c"][ok].shift(1) - 1, s["c"][ok].pct_change()
+    pick = lambda lst: [n for n in lst if n in ok]
+    sleeves = {"S1.0 crypto stocks, nights only (after 10 bp a night)": night[pick(CRYPTO)].mean(axis=1) - 0.0010,
+               "S2.0 meme stocks, nights only (after 10 bp a night)": night[pick(MEME)].mean(axis=1) - 0.0010,
+               "for comparison: crypto stocks held day and night": full[pick(CRYPTO)].mean(axis=1),
+               "for comparison: meme stocks held day and night": full[pick(MEME)].mean(axis=1)}
+    out += ["\n## Sleeves in shadow: holding only overnight\n",
+            "Separate small books, not part of the bot. On the past, meme and crypto stocks made their gains between the close and the next open and "
+            "lost during the day (reports/meme_crypto_results.md). The lists were chosen with hindsight, so only these new days count.\n"]
+    if len(live):
+        out += ["| Sleeve | Sessions | Return since the start | Worst session |", "|---|---|---|---|"]
+        out += [f"| {k} | {len(r.loc[START:].dropna())} | {(1 + r.loc[START:].dropna()).prod() - 1:+.2%} | {r.loc[START:].min():+.2%} |" for k, r in sleeves.items()]
+    else:
+        out.append(f"No session has been counted yet: the first is {START}.")
     out += ["\n## How a candidate becomes the bot's rule\n",
             "1. Growth: the monthly self-review (learn.py) re-tests it against the live book; three passes in a row flag it for switching on.",
             "2. Risk: the owner may choose a candidate that loses less but grows slower. That is a preference, not something a test can decide.",
