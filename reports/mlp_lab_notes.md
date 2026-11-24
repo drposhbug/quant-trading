@@ -77,3 +77,18 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
   every day. On 2026-11-23, for the next session, 75 patterns stood out one at a time where luck rarely gives more
   than 43: something real is there, and it is mostly the 12-month trend seen through many windows. For the next
   5 and 21 sessions the counts (24 and 10) are inside what luck gives.
+
+## 2026-11-23, late (by hand): the research round, and the clock
+
+- The owner asked for research on how to make the machine smarter: five Opus researchers, Astra and Grok, and our
+  own numbers. The decision is in reports/Making the machine smarter (2026-11-23).md.
+- The most important finding is about the clock. The machine makes its calls after the close but was scoring
+  them from that close, a price nobody can trade at once it is known. The trend's whole next-session edge sat in
+  the step from the close to the next open. Measured from the next open (rules v3), nothing stands out at any
+  horizon. The trading bot acts at 15:30, before the close, so this does not take away the bot's trend.
+- Why the machine was nearly blind: its 332 patterns are about 9 ideas, and 500 stocks behave like about 28,
+  because every ranking rides the market and the sectors. Real edges in large companies are smaller than the
+  smallest it could see. Stripping out the shared moves is the largest gain available and needs no new data.
+- News and Trump: shocks reliably predict how large the next moves will be, for weeks, and which stocks react
+  most. They do not predict direction, in our data or in the published studies.
+- New days are now judged by a running evidence score that can be read every day (1 is nothing, 20 confirms).
