@@ -138,3 +138,18 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
   shorted third of stocks beat the most shorted third by about 1% a year, which is well inside luck.
 - Together with profitability (nothing) and busy/quiet month (the wrong way round), that is four ideas beyond
   price patterns tested on large companies, and none adds anything. The earnings tests are the last on the list.
+
+## 2026-11-23, end (by hand): the earnings entries, other lenses, and versions
+
+- The earnings file finished (20,995 announcements). Both earnings entries were tested and neither passes:
+  stocks that beat the forecast did no better afterwards (right 36 of 73), and stocks about to report did
+  slightly better over the following week (right 192 of 353), inside what a coin does.
+- That completes the list for large companies. Price patterns, events, and information that is not price have
+  each had one test with its rule written first. What stands: the slow trend, best on calm days, and the size of
+  moves, which is strongly predictable.
+- Grok was asked whether the project was looking through the wrong lens. Partly: a ranking of which stock does
+  better cannot see how much stocks move, and that is where the predictability is (a link of 0.65 against 0.013
+  for the trend). Holding less of the names that fall hardest was tested: it helps a little, less than simply
+  halving everything after a shock.
+- Versions: VERSIONS.md now lists every version of the bot and of the machine and how a change is made. Two
+  candidate versions of the bot run in shadow from 2026-11-24 (reports/shadow_versions.md).

@@ -57,11 +57,12 @@ The bot re-tests its own settings each month (learn.py) and the daily shadow is 
 | M3 (calls v2) | 2026-11-23 | About 500 stocks, a luck bar, three horizons, a probability on every call | nothing passed | replaced |
 | M3.1 (calls v3) | 2026-11-23 | Every result measured from the next open, the first price anyone can trade at | nothing stands out at any horizon | replaced |
 | **M4 (calls v4)** | 2026-11-23 | Every company that was in the index on the day, dead ones included; market and sector moves taken out; one learner that speaks only when the whole crowd of patterns beats luck; trend on calm days; separate entries for profitability and busy/quiet months | nothing passes; nearest is the trend on calm days (right 18 of 30 times over 21 sessions) | **running in shadow**: [reports/daily_calls.md](reports/daily_calls.md) |
-| M4.1 | pending | Earnings surprise and about-to-report entries | not yet tested (file still being built) | pending |
+| M4.1 | 2026-11-23 | Earnings surprise and about-to-report entries added to M4 | nothing passes (surprise right 36 of 73; about to report 192 of 353, a coin gets 158 to 195) | in shadow from the next daily run |
 
 Tested once as stand-alone ideas, all with no pattern: direction after a stock's shock, after a market shock, in a
 shocked stock's sector peers, after opening 10% down, with or without a company announcement behind the move;
-short interest; profitability; busy/quiet month (the wrong way round).
+short interest; profitability; busy/quiet month (the wrong way round); holding less of the names that fall hardest
+(weaker than halving everything).
 
 ## What keeps it learning
 
