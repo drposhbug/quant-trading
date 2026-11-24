@@ -62,6 +62,9 @@ volume lag over the next five sessions (t -3.2); a "hammer" candle after a five-
 fall, the opposite of the textbook (the one candle pattern of 39 to survive). Crypto stocks open with Bitcoin's
 overnight move already in the price; nothing is left to trade after the open.
 
+Tested and not added: Bitcoin and Ether traded with the 200-day trend rule (crypto_trend_odds.py). On Bitcoin the rule ended
+with more money than simply holding in only 40% of simulated histories; it softened the worst fall (71% against 83%).
+
 ## The machine (the research model; it never trades)
 
 | Version | Date | What changed | Result on the past | Status |
