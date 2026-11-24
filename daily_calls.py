@@ -471,7 +471,7 @@ def counted(scored, m, hz, board):
     return scored[(scored["board"] == board) & (scored["horizon"] == hz) & (scored["model"] == m) & (scored["rules"] == RULES)].sort_values("date").iloc[::hz]
 
 
-def report(calls, scored, beliefs, probs, pscored, old, stand):
+def report(calls, scored, beliefs, probs, pscored, old, stand, shock=""):
     cur, pct = calls[calls["rules"] == RULES], lambda x: f"{x:+.2%}"
     day = cur["date"].max()
     pr = probs[(probs["date"] == day) & (probs["rules"] == PRULES)].set_index(["horizon", "model", "name"])
@@ -484,6 +484,7 @@ def report(calls, scored, beliefs, probs, pscored, old, stand):
            "*avoided*. A call is **right** if favoured did better than avoided, measured from the next morning's open (the first price anyone "
            "could trade at) and before trading costs. Moves that the whole market or a whole sector made are taken out first, so a call is "
            "about what is particular to each stock.\n",
+           shock + "\n",
            "The entries:\n",
            *[f"- **{WHO[m]}**: {WHAT[m]}" for m in WHO if any(r[2] == m for r in rows)],
            "\n## The fast answer: each entry's record on the past\n",
@@ -594,7 +595,7 @@ def panel():
         raw, member = wide_universe.load(START)
         add = bars(sorted(set(UNIVERSE) - set(raw["c"].columns)) + extra)
         raw = {k: f.join(add[k][[n for n in UNIVERSE if n not in f.columns]], how="left") for k, f in raw.items()}
-        member = member.reindex(index=raw["c"].index, columns=raw["c"].columns).ffill().fillna(False).astype(bool)
+        member = member.reindex(index=raw["c"].index, columns=raw["c"].columns).astype(float).ffill().fillna(0.0).astype(bool)
         return raw, member, list(member.columns[member.iloc[-1].values]), add["c"][extra].reindex(raw["c"].index)
     uni = pd.read_csv(UNI)["ticker"].tolist()
     b = bars(sorted(set(uni) | set(UNIVERSE)) + extra)
@@ -678,7 +679,15 @@ def main():
         if rows:
             os.makedirs(os.path.dirname(path), exist_ok=True)
             pd.DataFrame(rows).to_csv(path, mode="a", header=not os.path.exists(path), index=False)
-    report(cat(calls, new), scored, cat(beliefs, found), cat(probs, pnew), pscored, old, cat(stand, snew))
+    spy = outside["SPY"].ffill()
+    big = (spy.pct_change() / spy.pct_change().rolling(60).std().shift(1)).iloc[-21:]
+    big = big[big.abs() > 2.5]
+    shock = ("**Shock watch:** no market-wide shock in the last 21 sessions." if big.empty else
+             f"**Shock watch:** {len(big)} market-wide shock day{'s' if len(big) > 1 else ''} in the last 21 sessions (latest {big.index[-1].date()}, "
+             f"{spy.pct_change().loc[big.index[-1]]:+.1%}). After a shock the market's moves have run about twice their normal size for a month, "
+             "in either direction, and the direction has not been predictable. Nothing here acts on it; reports/news_stop_odds.md shows what "
+             "holding half the book after a shock would have done.")
+    report(cat(calls, new), scored, cat(beliefs, found), cat(probs, pnew), pscored, old, cat(stand, snew), shock)
     print(f"daily calls for {day}: {len(new)} calls logged, {len(pnew)} probabilities, {len(due)} calls and {len(pdue)} stocks scored; "
           f"{len(stocks)} companies, membership by date: {member is not None}, information entries: {info}")
 
