@@ -11,6 +11,8 @@ Candidates (VERSIONS.md has their history and their results on the past):
                                     2.5 of its normal daily moves either way (news_stop_odds.py)
   B2.3  trim amplifiers after shock half weight, for the same 21 sessions, only in the third of names that fall
                                     hardest on the market's down days (downside_beta_odds.py)
+  C1.0  5% in Bitcoin               95% in the live book and 5% in Bitcoin, held; a choice about exposure that no
+                                    test can settle (crypto_trend_odds.py), tracked so its effect is seen on new days
   B3.0  steady 1.25x                the live book with a quarter more, on borrowed money at the T-bill rate + 1.5%
                                     (managed_exposure_odds.py): the calculated risk that cleared its bars
 Sleeves (separate small books, not changes to the bot's book; from meme_crypto_study.py, lists chosen with hindsight):
@@ -49,6 +51,12 @@ def main():
              "B2.3 trim amplifiers after a shock": w * np.where(amp & wide, 0.5, 1.0), "B3.0 steady 1.25x (borrowing a quarter)": w * 1.25}
     ret = {k: (backtest_returns(px, wt) + financed(wt.sum(axis=1), rf, 0.015)).loc[START:] for k, wt in books.items()}
     live = ret["B2.1 live book (trend tilt, fully invested)"]
+    try:  # C1.0: 5% of the account in Bitcoin, simply held; the rest in the live book
+        import yfinance as yf
+        btc = yf.download("BTC-USD", start="2026-10-01", auto_adjust=True, progress=False, threads=False)["Close"].squeeze()
+        ret["C1.0 the live book with 5% in Bitcoin (held)"] = 0.95 * live + 0.05 * btc.reindex(px.index, method="ffill").pct_change().reindex(live.index).fillna(0)
+    except Exception as err:
+        print(f"Bitcoin slice not tracked today: {err!r}")
     day, last = px.index[-1], shock[shock].index[-1] if shock.any() else None
     left = HOLD - (len(px.loc[last:]) - 1) if last is not None else 0
     state = (f"**In shock mode today: yes.** The latest market shock was {last.date()} ({px[BENCH].pct_change().loc[last]:+.1%}); the candidates hold less for {left} more session{'s' if left != 1 else ''}."
@@ -64,7 +72,7 @@ def main():
         out += ["| Version | Sessions | Return since the start | Against the live book | Worst fall | Worst session | Share invested today |", "|---|---|---|---|---|---|---|"]
         for k, r in ret.items():
             tot = (1 + r).prod() - 1
-            out.append(f"| {k} | {len(r)} | {tot:+.2%} | {tot - ((1 + live).prod() - 1):+.2%} | {dd(r):.2%} | {r.min():+.2%} | {books[k].iloc[-1].sum():.0%} |")
+            out.append(f"| {k} | {len(r)} | {tot:+.2%} | {tot - ((1 + live).prod() - 1):+.2%} | {dd(r):.2%} | {r.min():+.2%} | {f'{books[k].iloc[-1].sum():.0%}' if k in books else '95% stocks, 5% Bitcoin'} |")
         out.append("\nA few weeks of this say almost nothing: the candidates differ from the live book only after shocks. Their record on the past is in VERSIONS.md.")
     s = bars(sorted(set(MEME + CRYPTO)))
     s = {k: f.loc[:day] for k, f in s.items()}

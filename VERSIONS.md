@@ -43,6 +43,7 @@ middle of a loss to make the loss stop.
 | B2.2 | 2026-11-23 | Half of every position for 21 sessions after a market shock. On the past: worst fall 25% against 36% (31% against 41% on the current names), worst day halved, 0.8% a year less growth; on the Nasdaq-100 since 1986 it ends with more money in only 11% of simulated histories | shadow; not taken, because the owner's aim is growth (2026-11-23) |
 | B2.3 | 2026-11-23 | Half weight after a shock only in the names that fall hardest. On the past: worst fall about 4 points smaller, growth 0.0% to 1.8% a year lower | shadow |
 | B3.0 | 2026-11-23 | Steady 1.25x: the live book with a quarter more, on borrowed money. On the past: ends with more money in 84% of simulated histories on the Nasdaq-100 since 1986 (72% with dearer borrowing) and 99% on the end-2014 list; +1.2% a year on the index, +4% on the list; worst fall 90% against 83% in 2000-2002, 41% against 34% on the list | shadow; cleared its bars; on the agenda of the 2026-12-12 review |
+| C1.0 | 2026-11-23 | 5% of the account in Bitcoin, simply held, the rest in the live book. No test can say whether Bitcoin keeps rising; a rule for trading it did not beat holding it. The most this can lose is 5% of the account | shadow; on the agenda of the 2026-12-12 review |
 
 Rejected on the past and not kept: steady 1.5x (grows faster, but the worst fall is 95%), borrowing in calm times and
 cutting after shocks (grows slower than steady borrowing), five selling rules, closing out completely after a shock, selling a stock after
@@ -62,7 +63,9 @@ volume lag over the next five sessions (t -3.2); a "hammer" candle after a five-
 fall, the opposite of the textbook (the one candle pattern of 39 to survive). Crypto stocks open with Bitcoin's
 overnight move already in the price; nothing is left to trade after the open.
 
-Tested and not added: Bitcoin and Ether traded with the 200-day trend rule (crypto_trend_odds.py). On Bitcoin the rule ended
+Tested and not added: a book of the 30 S&P 500 stocks with the strongest trend, in any sector or outside technology
+(booming_study.py): it grew 10.9% a year against 11.9% for the average stock, and 7.1% outside technology. Meme coins:
+Dogecoin fell 92% from its peak with or without a trend rule. Bitcoin and Ether traded with the 200-day trend rule (crypto_trend_odds.py). On Bitcoin the rule ended
 with more money than simply holding in only 40% of simulated histories; it softened the worst fall (71% against 83%).
 
 ## The machine (the research model; it never trades)
