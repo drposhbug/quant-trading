@@ -18,7 +18,7 @@
   "2026-11-24": []
  },
  "regime": "risk-off",
- "rebalanced": "2026-11-23",
+ "rebalanced": "2026-11-24",
  "session_checked": "2026-11-24",
  "missed": [
   "2026-11-19"
@@ -37,7 +37,8 @@
   "https://www.federalreserve.gov/newsevents/speech/jefferson20261113a.htm",
   "https://www.federalreserve.gov/newsevents/speech/bowman20261110a.htm",
   "https://www.federalreserve.gov/newsevents/speech/waller20261110a.htm",
-  "https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm"
+  "https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm",
+  "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261124a.htm"
  ],
  "seen_memes": [
   "2026-11-24:NVDA",
@@ -45,7 +46,9 @@
   "2026-11-24:DJT",
   "2026-11-24:ALL",
   "2026-11-24:HPE",
-  "2026-11-24:CIA"
+  "2026-11-24:CIA",
+  "2026-11-24:AAPL",
+  "2026-11-24:DELL"
  ],
  "seen_musk": [
   "https://news.google.com/rss/articles/CBMingFBVV95cUxOXzRsY3F3TnFlUkd6TUFxT1g1djRCN0RSNTktSVY3QUppemw5TlpHZXBVM2h3WVFoaFlpU0JaU3RxZnpoMGRsNDkyQXdqd1M3aXYweFBpU1FFbGxMV3NfTkZSQmpXTVBDLTAxbkZXdVlISVJwSkhlcHVBX1NHZkdaYlFvblFlamh6a2haNUNvZjZCWXZpSlJ0VlVlc1JOUQ?oc=5",
@@ -144,6 +147,10 @@
   "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPRk5oaTc1dDBvYVNDc1pBSmJ2S3BVOHA3ckkzWWhrempIQTVMZHJLV0NVd1RCalN0Mm9QZnBKMVVlcTFnRF9qbnhpekhodU0tcWVLQVhrRWE2MVNxX1o5emZLSHpRNmJFTXhOenVYdGxfOERmbFJKSDkxNTlLU3hqV2ozOW01cFVpZ0NZ?oc=5",
   "https://news.google.com/rss/articles/CBMimwFBVV95cUxQN1FyWWM0NXZvaWM0ZEJUZTFZdXhqU2JRN0dXVTJuSmdsbnVtLWZ2VjRmNUQwbjRpZDlEaVEzZ1FOSUJNSVpSYl9yYUhaZElBNzNLb2laWmFnMW9JbWV4WDBsTlRMOEhNSXZOaGQxTkRzNE9idXRJTUlXZ0dNb0xlYlRqU05Oak1OOTh0aHFybnlhVHVwLW93Zzk1MA?oc=5",
   "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5ZVE1QVkdwaTF4SWdRTXBJLTVpeThXOVNtQzlQSW5DamJ6ZWRYQ3JJbHp5MFJ2UlBYNEUyQlM1eDlTdkl2aFJ4U2NidVFFa05ZNkREX3Fn?oc=5",
-  "https://news.google.com/rss/articles/CBMiugFBVV95cUxQNmNSODBRY3VUbElSVkdNd2xqWG5sTTIweG9JWjNaX2ZiSGVfQ3dUNFZZVVRBd2xCMTFuLVVUa1BkRzRTMlY2QU96SkFBUzV4Z1RuMlhGcmQyR2h4VkVuTVYwMWZja01UUG5jWElBazluZ28xeUd3eGxxamFxd3ItMmpLNDNsZHd1d2RicVpnV01ZS3lhREdJeWl1b0ZtTGlRXzllR2sxU1Y5WGZTYWFVVWwyWS1uUVd3UVE?oc=5"
+  "https://news.google.com/rss/articles/CBMiugFBVV95cUxQNmNSODBRY3VUbElSVkdNd2xqWG5sTTIweG9JWjNaX2ZiSGVfQ3dUNFZZVVRBd2xCMTFuLVVUa1BkRzRTMlY2QU96SkFBUzV4Z1RuMlhGcmQyR2h4VkVuTVYwMWZja01UUG5jWElBazluZ28xeUd3eGxxamFxd3ItMmpLNDNsZHd1d2RicVpnV01ZS3lhREdJeWl1b0ZtTGlRXzllR2sxU1Y5WGZTYWFVVWwyWS1uUVd3UVE?oc=5",
+  "https://news.google.com/rss/articles/CBMiiwFBVV95cUxON2Z4N3hxTXc5WGlqZUFsM1dtNlNOakpRWlcwbzlpQ3phdjNrOVB4RVdUZDFxTVdCUktJTzdhcF9tUnNTRTFHMkdXa252TE82V19LZDZwb2JabmxQTFQ3U2V3VEx1OHB4RVNTZkY2ekZBa1ozRmRlLWFPRkYwX2tPV3F4UjZ3c1gxZWFN?oc=5",
+  "https://news.google.com/rss/articles/CBMimwFBVV95cUxNNXRYZkE1N3hYRVFnRS1BVUljNG5FdTVxaDZjU01NQUNnb0hGMzVMUFJtS1hmZ1lKYUp1ZWczOTFtVXdZLXp2Y0NlM1RrUGJQWDFTeWMzVEstZjlISFV6YThkTURSRGk2b0RrNUtiODgwb01vbm1Rakw4SEpLbGgtRTZ0aHU3RFAxZnFTRGJIbFZ6OTN3OXFIRXJsMA?oc=5",
+  "https://news.google.com/rss/articles/CBMikwFBVV95cUxOaEMxdk9uQ2QxWDVBQUVQUi1SZXVSbW1Sb0YxeHAxNl9OLW5faTFwaGp1aVZpR1lBa1FueFRkTy1YaHpPeVJMNWdJNDRtR3JFSVRPRk16Q2FXWVVrYnplQlJXX3RjQ3ViX0VkWWhhZFJMUS1WYlVBY3JzZDJtN2dmWFZxM2p0bDIwVjRCem5MbXM4QWc?oc=5",
+  "https://news.google.com/rss/articles/CBMi-AFBVV95cUxQX0VfR2J4N2RQYU5IR3ZiakxOUWJodFpseTl6Q0dXMk9JZGlPS0pPOWZIVWtCNEVOMlZkS0l2S2lQQ24tTWlOSC1sOHNETk1WWlluenp5S21SWHljT0k4RTA5QXZCVVFHR19yZVhmSVUwRmlvV2lna2J3a05uUk10aGZ6c2NqcmVYZU9BQjJXMFFFX25GNTdlTkc4ZThzdWRDSjlQOG0yVFZEZTFpWHNZV3hjN3BxYWQ0OTJNS2lkUzJ3UWdtemlDb0Z5aXEyUG1DMWlLTnRIdlpVN1Zmei1wbmNZb3o5VGVORGtZVzZic1VZX0hIMFpOUg?oc=5"
  ]
 }
