@@ -59,3 +59,21 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
   already uses. A second entry, "best guess", was added so there is a call to watch every day; it uses patterns
   that stand out one at a time (7 at 21 sessions, about what luck alone gives; 24 at 5; 75 at 1).
 - No verdict before 20 non-overlapping official calls, about 20 months. Until then the page says "too early".
+
+## 2026-11-23, night (by hand): the past test, probabilities, and counting the crowd
+
+- The owner asked why wait 20 months when all of the past is there. Fair: the machine's record on the past is now
+  the first verdict. Every fifth session since 2019 each call was rebuilt with only what was known that day and
+  checked against what followed. New days now only confirm or contradict it.
+- Result: no entry passes. For the next 21 sessions the best guess was right 31 times in 73 (a coin gets 28 to
+  45). For the next 5 it was right 180 times in 366. The nearest miss is the strict entry's next-session calls:
+  right 76 times in 124 (61%, more than a coin's 51 to 73), but its wins were small and its losses large enough
+  that the average gain is not clearly above zero. It is marked "fails", with that reason.
+- Every call now carries a probability, and each of the bot's stocks a chance of beating the typical stock.
+  They come from that same past record, pulled toward 50%, and every real result from now on moves them. They
+  are all near 50% (47% to 53% for the stocks), because that is what the record supports. The probabilities are
+  checked as well: when it says 53%, did it happen about 53% of the time?
+- The owner's point that many lucky-looking things at once may be one real thing nobody proved is now counted
+  every day. On 2026-11-23, for the next session, 75 patterns stood out one at a time where luck rarely gives more
+  than 43: something real is there, and it is mostly the 12-month trend seen through many windows. For the next
+  5 and 21 sessions the counts (24 and 10) are inside what luck gives.

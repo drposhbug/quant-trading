@@ -319,7 +319,8 @@ def report(calls, scored, beliefs, probs, pscored, old, stand):
     for board in ("market", "book"):
         for hz in HORIZONS:
             for r in old[(old["board"] == board) & (old["horizon"] == hz)].set_index("model").reindex(list(WHO)).dropna(subset=["calls"]).itertuples():
-                verdict = "yardstick" if r.Index == "trend" else "**passes**" if r.passed else "no better than a coin"
+                often = r.right > binom.ppf(0.95, r.calls, 0.5)
+                verdict = "yardstick" if r.Index == "trend" else "**passes**" if r.passed else "right more often than a coin, but its gain is not clearly above zero: fails" if often else "no better than a coin"
                 out.append(f"| {board} | {WORDS[hz]} | {WHO[r.Index][4:]} | {r.calls:.0f} | {r.right:.0f} ({r.right / r.calls:.0%}) | {r.coin} | {pct(r.gap)} | {r.t:+.1f} | {verdict} |")
     out += ["\n## The tally on new days\n",
             "New days confirm or contradict the past. Only calls that do not overlap are counted, and an entry is checked at 20, 40, 60... calls.\n",
@@ -442,6 +443,7 @@ def main():
             rec = past(ic, zg, grid, c, names, np.array([at[n] for n in uni]), np.array([at[n] for n in UNIVERSE]))
         old = pd.DataFrame(past_test(rec, day))
         old.to_csv(PAST, index=False)  # rewritten each day: it is a summary of old days, not a log of new ones
+        base = {(r.model, r.horizon, r.board): (r.right, r.calls) for r in old.itertuples()}
         live = c.iloc[-1].notna() & raw["c"].iloc[-5:].notna().any()  # a name with no bar in a week has stopped trading
         for hi, hz in enumerate(HORIZONS):
             votes, bar, t, crowd = believe(ic[:, hi, :], hz, np.random.default_rng(0))
@@ -464,8 +466,8 @@ def main():
                     continue
                 row = lambda name, p, right, n: {"date": day, "horizon": hz, "model": m, "name": name, "p": round(float(p), 4),
                                                  "past_right": round(float(right), 1), "past_n": round(float(n), 1), "rules": PRULES}
-                for board in ("market", "book"):  # the old-days calls are STEP sessions apart: longer horizons overlap, so they count for less
-                    n, right, g = r[board][0] * min(1, STEP / hz), r[board][1] * min(1, STEP / hz), counted(scored, m, hz, board)
+                for board in ("market", "book"):  # from the old-days calls that do not overlap: the same record as the past test
+                    (right, n), g = base.get((m, hz, board), (0, 0)), counted(scored, m, hz, board)
                     if order[board]:
                         pnew.append(row("*" + board, chance(right, n, (g["right"].sum(), len(g))), right, n))
                 g, pool = counted(scored, m, hz, "market"), s.reindex(order["market"]).values
