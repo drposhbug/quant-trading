@@ -127,3 +127,14 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
 - Started the same evening: two more data sets that are not prices, both ranked highest by the research:
   company announcements filed with the SEC (8-K filings, with the second they became public) and short interest
   with its true publication dates. The earnings calendar is still downloading.
+
+## 2026-11-23, night (by hand): two tests on information that is not prices
+
+- Company announcements. Every material announcement is filed with the SEC and stamped to the second, so there
+  is now a timed record of real news for all 503 companies (73,410 filings). The test: when a stock makes a big
+  move, does it matter whether an announcement was behind it? The textbook says moves with news continue and
+  moves without news turn back. Here, neither: 9,196 big moves, and the two groups behaved the same afterwards.
+- Short interest (how many shares are sold short), used only from the day each figure was published. The least
+  shorted third of stocks beat the most shorted third by about 1% a year, which is well inside luck.
+- Together with profitability (nothing) and busy/quiet month (the wrong way round), that is four ideas beyond
+  price patterns tested on large companies, and none adds anything. The earnings tests are the last on the list.

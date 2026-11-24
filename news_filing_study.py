@@ -37,7 +37,7 @@ def held(sgn, rf, rl, hold):
     sgn: [day x stock] +1 or -1 on the shock day, empty otherwise. In at the next open (rf: that day open to close),
     then close to close (rl), both against the average member."""
     entry = sgn.shift(1)
-    pos, first = entry.ffill(limit=hold - 1), entry.notna()
+    pos, first = (entry.ffill(limit=hold - 1) if hold > 1 else entry), entry.notna()
     later = ~first & pos.notna()
     num = (pos * rf).where(first).sum(axis=1) + (pos * rl).where(later).sum(axis=1)
     cnt = (first & rf.notna()).sum(axis=1) + (later & rl.notna()).sum(axis=1)
