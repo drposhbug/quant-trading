@@ -1,125 +1,161 @@
 # Daily calls: what the machine predicted and what came true
 
-Updated after the close on 2026-11-23. Rules "v3 2026-11-23", written in daily_calls.py before the first call. It never trades.
+Updated after the close on 2026-11-23. Rules "v4 2026-11-23", written in daily_calls.py before the first call. It never trades.
 
-Each day after the close the machine ranks about 500 stocks for three horizons. The top third is *favoured*, the bottom third *avoided*. Every result is measured from the next morning's open, the first price anyone could trade at after the call. When the horizon has passed, a call is **right** if favoured did better than avoided (before trading costs). There are three entries. **Sure**: only patterns whose record beats what the best of 332 reaches by luck; if there is none it says "no view". **Best guess**: every pattern that stands out one at a time, so some of its voters are luck. **Trend ranking**: a plain 12-month trend, the yardstick. Every call carries a probability, and the probabilities are checked too (last section). Being right more often than a coin is not yet a profit: trading costs come off, most of all on the next-session calls.
+Each day after the close the machine ranks the S&P 500 stocks for three horizons. The top third is *favoured*, the bottom third *avoided*. A call is **right** if favoured did better than avoided, measured from the next morning's open (the first price anyone could trade at) and before trading costs. Moves that the whole market or a whole sector made are taken out first, so a call is about what is particular to each stock.
 
-## The fast answer: its record on the past
+**Shock watch:** 6 market-wide shock days in the last 21 sessions (latest 2026-11-23, +4.7%). After a shock the market's moves have run about twice their normal size for a month, in either direction, and the direction has not been predictable. Nothing here acts on it; reports/news_stop_odds.md shows what holding half the book after a shock would have done. **How sharp the instrument is:** over next 21 sessions one day's ranking score wobbles by 0.116. If the 503 stocks moved independently it would be 0.045, so the list carries the information of about 74 independent stocks (about 28 before the market and the sectors were taken out).
 
-Every fifth session since 2019 each entry's call was rebuilt with only what was known that day, then checked against what followed. Only calls that do not overlap are counted. "A coin gets" is the range pure luck lands in 19 times out of 20. An entry **passes** if it was right more often than a coin would be 19 times in 20 and its average gap is clearly above zero (t of 2 or more). Two cautions: the list is today's surviving companies, which flatters every entry a little, and several entries are tested, so a single narrow pass can be luck.
+The entries:
 
-| Board | Horizon | Who | Calls | Right | A coin gets | Favoured minus avoided | t | Past test |
-|---|---|---|---|---|---|---|---|---|
-| market | next 21 sessions (official) | machine, sure | 3 | 2 (67%) | 0 to 3 | +0.39% | +0.5 | no better than a coin |
-| market | next 21 sessions (official) | machine, best guess | 73 | 31 (42%) | 28 to 45 | -0.49% | -1.2 | no better than a coin |
-| market | next 21 sessions (official) | trend ranking | 73 | 39 (53%) | 28 to 45 | -0.28% | -0.6 | yardstick |
-| market | next 5 sessions (side board) | machine, sure | 4 | 0 (0%) | 0 to 4 | -2.19% | -2.1 | no better than a coin |
-| market | next 5 sessions (side board) | machine, best guess | 363 | 157 (43%) | 163 to 200 | -0.08% | -1.0 | no better than a coin |
-| market | next 5 sessions (side board) | trend ranking | 366 | 186 (51%) | 164 to 202 | -0.07% | -0.5 | yardstick |
-| market | next session (side board) | machine, best guess | 367 | 175 (48%) | 165 to 202 | -0.07% | -2.0 | no better than a coin |
-| market | next session (side board) | trend ranking | 367 | 176 (48%) | 165 to 202 | -0.07% | -1.6 | yardstick |
-| book | next 21 sessions (official) | machine, sure | 3 | 0 (0%) | 0 to 3 | -7.53% | -1.5 | no better than a coin |
-| book | next 21 sessions (official) | machine, best guess | 73 | 29 (40%) | 28 to 45 | -0.88% | -0.8 | no better than a coin |
-| book | next 21 sessions (official) | trend ranking | 73 | 41 (56%) | 28 to 45 | +0.57% | +0.7 | yardstick |
-| book | next 5 sessions (side board) | machine, sure | 4 | 1 (25%) | 0 to 4 | -0.63% | -0.3 | no better than a coin |
-| book | next 5 sessions (side board) | machine, best guess | 363 | 173 (48%) | 163 to 200 | -0.14% | -0.7 | no better than a coin |
-| book | next 5 sessions (side board) | trend ranking | 366 | 171 (47%) | 164 to 202 | +0.07% | +0.3 | yardstick |
-| book | next session (side board) | machine, best guess | 367 | 189 (51%) | 165 to 202 | +0.01% | +0.2 | no better than a coin |
-| book | next session (side board) | trend ranking | 367 | 181 (49%) | 165 to 202 | -0.02% | -0.3 | yardstick |
+- **The learner**: all the price patterns combined, with near-copies sharing one weight. It speaks only when the whole crowd of patterns beats luck; otherwise "no view".
+- **The trend ranking**: a plain 12-month trend. The yardstick.
+- **The trend on calm days**: the same trend, standing aside while its own bet has been wilder than usual.
+- **Busy month, quiet month**: last month's winners keep going if they traded unusually heavily, and turn back if they were quiet.
+- **Earnings surprise**: stocks that beat the earnings forecast at their latest report, for 63 sessions after it.
+- **About to report**: stocks due to report earnings within about a week.
+- **Profitability**: companies with more gross profit per dollar of assets, as first reported.
+
+## The fast answer: each entry's record on the past
+
+Every fifth session since 2019 each call was rebuilt with only what was known that day, among the companies that were in the index that day (dead ones included), then checked against what followed. Only calls that do not overlap are counted. "A coin gets" is the range pure luck lands in 19 times out of 20. An entry **passes** if it was right more often than a coin would be 19 times in 20 and its average gap is clearly above zero (t of 2 or more). Several entries are read here, so one narrow pass can be luck.
+
+| Board | Horizon | Who | Calls | Right | A coin gets | Favoured minus avoided | t | Its worst 5% of calls | Past test |
+|---|---|---|---|---|---|---|---|---|---|
+| market | next 21 sessions (official) | learner | 0 | | | | | | never had a view |
+| market | next 21 sessions (official) | trend ranking | 73 | 43 (59%) | 28 to 45 | +0.07% | +0.2 | -6.68% | yardstick |
+| market | next 21 sessions (official) | trend, calm days | 30 | 18 (60%) | 10 to 20 | +0.65% | +1.7 | -4.80% | no better than a coin |
+| market | next 21 sessions (official) | busy/quiet month | 73 | 26 (36%) | 28 to 45 | -0.29% | -2.3 | -2.50% | no better than a coin |
+| market | next 21 sessions (official) | earnings surprise | 0 | | | | | | never had a view |
+| market | next 21 sessions (official) | profitability | 73 | 33 (45%) | 28 to 45 | +0.03% | +0.2 | -2.53% | no better than a coin |
+| market | next 5 sessions (side board) | learner | 0 | | | | | | never had a view |
+| market | next 5 sessions (side board) | trend ranking | 366 | 195 (53%) | 164 to 202 | +0.01% | +0.1 | -3.87% | yardstick |
+| market | next 5 sessions (side board) | trend, calm days | 130 | 72 (55%) | 54 to 76 | +0.07% | +0.5 | -4.69% | no better than a coin |
+| market | next 5 sessions (side board) | about to report | 0 | | | | | | never had a view |
+| market | next session (side board) | learner | 112 | 52 (46%) | 46 to 66 | -0.01% | -0.2 | -0.74% | no better than a coin |
+| market | next session (side board) | trend ranking | 367 | 182 (50%) | 165 to 202 | -0.01% | -0.5 | -1.32% | yardstick |
+| market | next session (side board) | trend, calm days | 131 | 69 (53%) | 54 to 77 | +0.03% | +0.6 | -1.34% | no better than a coin |
+| book | next 21 sessions (official) | learner | 0 | | | | | | never had a view |
+| book | next 21 sessions (official) | trend ranking | 73 | 37 (51%) | 28 to 45 | +0.19% | +0.2 | -19.94% | yardstick |
+| book | next 21 sessions (official) | trend, calm days | 30 | 14 (47%) | 10 to 20 | -0.78% | -0.6 | -14.92% | no better than a coin |
+| book | next 5 sessions (side board) | learner | 0 | | | | | | never had a view |
+| book | next 5 sessions (side board) | trend ranking | 366 | 189 (52%) | 164 to 202 | +0.03% | +0.1 | -8.72% | yardstick |
+| book | next 5 sessions (side board) | trend, calm days | 130 | 65 (50%) | 54 to 76 | -0.27% | -0.8 | -9.08% | no better than a coin |
+| book | next session (side board) | learner | 112 | 57 (51%) | 46 to 66 | -0.02% | -0.1 | -3.94% | no better than a coin |
+| book | next session (side board) | trend ranking | 367 | 191 (52%) | 165 to 202 | +0.02% | +0.2 | -3.28% | yardstick |
+| book | next session (side board) | trend, calm days | 131 | 74 (56%) | 54 to 77 | +0.14% | +1.2 | -2.73% | no better than a coin |
 
 ## The tally on new days
 
 New days confirm or contradict the past. Only calls that do not overlap are counted. "Evidence" starts at 1 and 20 confirms; it can be read every day without fooling ourselves, because luck alone reaches 20 at most 1 time in 20.
 
-| Board | Horizon | Who | Calls counted | Right | A coin gets | Favoured minus avoided | Rank IC | All calls, overlapping | Says |
-|---|---|---|---|---|---|---|---|---|---|
-| market | next 21 sessions (official) | machine, sure | 0 | | | | | | nothing has come due yet |
-| market | next 21 sessions (official) | machine, best guess | 0 | | | | | | nothing has come due yet |
-| market | next 21 sessions (official) | trend ranking | 0 | | | | | | nothing has come due yet |
-| market | next 5 sessions (side board) | machine, sure | 0 | | | | | | nothing has come due yet |
-| market | next 5 sessions (side board) | machine, best guess | 0 | | | | | | nothing has come due yet |
-| market | next 5 sessions (side board) | trend ranking | 0 | | | | | | nothing has come due yet |
-| market | next session (side board) | machine, sure | 0 | | | | | | nothing has come due yet |
-| market | next session (side board) | machine, best guess | 0 | | | | | | nothing has come due yet |
-| market | next session (side board) | trend ranking | 0 | | | | | | nothing has come due yet |
-| book | next 21 sessions (official) | machine, sure | 0 | | | | | | nothing has come due yet |
-| book | next 21 sessions (official) | machine, best guess | 0 | | | | | | nothing has come due yet |
-| book | next 21 sessions (official) | trend ranking | 0 | | | | | | nothing has come due yet |
-| book | next 5 sessions (side board) | machine, sure | 0 | | | | | | nothing has come due yet |
-| book | next 5 sessions (side board) | machine, best guess | 0 | | | | | | nothing has come due yet |
-| book | next 5 sessions (side board) | trend ranking | 0 | | | | | | nothing has come due yet |
-| book | next session (side board) | machine, sure | 0 | | | | | | nothing has come due yet |
-| book | next session (side board) | machine, best guess | 0 | | | | | | nothing has come due yet |
-| book | next session (side board) | trend ranking | 0 | | | | | | nothing has come due yet |
-
-Days logged: 1. Days the sure entry had no view: next 21 sessions (official) 1, next 5 sessions (side board) 1, next session (side board) 1.
+| Board | Horizon | Who | Calls counted | Right | A coin gets | Favoured minus avoided | All calls, overlapping | Says |
+|---|---|---|---|---|---|---|---|---|
+| market | next 21 sessions (official) | learner | 0 | | | | | nothing has come due yet |
+| market | next 21 sessions (official) | trend ranking | 0 | | | | | nothing has come due yet |
+| market | next 21 sessions (official) | trend, calm days | 0 | | | | | nothing has come due yet |
+| market | next 21 sessions (official) | busy/quiet month | 0 | | | | | nothing has come due yet |
+| market | next 21 sessions (official) | earnings surprise | 0 | | | | | nothing has come due yet |
+| market | next 21 sessions (official) | profitability | 0 | | | | | nothing has come due yet |
+| market | next 5 sessions (side board) | learner | 0 | | | | | nothing has come due yet |
+| market | next 5 sessions (side board) | trend ranking | 0 | | | | | nothing has come due yet |
+| market | next 5 sessions (side board) | trend, calm days | 0 | | | | | nothing has come due yet |
+| market | next 5 sessions (side board) | about to report | 0 | | | | | nothing has come due yet |
+| market | next session (side board) | learner | 0 | | | | | nothing has come due yet |
+| market | next session (side board) | trend ranking | 0 | | | | | nothing has come due yet |
+| market | next session (side board) | trend, calm days | 0 | | | | | nothing has come due yet |
+| book | next 21 sessions (official) | learner | 0 | | | | | nothing has come due yet |
+| book | next 21 sessions (official) | trend ranking | 0 | | | | | nothing has come due yet |
+| book | next 21 sessions (official) | trend, calm days | 0 | | | | | nothing has come due yet |
+| book | next 5 sessions (side board) | learner | 0 | | | | | nothing has come due yet |
+| book | next 5 sessions (side board) | trend ranking | 0 | | | | | nothing has come due yet |
+| book | next 5 sessions (side board) | trend, calm days | 0 | | | | | nothing has come due yet |
+| book | next session (side board) | learner | 0 | | | | | nothing has come due yet |
+| book | next session (side board) | trend ranking | 0 | | | | | nothing has come due yet |
+| book | next session (side board) | trend, calm days | 0 | | | | | nothing has come due yet |
 
 ## The calls made after the close on 2026-11-23
 
 ### The next 21 sessions (official)
 
-- Patterns that stand out one at a time: **13** of 332. Luck alone usually gives about 9 and rarely more than 47. About what luck gives.
-- **The machine, sure: no view.** No pattern stood out from luck (the bar was 3.49).
-- **The machine, best guess** (from 9 patterns that stand out one at a time; some of them are luck), market: favours most MRNA, NEM, PYPL, COIN, LULU, FICO, LII, ALB, FCX, COO; avoids most L, HUM, AFL, CBOE, EG, OKE, REG, TRGP, NI, AMT. **44% that favoured beats avoided**, 56% that it does not.
-  In the book: favours SPCX, ORCL, AMD, TSLA; avoids MSFT, META, AVGO, NVDA. **42% that favoured beats avoided**, 58% that it does not.
-- **The trend ranking**, market: favours most AES, TECH, MRNA, VTRS, PSX, TGT, MPC, VLO, APA, HST; avoids most BSX, LVS, PODD, PNR, ROL, NFLX, NKE, WYNN, TSCO, INTU. **53% that favoured beats avoided**, 47% that it does not.
-  In the book: favours AAPL, AMD, TSM; avoids ORCL, AVGO, TSLA. **55% that favoured beats avoided**, 45% that it does not.
+- Patterns that stand out one at a time: **14** of the learner's. Luck alone usually gives about 9 and rarely more than 58. About what luck gives.
+- **The learner: no view.** The whole crowd of patterns is no better than luck here.
+- **The trend ranking**, market: favours most AES, TECH, TGT, MRNA, VTRS, EBAY, TRV, HST, KO, STT; avoids most BSX, PODD, PNR, EXE, ROL, LVS, TSCO, INTU, CSGP, ORCL. **57% that favoured beats avoided**, 43% that it does not.
+  In the book: favours AAPL, AMZN, MSFT; avoids ORCL, AVGO, NVDA. **51% that favoured beats avoided**, 49% that it does not.
+- **The trend on calm days**, market: favours most AES, TECH, TGT, MRNA, VTRS, EBAY, TRV, HST, KO, STT; avoids most BSX, PODD, PNR, EXE, ROL, LVS, TSCO, INTU, CSGP, ORCL. **56% that favoured beats avoided**, 44% that it does not.
+  In the book: favours AAPL, AMZN, MSFT; avoids ORCL, AVGO, NVDA. **48% that favoured beats avoided**, 52% that it does not.
+- **Busy month, quiet month**, market: favours most PNR, CRM, CLX, RDDT, SNDK, GEN, IT, COIN, HOOD, SMCI; avoids most APP, ILMN, DELL, FIS, TWLO, FFIV, FTNT, MPC, VLO, NVDA. **39% that favoured beats avoided**, 61% that it does not.
+- Earnings surprise: not logged (its data was missing).
+- **Profitability**, market: favours most TPR, FICO, SNDK, RL, DPZ, VRSN, GWW, FAST, IDXX, INCY; avoids most WY, TSN, CPT, MRNA, KHC, KDP, HRL, OMC, INTC, BA. **46% that favoured beats avoided**, 54% that it does not.
 
 ### The next 5 sessions (side board)
 
-- Patterns that stand out one at a time: **12** of 332. Luck alone usually gives about 8 and rarely more than 56. About what luck gives.
-- **The machine, sure: no view.** No pattern stood out from luck (the bar was 3.55).
-- **The machine, best guess** (from 12 patterns that stand out one at a time; some of them are luck), market: favours most INTU, UNH, NKE, WSM, ELV, IP, CRM, CNC, CI, HUM; avoids most AES, TJX, OKTA, GNRC, PANW, FIX, TGT, ZBH, VRSN, COHR. **44% that favoured beats avoided**, 56% that it does not.
-  In the book: favours SPCX, MSFT, AMD, AVGO; avoids NVDA, TSLA, GOOGL, AMZN. **48% that favoured beats avoided**, 52% that it does not.
-- **The trend ranking**, market: favours most AES, TECH, MRNA, VTRS, PSX, TGT, MPC, VLO, APA, HST; avoids most BSX, LVS, PODD, PNR, ROL, NFLX, NKE, WYNN, TSCO, INTU. **51% that favoured beats avoided**, 49% that it does not.
-  In the book: favours AAPL, AMD, TSM; avoids ORCL, AVGO, TSLA. **47% that favoured beats avoided**, 53% that it does not.
+- Patterns that stand out one at a time: **40** of the learner's. Luck alone usually gives about 8 and rarely more than 51. About what luck gives.
+- **The learner: no view.** The whole crowd of patterns is no better than luck here.
+- **The trend ranking**, market: favours most AES, TECH, TGT, MRNA, VTRS, EBAY, TRV, HST, KO, STT; avoids most BSX, PODD, PNR, EXE, ROL, LVS, TSCO, INTU, CSGP, ORCL. **53% that favoured beats avoided**, 47% that it does not.
+  In the book: favours AAPL, AMZN, MSFT; avoids ORCL, AVGO, NVDA. **52% that favoured beats avoided**, 48% that it does not.
+- **The trend on calm days**, market: favours most AES, TECH, TGT, MRNA, VTRS, EBAY, TRV, HST, KO, STT; avoids most BSX, PODD, PNR, EXE, ROL, LVS, TSCO, INTU, CSGP, ORCL. **55% that favoured beats avoided**, 45% that it does not.
+  In the book: favours AAPL, AMZN, MSFT; avoids ORCL, AVGO, NVDA. **50% that favoured beats avoided**, 50% that it does not.
+- About to report: not logged (its data was missing).
 
 ### The next session (side board)
 
-- Patterns that stand out one at a time: **9** of 332. Luck alone usually gives about 8 and rarely more than 48. About what luck gives.
-- **The machine, sure: no view.** No pattern stood out from luck (the bar was 3.64).
-- **The machine, best guess** (from 7 patterns that stand out one at a time; some of them are luck), market: favours most PYPL, MRNA, TMO, DGX, BDX, LIN, LH, AES, VRSN, FTNT; avoids most VICI, TDG, NI, EXE, ATO, LVS, PPL, CMS, TTWO, INVH. **48% that favoured beats avoided**, 52% that it does not.
-  In the book: favours AAPL, AMD, SPCX, TSLA; avoids ORCL, AVGO, NVDA, META. **51% that favoured beats avoided**, 49% that it does not.
-- **The trend ranking**, market: favours most AES, TECH, MRNA, VTRS, PSX, TGT, MPC, VLO, APA, HST; avoids most BSX, LVS, PODD, PNR, ROL, NFLX, NKE, WYNN, TSCO, INTU. **48% that favoured beats avoided**, 52% that it does not.
-  In the book: favours AAPL, AMD, TSM; avoids ORCL, AVGO, TSLA. **49% that favoured beats avoided**, 51% that it does not.
+- Patterns that stand out one at a time: **71** of the learner's. Luck alone usually gives about 8 and rarely more than 42. More than luck: something real is in there.
+- **The learner**, market: favours most PYPL, MRNA, SWKS, EIX, WSM, BBY, JBHT, AWK, PCG, LULU; avoids most TTWO, NVDA, F, GOOGL, LLY, GOOG, TECH, TJX, WY, ABT. **47% that favoured beats avoided**, 53% that it does not.
+  In the book: favours AMD, TSLA, AVGO; avoids NVDA, GOOGL, META. **51% that favoured beats avoided**, 49% that it does not.
+- **The trend ranking**, market: favours most AES, TECH, TGT, MRNA, VTRS, EBAY, TRV, HST, KO, STT; avoids most BSX, PODD, PNR, EXE, ROL, LVS, TSCO, INTU, CSGP, ORCL. **50% that favoured beats avoided**, 50% that it does not.
+  In the book: favours AAPL, AMZN, MSFT; avoids ORCL, AVGO, NVDA. **52% that favoured beats avoided**, 48% that it does not.
+- **The trend on calm days**, market: favours most AES, TECH, TGT, MRNA, VTRS, EBAY, TRV, HST, KO, STT; avoids most BSX, PODD, PNR, EXE, ROL, LVS, TSCO, INTU, CSGP, ORCL. **52% that favoured beats avoided**, 48% that it does not.
+  In the book: favours AAPL, AMZN, MSFT; avoids ORCL, AVGO, NVDA. **56% that favoured beats avoided**, 44% that it does not.
+- What the learner leans on most:
+  - overnight return over 5 sessions: lower is better (strength 3.9)
+  - sensitivity to small US stocks times its move over 63 sessions: lower is better (strength 2.6)
+  - overnight return over 63 sessions, leaving out the latest 21: lower is better (strength 2.0)
+  - sensitivity to small US stocks times its move over 21 sessions: lower is better (strength 2.0)
+  - overnight return over 252 sessions: lower is better (strength 1.2)
+  - daily range, last 63 sessions against the last 252: higher is better (strength 0.1)
+  - overnight return over 252 sessions, leaving out the latest 21: lower is better (strength 1.1)
+  - daytime return over 252 sessions, leaving out the latest 21: higher is better (strength 3.4)
 
 ## The chance that each of the bot's stocks beats the typical stock
 
-"Beats the typical stock" means it does better than the middle stock of the market list over that horizon, so 50% is a coin. The columns are the horizon in sessions and the entry. These numbers stay close to 50% because that is what the record supports.
+"Beats the typical stock" means it does better than the middle stock of the index over that horizon, so 50% is a coin. The columns are the horizon in sessions and the entry. These numbers stay close to 50% because that is what the record supports.
 
-| Stock | 21: sure | 21: best guess | 21: trend | 5: sure | 5: best guess | 5: trend | 1: sure | 1: best guess | 1: trend |
-|---|---|---|---|---|---|---|---|---|---|
-| AAPL | no view | 50.1% | 48.8% | no view | 49.6% | 50.0% | no view | 48.6% | 50.2% |
-| AMD | no view | 50.3% | 49.9% | no view | 50.2% | 50.4% | no view | 48.8% | 49.8% |
-| AMZN | no view | 50.3% | 49.5% | no view | 49.9% | 49.9% | no view | 50.1% | 49.7% |
-| AVGO | no view | 50.8% | 50.0% | no view | 50.2% | 49.4% | no view | 51.1% | 50.0% |
-| GOOGL | no view | 50.3% | 49.9% | no view | 49.9% | 49.5% | no view | 50.0% | 49.9% |
-| META | no view | 50.7% | 49.9% | no view | 50.4% | 49.5% | no view | 51.1% | 49.9% |
-| MSFT | no view | 50.7% | 49.5% | no view | 49.9% | 49.9% | no view | 50.0% | 49.7% |
-| NVDA | no view | 50.1% | 49.9% | no view | 51.3% | 49.5% | no view | 51.1% | 49.9% |
-| ORCL | no view | 50.3% | 49.6% | no view | 49.6% | 49.4% | no view | 51.1% | 50.4% |
-| SPCX | no view | 48.8% | no view | no view | 49.2% | no view | no view | 49.2% | no view |
-| TSLA | no view | 50.3% | 50.0% | no view | 51.3% | 49.4% | no view | 49.9% | 50.0% |
-| TSM | no view | 50.3% | 50.4% | no view | 49.6% | 49.8% | no view | 50.0% | 49.8% |
+| Stock | 21: trend ranking | 21: trend, calm days | 5: trend ranking | 5: trend, calm days | 1: learner | 1: trend ranking | 1: trend, calm days |
+|---|---|---|---|---|---|---|---|
+| AAPL | 50.8% | 53.2% | 51.2% | 52.8% | 49.7% | 49.8% | 51.3% |
+| AMD | 50.0% | 50.3% | 49.9% | 50.5% | 49.0% | 49.3% | 49.8% |
+| AMZN | 50.2% | 50.8% | 50.5% | 50.0% | 49.5% | 50.9% | 50.5% |
+| AVGO | 49.4% | 47.7% | 49.3% | 48.9% | 51.2% | 49.7% | 49.2% |
+| GOOGL | 50.0% | 50.3% | 49.9% | 50.5% | 49.8% | 49.3% | 49.8% |
+| META | 50.0% | 50.3% | 49.9% | 50.5% | 49.8% | 49.3% | 49.8% |
+| MSFT | 50.2% | 50.8% | 50.5% | 50.0% | 49.7% | 50.9% | 50.5% |
+| NVDA | 49.1% | 48.8% | 49.3% | 49.4% | 49.8% | 49.2% | 49.0% |
+| ORCL | 48.7% | 47.0% | 49.2% | 47.9% | 49.8% | 50.0% | 48.3% |
+| TSLA | 50.4% | 50.6% | 49.8% | 48.9% | 49.5% | 50.4% | 50.3% |
 
 ## Where the probabilities come from
 
-Each starts from the entry's record on old days: every fifth session since 2019 the call was rebuilt with only what was known that day, and checked against what followed. That record is pulled toward 50% and counts for at most 100 calls; every real result since is added on top, so the probabilities learn from what comes true. The old-days record is on companies that still exist today, which flatters it a little.
+Each starts from the entry's record on old days (above), pulled toward 50% and counted for at most 100 calls; every real result since is added on top, so the probabilities learn from what comes true.
 
 | Entry | Horizon | Board | Its record on old days | Real results since | Chance today |
 |---|---|---|---|---|---|
-| machine, best guess | next 21 sessions (official) | market | right in 42% of 73 calls | 0 of 0 | 44% |
-| machine, best guess | next 21 sessions (official) | book | right in 40% of 73 calls | 0 of 0 | 42% |
-| trend ranking | next 21 sessions (official) | market | right in 53% of 73 calls | 0 of 0 | 53% |
-| trend ranking | next 21 sessions (official) | book | right in 56% of 73 calls | 0 of 0 | 55% |
-| machine, best guess | next 5 sessions (side board) | market | right in 43% of 363 calls | 0 of 0 | 44% |
-| machine, best guess | next 5 sessions (side board) | book | right in 48% of 363 calls | 0 of 0 | 48% |
-| trend ranking | next 5 sessions (side board) | market | right in 51% of 366 calls | 0 of 0 | 51% |
-| trend ranking | next 5 sessions (side board) | book | right in 47% of 366 calls | 0 of 0 | 47% |
-| machine, best guess | next session (side board) | market | right in 48% of 367 calls | 0 of 0 | 48% |
-| machine, best guess | next session (side board) | book | right in 51% of 367 calls | 0 of 0 | 51% |
-| trend ranking | next session (side board) | market | right in 48% of 367 calls | 0 of 0 | 48% |
-| trend ranking | next session (side board) | book | right in 49% of 367 calls | 0 of 0 | 49% |
+| trend ranking | next 21 sessions (official) | market | right in 59% of 73 calls | 0 of 0 | 57% |
+| trend ranking | next 21 sessions (official) | book | right in 51% of 73 calls | 0 of 0 | 51% |
+| trend, calm days | next 21 sessions (official) | market | right in 60% of 30 calls | 0 of 0 | 56% |
+| trend, calm days | next 21 sessions (official) | book | right in 47% of 30 calls | 0 of 0 | 48% |
+| busy/quiet month | next 21 sessions (official) | market | right in 36% of 73 calls | 0 of 0 | 39% |
+| profitability | next 21 sessions (official) | market | right in 45% of 73 calls | 0 of 0 | 46% |
+| trend ranking | next 5 sessions (side board) | market | right in 53% of 366 calls | 0 of 0 | 53% |
+| trend ranking | next 5 sessions (side board) | book | right in 52% of 366 calls | 0 of 0 | 52% |
+| trend, calm days | next 5 sessions (side board) | market | right in 55% of 130 calls | 0 of 0 | 55% |
+| trend, calm days | next 5 sessions (side board) | book | right in 50% of 130 calls | 0 of 0 | 50% |
+| learner | next session (side board) | market | right in 46% of 112 calls | 0 of 0 | 47% |
+| learner | next session (side board) | book | right in 51% of 112 calls | 0 of 0 | 51% |
+| trend ranking | next session (side board) | market | right in 50% of 367 calls | 0 of 0 | 50% |
+| trend ranking | next session (side board) | book | right in 52% of 367 calls | 0 of 0 | 52% |
+| trend, calm days | next session (side board) | market | right in 53% of 131 calls | 0 of 0 | 52% |
+| trend, calm days | next session (side board) | book | right in 56% of 131 calls | 0 of 0 | 56% |
 
 ## Were the probabilities honest?
 

@@ -12,3 +12,11 @@ date,horizon,rules,pattern,direction,strength,bar
 2026-11-23,1,v2 2026-11-23,"return beyond what banks explains, 252 sessions, leaving out the latest 21",higher is better,3.82,3.49
 2026-11-23,1,v2 2026-11-23,"return beyond what energy stocks explains, 252 sessions, leaving out the latest 21",higher is better,3.84,3.49
 2026-11-23,1,v2 2026-11-23,"return beyond what the Nasdaq 100 explains, 252 sessions, leaving out the latest 21",higher is better,3.63,3.49
+2026-11-23,1,v4 2026-11-23,overnight return over 5 sessions,lower is better,-3.9,589.3
+2026-11-23,1,v4 2026-11-23,sensitivity to small US stocks times its move over 63 sessions,lower is better,-2.57,589.3
+2026-11-23,1,v4 2026-11-23,"overnight return over 63 sessions, leaving out the latest 21",lower is better,-2.03,589.3
+2026-11-23,1,v4 2026-11-23,sensitivity to small US stocks times its move over 21 sessions,lower is better,-2.05,589.3
+2026-11-23,1,v4 2026-11-23,overnight return over 252 sessions,lower is better,-1.24,589.3
+2026-11-23,1,v4 2026-11-23,"daily range, last 63 sessions against the last 252",higher is better,-0.08,589.3
+2026-11-23,1,v4 2026-11-23,"overnight return over 252 sessions, leaving out the latest 21",lower is better,-1.05,589.3
+2026-11-23,1,v4 2026-11-23,"daytime return over 252 sessions, leaving out the latest 21",higher is better,3.35,589.3
