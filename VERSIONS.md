@@ -68,6 +68,12 @@ Tested and not added: a book of the 30 S&P 500 stocks with the strongest trend, 
 Dogecoin fell 92% from its peak with or without a trend rule. Bitcoin and Ether traded with the 200-day trend rule (crypto_trend_odds.py). On Bitcoin the rule ended
 with more money than simply holding in only 40% of simulated histories; it softened the worst fall (71% against 83%).
 
+Options (options_study.py, index options priced from the volatility indexes back to 1990 and 2001): buying them lost
+16% to 27% of the money paid on average, also right after shocks; 1% a month in calls did not beat simply holding;
+the seller of the same options kept 11% to 22% of the money received, with rare losses of two to three times that.
+The project's options paper test around earnings (a seller's trade with a capped loss) is the place this is being
+tried on new days.
+
 ## The machine (the research model; it never trades)
 
 | Version | Date | What changed | Result on the past | Status |

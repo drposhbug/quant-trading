@@ -60,7 +60,7 @@ def spaced(days, gap=T):
 
 def main():
     px = yf.download(["^NDX", "^VXN", "^GSPC", "^VIX", "^IRX"], start="1990-01-01", auto_adjust=True, progress=False, threads=False)["Close"]
-    rows, text = {}, []
+    rows, text, sell = {}, [], []
     for name, idx, vol in (("Nasdaq-100", "^NDX", "^VXN"), ("S&P 500", "^GSPC", "^VIX")):
         d = px[[idx, vol]].dropna()
         s, sig = d[idx].values, d[vol].values / 100
@@ -76,6 +76,9 @@ def main():
         rows[f"{name}: straddle bought on any day"] = summary(strad[anyday])
         rows[f"{name}: call bought after a shock"] = summary(calls[after])
         rows[f"{name}: call bought on any day"] = summary(calls[anyday])
+        sold = pd.Series(-((strad[anyday] + 1) * SPREAD / (2 - SPREAD) - 1), index=d.index[anyday]).dropna()  # the seller receives 3% under the value, not 3% over
+        sell.append(f"- {name}: selling that straddle every 21 sessions kept {sold.mean():.0%} of the money received on average and won {np.mean(sold > 0):.0%} of the time. "
+                    f"Its three worst: {', '.join(f'{i.date()} {v:.0%}' for i, v in sold.nsmallest(3).items())}. A loss of -300% means paying out four times what was received.")
         if idx == "^NDX":
             ndx, first = d, d.index[61]
             # 2. calls as leverage: per 21 sessions, 99% in the index and 1% (or 2%) in calls
@@ -92,7 +95,7 @@ def main():
                 lev[k] = {"P vs holding": np.nan if k == "hold the index" else odds(a, hold)["P(arm grows faster)"], "growth a year": eq.iloc[-1] ** (252 / T / len(a)) - 1,
                           "worst fall (21-session steps)": (eq / eq.cummax() - 1).min(), "worst 21 sessions": a.min(), "best 21 sessions": a.max()}
             # 3. the owner's example: Friday's close to Monday's close
-            wd = d.index.dayofweek
+            wd = np.asarray(d.index.dayofweek)
             fri = [i for i in range(len(d) - 1) if wd[i] == 4 and wd[i + 1] == 0 and d.index[i] >= d.index[-1] - pd.Timedelta(days=5 * 365)]
             one = lambda i: call(s[i + 1] / s[i], 1.0, sig[i + 1], T - 1) / (SPREAD * call(1.0, 1.0, sig[i], T)) - 1
             wk = pd.Series([one(i) for i in fri], index=d.index[fri])
@@ -109,6 +112,7 @@ def main():
     out = ["# Options: cheap after a shock? Calls as leverage with a capped loss?\n",
            f"Rules written in options_study.py before the run. Index options priced from the volatility indexes; Nasdaq-100 from {first.date()}, S&P 500 from 1990, to {px.index[-1].date()}.\n",
            "## 1. Buying options after a shock\n", t1.to_markdown(floatfmt=".3f"), f"\n- Verdict: **{v1}**.\n",
+           "### The other side of the same trades (a reading added after the first run; no bar)\n", *sell, "",
            "## 2. Calls as leverage with a capped loss (Nasdaq-100, steps of 21 sessions)\n", t2.to_markdown(floatfmt=".3f"), f"\n- Verdict for 1% a month in calls: **{v2}**.\n",
            "## 3. \"If we had bought options on Friday\"\n", *text]
     with open("reports/options_results.md", "w", encoding="utf-8", newline="\n") as f:
