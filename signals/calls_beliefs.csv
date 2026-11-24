@@ -1,0 +1,14 @@
+date,horizon,rules,pattern,direction,strength,bar
+2026-11-23,1,v2 2026-11-23,"return over 252 sessions, leaving out the latest 21",higher is better,3.51,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what US stocks explains, 252 sessions, leaving out the latest 21",higher is better,3.75,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what small US stocks explains, 252 sessions, leaving out the latest 21",higher is better,4.21,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what emerging-market stocks explains, 252 sessions, leaving out the latest 21",higher is better,3.74,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what long Treasury bonds explains, 252 sessions, leaving out the latest 21",higher is better,3.77,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what 7-10 year Treasuries explains, 252 sessions, leaving out the latest 21",higher is better,3.95,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what junk bonds explains, 252 sessions, leaving out the latest 21",higher is better,3.88,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what gold explains, 252 sessions, leaving out the latest 21",higher is better,3.56,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what oil explains, 252 sessions, leaving out the latest 21",higher is better,3.81,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what the tech sector explains, 252 sessions, leaving out the latest 21",higher is better,3.6,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what banks explains, 252 sessions, leaving out the latest 21",higher is better,3.82,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what energy stocks explains, 252 sessions, leaving out the latest 21",higher is better,3.84,3.49
+2026-11-23,1,v2 2026-11-23,"return beyond what the Nasdaq 100 explains, 252 sessions, leaving out the latest 21",higher is better,3.63,3.49
