@@ -29,7 +29,11 @@ jobs:
       - name: Pattern-finder's forward record (discover_odds.py; same prices, never orders, posts nothing)
         continue-on-error: true  # a failure here must not lose the network's rows
         run: python discover_odds.py --log
-      - name: Daily calls on about 500 stocks (daily_calls.py; reads prices with the Alpaca data key, has no order code, posts nothing)
+      - name: Profitability from SEC filings, refreshed on Fridays (fundamentals_data.py; public data, no key)
+        continue-on-error: true
+        run: |
+          if [ "$(date -u +%u)" = "5" ]; then python fundamentals_data.py; else echo "refreshed on Fridays"; fi
+      - name: Daily calls on the S&P 500 by date (daily_calls.py; reads prices with the Alpaca data key, has no order code, posts nothing)
         continue-on-error: true
         run: python daily_calls.py
         env:
@@ -52,4 +56,5 @@ jobs:
           git add signals/calls_past.csv 2>/dev/null || true
           git add signals/calls_standouts.csv 2>/dev/null || true
           git add reports/daily_calls.md 2>/dev/null || true
+          git add lab/fundamentals.csv 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "network forward record" && git pull --rebase -X theirs && git push)
