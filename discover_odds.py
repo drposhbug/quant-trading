@@ -85,71 +85,80 @@ def z(v):
     return v.sub(v.mean(axis=1), axis=0).div(v.std(axis=1), axis=0).clip(-3, 3)
 
 
-def candidates(px, frozen=False):
-    """(plain names, [candidate x day x stock] z-scores across the names). Every value is known at that day's close."""
-    names = names_of(px)
-    o, h, l, v, ext = raw(px, frozen)
-    c = px[names].ffill()
+def patterns(c, o, h, l, v, x, outside):
+    """Yields (plain name, [day x stock] value known at that day's close), before any scaling across the names.
+    c: closes; o, h, l: open, high and low as ratios to the same day's close; v: volume; x: daily log moves of the
+    outside series; outside: {column of x: plain name}. Works for ten stocks or five hundred."""
     lr = np.log(c).diff()
     vol = lr.rolling(60).std()
     dv = np.log(v) - np.log(v).rolling(60).mean()
     pos = ((1 - l) / (h - l)).replace([np.inf, -np.inf], np.nan)
-    x = np.log(ext.join(px[BENCH].ffill())).diff()
     skip = lambda b: f", leaving out the latest {b}" if b else ""
-    f = {}
     for what, p in (("return", lr), ("overnight return", np.log(o) + lr), ("daytime return", -np.log(o))):
         for a in W:
             for b in (0, 5, 21):
                 if b < a:
-                    f[f"{what} over {a} sessions{skip(b)}"] = p.rolling(a - b).sum().shift(b) / (vol * np.sqrt(a - b))
+                    yield f"{what} over {a} sessions{skip(b)}", p.rolling(a - b).sum().shift(b) / (vol * np.sqrt(a - b))
     for what, p in (("daily range", np.log(h / l)), ("volume against its own normal", dv), ("where it closes in the day's range", pos)):
         for a in W:
-            f[f"{what}, average of {a} sessions"] = p.rolling(a).mean()
+            yield f"{what}, average of {a} sessions", p.rolling(a).mean()
         for a, b in ((5, 21), (5, 63), (21, 126), (21, 252), (63, 252)):
-            f[f"{what}, last {a} sessions against the last {b}"] = p.rolling(a).mean() - p.rolling(b).mean()
-    f["choppiness over 60 sessions"] = vol
+            yield f"{what}, last {a} sessions against the last {b}", p.rolling(a).mean() - p.rolling(b).mean()
+    yield "choppiness over 60 sessions", vol
     for a in (21, 63, 126, 252):
         r = lr.rolling(a)
-        f[f"lopsidedness of its daily moves, {a} sessions"] = r.skew()
-        f[f"biggest one-day gain in {a} sessions"] = r.max() / vol
-        f[f"biggest one-day loss in {a} sessions"] = r.min() / vol
-        f[f"share of up days, {a} sessions"] = (lr > 0).astype(float).where(lr.notna()).rolling(a).mean()
-        f[f"size of its down days against its up days, {a} sessions"] = (lr.clip(upper=0) ** 2).rolling(a).mean() / (lr.clip(lower=0) ** 2).rolling(a).mean()
-        f[f"one day's move repeating the next day, {a} sessions"] = r.corr(lr.shift(1))
-        f[f"distance below its {a}-session high"] = c / c.rolling(a).max() - 1
-        f[f"distance above its {a}-session low"] = c / c.rolling(a).min() - 1
-        f[f"distance from its {a}-session average"] = c / c.rolling(a).mean() - 1
+        yield f"lopsidedness of its daily moves, {a} sessions", r.skew()
+        yield f"biggest one-day gain in {a} sessions", r.max() / vol
+        yield f"biggest one-day loss in {a} sessions", r.min() / vol
+        yield f"share of up days, {a} sessions", (lr > 0).astype(float).where(lr.notna()).rolling(a).mean()
+        yield f"size of its down days against its up days, {a} sessions", (lr.clip(upper=0) ** 2).rolling(a).mean() / (lr.clip(lower=0) ** 2).rolling(a).mean()
+        yield f"one day's move repeating the next day, {a} sessions", r.corr(lr.shift(1))
+        yield f"distance below its {a}-session high", c / c.rolling(a).max() - 1
+        yield f"distance above its {a}-session low", c / c.rolling(a).min() - 1
+        yield f"distance from its {a}-session average", c / c.rolling(a).mean() - 1
         if a < 252:
-            f[f"choppiness, {a} sessions against the last 252"] = r.std() / lr.rolling(252).std()
+            yield f"choppiness, {a} sessions against the last 252", r.std() / lr.rolling(252).std()
     for a in (21, 63, 126):
-        f[f"volume rising on its up days, {a} sessions"] = lr.rolling(a).corr(dv)
-        f[f"return on its heavy-volume days, {a} sessions"] = (lr * dv).rolling(a).sum() / (vol * np.sqrt(a))
-    for k, what in {**EXT, BENCH: "the Nasdaq 100"}.items():
+        yield f"volume rising on its up days, {a} sessions", lr.rolling(a).corr(dv)
+        yield f"return on its heavy-volume days, {a} sessions", (lr * dv).rolling(a).sum() / (vol * np.sqrt(a))
+    for k, what in outside.items():
         beta = lr.rolling(126).cov(x[k]).div(x[k].rolling(126).var(), axis=0).shift(1)
         res = lr - beta.mul(x[k], axis=0)
         for a in (63, 126, 252):
-            f[f"how closely it moves with {what}, {a} sessions"] = lr.rolling(a).corr(x[k])
-        f[f"moving more closely with {what} lately (63 sessions against 252)"] = lr.rolling(63).corr(x[k]) - lr.rolling(252).corr(x[k])
-        f[f"sensitivity to {what}"] = beta
+            yield f"how closely it moves with {what}, {a} sessions", lr.rolling(a).corr(x[k])
+        yield f"moving more closely with {what} lately (63 sessions against 252)", lr.rolling(63).corr(x[k]) - lr.rolling(252).corr(x[k])
+        yield f"sensitivity to {what}", beta
         for a, b in ((5, 0), (21, 0), (63, 0), (126, 21), (252, 21)):
-            f[f"return beyond what {what} explains, {a} sessions{skip(b)}"] = res.rolling(a - b).sum().shift(b) / (res.rolling(60).std() * np.sqrt(a - b))
+            yield f"return beyond what {what} explains, {a} sessions{skip(b)}", res.rolling(a - b).sum().shift(b) / (res.rolling(60).std() * np.sqrt(a - b))
         for a in (21, 63, 126):
-            f[f"sensitivity to {what} times its move over {a} sessions"] = beta.mul(x[k].rolling(a).sum(), axis=0)
-    peers = pd.DataFrame({n: lr.drop(columns=n).mean(axis=1) for n in names})
+            yield f"sensitivity to {what} times its move over {a} sessions", beta.mul(x[k].rolling(a).sum(), axis=0)
+    ok = lr.notna()  # the other names' average move, for every stock at once
+    peers = (lr.fillna(0).sum(axis=1).values[:, None] - lr.fillna(0)) / (ok.sum(axis=1).values[:, None] - ok.astype(int))
     for a in (63, 252):
-        f[f"how closely it moves with the other names, {a} sessions"] = lr.rolling(a).corr(peers)
-    f["following the other names a day late, 126 sessions"] = lr.rolling(126).corr(peers.shift(1))
-    f["the other names following it a day late, 126 sessions"] = peers.rolling(126).corr(lr.shift(1))
+        yield f"how closely it moves with the other names, {a} sessions", lr.rolling(a).corr(peers)
+    yield "following the other names a day late, 126 sessions", lr.rolling(126).corr(peers.shift(1))
+    yield "the other names following it a day late, 126 sessions", peers.rolling(126).corr(lr.shift(1))
 
-    f = {k: z(v[names]) for k, v in f.items()}
-    base, rng = list(f), np.random.default_rng(0)
-    pairs = set()
+
+def pair_list(n):
+    """The PAIRS seeded random pairs of the n base patterns that are also tried multiplied together."""
+    rng, pairs = np.random.default_rng(0), set()
     while len(pairs) < PAIRS:
-        i, j = sorted(rng.choice(len(base), 2, replace=False))
+        i, j = sorted(rng.choice(n, 2, replace=False))
         pairs.add((int(i), int(j)))
-    for i, j in sorted(pairs):
+    return sorted(pairs)
+
+
+def candidates(px, frozen=False):
+    """(plain names, [candidate x day x stock] z-scores across the names). Every value is known at that day's close."""
+    names = names_of(px)
+    o, h, l, v, ext = raw(px, frozen)
+    x = np.log(ext.join(px[BENCH].ffill())).diff()
+    f = {k: z(val[names]) for k, val in patterns(px[names].ffill(), o, h, l, v, x, {**EXT, BENCH: "the Nasdaq 100"})}
+    base = list(f)
+    for i, j in pair_list(len(base)):
         f[f"[{base[i]}] together with [{base[j]}]"] = z(f[base[i]] * f[base[j]])
-    return list(f), np.stack([v.values.astype(np.float32) for v in f.values()])
+    return list(f), np.stack([val.values.astype(np.float32) for val in f.values()])
 
 
 def daily_ic(Z, y):

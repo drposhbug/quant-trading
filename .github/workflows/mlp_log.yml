@@ -2,7 +2,8 @@ name: mlp-log
 on:
   schedule:
     # The network's forward record: one dated forecast per stock after each close, scored 21 sessions later
-    # (mlp_odds.py --log). 22:10 UTC is after the New York close in winter and summer; 23:40 backs it up
+    # (mlp_odds.py --log), the pattern-finder's, and the daily calls on about 500 stocks (daily_calls.py).
+    # 22:10 UTC is after the New York close in winter and summer; 23:40 backs it up
     # (GitHub cron is best-effort). A second run on the same day adds nothing.
     - cron: "10 22 * * 1-5"
     - cron: "40 23 * * 1-5"
@@ -15,7 +16,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,6 +29,12 @@ jobs:
       - name: Pattern-finder's forward record (discover_odds.py; same prices, never orders, posts nothing)
         continue-on-error: true  # a failure here must not lose the network's rows
         run: python discover_odds.py --log
+      - name: Daily calls on about 500 stocks (daily_calls.py; reads prices with the Alpaca data key, has no order code, posts nothing)
+        continue-on-error: true
+        run: python daily_calls.py
+        env:
+          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
       - name: Save
         run: |
           git config user.name "monitor-bot"
@@ -37,4 +44,8 @@ jobs:
           git add signals/discover_forecasts.csv 2>/dev/null || true
           git add signals/discover_forward.csv 2>/dev/null || true
           git add signals/discover_found.csv 2>/dev/null || true
+          git add signals/calls.csv 2>/dev/null || true
+          git add signals/calls_scored.csv 2>/dev/null || true
+          git add signals/calls_beliefs.csv 2>/dev/null || true
+          git add reports/daily_calls.md 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "network forward record" && git pull --rebase -X theirs && git push)

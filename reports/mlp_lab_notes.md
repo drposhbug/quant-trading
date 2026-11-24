@@ -39,3 +39,23 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
   (signals/discover_forward.csv). That record is the only place it can still earn anything.
 - The lab's budget went from 4 to 5 for this run. The four experiments in lab/queue.md are untouched and still
   wait for the scheduled task.
+
+## 2026-11-23, evening (by hand): why the pattern-finder failed, and the daily calls
+
+- Why it failed, checked on its own run. The ten patterns it trusted each month had worked in their own past
+  (rank IC +0.108) and did nothing in the month that followed (+0.003). When every stock was handed another
+  stock's future, it "found" patterns that looked just as good (30% of those shuffles looked better than the real
+  thing). With ten stocks, luck's best ten out of 945 tries always look convincing. Grok's review agrees and adds
+  that the multiplied pairs made the contest easier to win (research_notes/mlp loop/round 3.md).
+- The fix is not another test on old years; those are used up. It is a rebuilt machine that is judged only on
+  days that have not happened: daily_calls.py. About 500 stocks instead of ten, no multiplied pairs, and a noise
+  bar: a pattern gets a vote only by how far its record beats what the best of 345 patterns reaches by luck.
+- Every day after the close it ranks the stocks for the next 21 sessions (the official board), the next 5 and
+  the next 1, and logs which third it favours and which it avoids, for the market and for the bot's own names.
+  When a call comes due it is marked right or wrong. A plain 12-month trend ranking is scored beside it.
+  The page to read is reports/daily_calls.md.
+- First dry run, before any real call: at 21 and 5 sessions the strict entry had no view, because nothing stood
+  out from luck. At 1 session it trusted 13 patterns, and all 13 are versions of the 12-month trend the bot
+  already uses. A second entry, "best guess", was added so there is a call to watch every day; it uses patterns
+  that stand out one at a time (7 at 21 sessions, about what luck alone gives; 24 at 5; 75 at 1).
+- No verdict before 20 non-overlapping official calls, about 20 months. Until then the page says "too early".
