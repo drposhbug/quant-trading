@@ -2,8 +2,7 @@
 
 2026-11-23. Five Opus researchers (data, evidence, mathematics, market mechanics, news), a first-principles review by
 Astra 6.2, and our own numbers on about 500 stocks since 2016. Their notes are in
-`research_notes/Smarter machine 2026-11-23/`. This page is the decision. Grok was asked the same questions as Astra;
-its answer had not arrived when this was written and is noted at the end once it has.
+`research_notes/Smarter machine 2026-11-23/`. This page is the decision. Grok's attack on it is summarised at the end.
 
 ## The decision
 
@@ -95,3 +94,19 @@ that crashes less and a machine that says "no view" when that is the truth.
   earnings-surprise test 60%. It goes first because it is cheap to settle.
 - Stage B on new days needs about 160 calls to confirm a true 60% hit rate and 800 for 55%: nobody found a faster
   honest route.
+
+## Grok's attack on this decision (added the same night)
+
+Grok was given the findings and the plan and asked what is wrong with them (notes file 7). What it changed:
+
+- **Strip out market and sector moves, keep style.** Removing style as well would delete the trend itself. Grok
+  expects 500 stocks to become worth about 100 this way, not several hundred (its odds of several hundred: 20%).
+- **The overnight edge is probably not tradeable.** It needs four auction fills a night and breaks even at 0.028%
+  all-in; a one-day lag in the ranking loses another 10 to 20%. Grok's odds that it pays after costs: 20%.
+- **The trend's 55% hit rate is one bet repeated**, not 2,338 separate ones. Its mean is the honest number: t 0.25.
+- **An untested news idea:** after a stock's shock, do the stocks of the same sector that did not jump drift over
+  the next 1 to 5 sessions? Its odds that this confirms: 10%.
+- **Against weighting patterns by their own record** (step 3): it hands the job back to the best of the search.
+  Kept, but gated: the learner speaks only when the whole crowd of patterns beats luck, and each new piece of
+  information is judged on its own, not through the learner.
+- Grok's odds that the finished plan beats a volatility-scaled trend after costs: 12%. Astra's: 20%.
