@@ -92,3 +92,23 @@ experiments in lab/queue.md, every score in reports/mlp_lab_log.csv. Plain words
 - News and Trump: shocks reliably predict how large the next moves will be, for weeks, and which stocks react
   most. They do not predict direction, in our data or in the published studies.
 - New days are now judged by a running evidence score that can be read every day (1 is nothing, 20 confirms).
+
+## 2026-11-23, last entry of the day (by hand): closing out on news, and the machine rebuilt (v4)
+
+- "See the news and close out." Tested on the bot's own book with six rules written first
+  (reports/news_stop_odds.md). Closing out completely after a shock barely helps: on the market's 37 worst
+  shock days half of the fall had already happened by the open, and over the next 5 sessions the market was up
+  67% of the time. What does lose less is holding half the book for a month after any market shock: the worst
+  fall was 25% instead of 36% (and 31% instead of 41% on the bot's current names), the worst single day was
+  halved, and it cost 0.8% a year of growth. That is the owner's choice; it is not wired into the bot.
+- News direction is now closed on daily data. A stock's own shock, a market shock, and (Grok's idea) the
+  shocked stock's sector peers: none predicts direction. The size of later moves is strongly predictable.
+- The machine was rebuilt as version 4: every company that was in the index on the day, including the dead
+  ones; market and sector moves removed; one learner that only speaks when the whole crowd of patterns beats
+  luck; the trend standing aside when it has been wild; and separate entries for new information.
+- Its record on the past: nothing passes. The nearest is the trend on calm days (right 18 of 30 times over 21
+  sessions, with milder worst cases). "Busy month keeps going" went the wrong way. Profitability showed
+  nothing. The learner had no view at 21 or 5 sessions on any old day.
+- Removing the shared moves made the instrument sharper, though less than hoped: the list is now worth about 74
+  independent stocks, up from about 28.
+- Still to come: the two earnings entries, when the earnings file has finished downloading.
