@@ -15,7 +15,9 @@
   "https://www.trumpstruth.org/statuses/43701"
  ],
  "alerted": {
-  "2026-11-25": []
+  "2026-11-25": [
+   "move:AMZN"
+  ]
  },
  "regime": "risk-off",
  "rebalanced": "2026-11-24",
