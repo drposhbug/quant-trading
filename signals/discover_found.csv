@@ -39,3 +39,23 @@ date,list,pattern,direction
 2026-11-20,shipped,"[overnight return over 42 sessions] together with [lopsidedness of its daily moves, 126 sessions]",higher is better
 2026-11-20,shipped,"[how closely it moves with the tech sector, 252 sessions] together with [how closely it moves with energy stocks, 252 sessions]",higher is better
 2026-11-20,shipped,"[volume against its own normal, average of 126 sessions] together with [moving more closely with the tech sector lately (63 sessions against 252)]",lower is better
+2026-11-24,end-2014,"[return beyond what long Treasury bonds explains, 63 sessions] together with [return beyond what banks explains, 126 sessions, leaving out the latest 21]",higher is better
+2026-11-24,end-2014,"daily range, last 63 sessions against the last 252",lower is better
+2026-11-24,end-2014,"[volume against its own normal, average of 42 sessions] together with [share of up days, 126 sessions]",lower is better
+2026-11-24,end-2014,"[return beyond what the dollar explains, 252 sessions, leaving out the latest 21] together with [sensitivity to banks times its move over 63 sessions]",higher is better
+2026-11-24,end-2014,"[daily range, last 21 sessions against the last 252] together with [moving more closely with the dollar lately (63 sessions against 252)]",higher is better
+2026-11-24,end-2014,"where it closes in the day's range, last 63 sessions against the last 252",higher is better
+2026-11-24,end-2014,"[overnight return over 63 sessions, leaving out the latest 21] together with [sensitivity to chip stocks times its move over 126 sessions]",higher is better
+2026-11-24,end-2014,"[how closely it moves with long Treasury bonds, 252 sessions] together with [return beyond what the Nasdaq 100 explains, 252 sessions, leaving out the latest 21]",lower is better
+2026-11-24,end-2014,"[return over 42 sessions] together with [return over 126 sessions, leaving out the latest 5]",higher is better
+2026-11-24,end-2014,"[volume against its own normal, average of 42 sessions] together with [return beyond what banks explains, 252 sessions, leaving out the latest 21]",lower is better
+2026-11-24,shipped,"[return over 252 sessions, leaving out the latest 21] together with [overnight return over 126 sessions]",higher is better
+2026-11-24,shipped,"choppiness, 21 sessions against the last 252",lower is better
+2026-11-24,shipped,"[return beyond what energy stocks explains, 252 sessions, leaving out the latest 21] together with [return beyond what the Nasdaq 100 explains, 252 sessions, leaving out the latest 21]",higher is better
+2026-11-24,shipped,sensitivity to the VIX,lower is better
+2026-11-24,shipped,"[how closely it moves with junk bonds, 126 sessions] together with [how closely it moves with oil, 252 sessions]",higher is better
+2026-11-24,shipped,"volume against its own normal, average of 21 sessions",lower is better
+2026-11-24,shipped,"[return beyond what emerging-market stocks explains, 252 sessions, leaving out the latest 21] together with [return beyond what long Treasury bonds explains, 126 sessions, leaving out the latest 21]",higher is better
+2026-11-24,shipped,"[overnight return over 42 sessions] together with [lopsidedness of its daily moves, 126 sessions]",higher is better
+2026-11-24,shipped,"[how closely it moves with the tech sector, 252 sessions] together with [how closely it moves with energy stocks, 252 sessions]",higher is better
+2026-11-24,shipped,"[volume against its own normal, average of 126 sessions] together with [moving more closely with the tech sector lately (63 sessions against 252)]",lower is better
