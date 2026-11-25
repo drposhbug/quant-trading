@@ -22,3 +22,10 @@ One entry per trading day: what happened, why, and what was changed. Written by 
 - No code change to the order or logging path since the last review; the owner's commits were research studies, the network lab and workflow additions, not repairs.
 - test_monitor.py passes. test_model.py and track.py could not get prices: this sandbox is refused by Yahoo Finance (403), so the model side of track.py reads 0% (live +1.01% over 2 days). Not a defect.
 - Nothing to fix.
+
+## 2026-11-25
+
+- Equity $94,624 at 15:30, down 1.5% on the day ($96,045 on 11-24); about 97% in stocks; regime risk-off; 5.4% below the $100,000 peak (dd_tier still 0).
+- Today's session is logged and rebalanced; the missed list did not grow (still only 2026-11-19). Only the bots' own commits in the last 36 hours.
+- test_monitor.py passes. test_model.py and track.py could not get prices: this sandbox is refused by Yahoo Finance (403), so the model side of track.py reads 0% (live -0.48% over 3 days). Not a defect.
+- Nothing to fix.
