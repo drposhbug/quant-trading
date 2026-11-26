@@ -29,3 +29,7 @@ One entry per trading day: what happened, why, and what was changed. Written by 
 - Today's session is logged and rebalanced; the missed list did not grow (still only 2026-11-19). Only the bots' own commits in the last 36 hours.
 - test_monitor.py passes. test_model.py and track.py could not get prices: this sandbox is refused by Yahoo Finance (403), so the model side of track.py reads 0% (live -0.48% over 3 days). Not a defect.
 - Nothing to fix.
+
+## 2026-11-26
+
+- US market closed for Thanksgiving; no session, no row expected (last row 2026-11-25, $94,624). Missed list unchanged.
