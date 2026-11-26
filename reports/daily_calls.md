@@ -4,7 +4,7 @@ Updated after the close on 2026-11-25. Rules "v4 2026-11-23", written in daily_c
 
 Each day after the close the machine ranks the S&P 500 stocks for three horizons. The top third is *favoured*, the bottom third *avoided*. A call is **right** if favoured did better than avoided, measured from the next morning's open (the first price anyone could trade at) and before trading costs. Moves that the whole market or a whole sector made are taken out first, so a call is about what is particular to each stock.
 
-**Shock watch:** 6 market-wide shock days in the last 21 sessions (latest 2026-11-23, +4.7%). After a shock the market's moves have run about twice their normal size for a month, in either direction, and the direction has not been predictable. Nothing here acts on it; reports/news_stop_odds.md shows what holding half the book after a shock would have done. **How sharp the instrument is:** over next 21 sessions one day's ranking score wobbles by 0.116. If the 503 stocks moved independently it would be 0.045, so the list carries the information of about 74 independent stocks (about 28 before the market and the sectors were taken out).
+**Shock watch:** 6 market-wide shock days in the last 21 sessions (latest 2026-11-23, +4.7%). After a shock the market's moves have run about twice their normal size for a month, in either direction, and the direction has not been predictable. Nothing here acts on it; reports/news_stop_odds.md shows what holding half the book after a shock would have done.
 
 The entries:
 
