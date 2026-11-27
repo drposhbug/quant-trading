@@ -10,7 +10,7 @@ Updated after the close on 2026-11-25. Counting from 2026-11-24. Computed from t
 | B2.2 half after a shock | 2 | -0.97% | +1.01% | -0.43% | -0.55% | 49% |
 | B2.3 trim amplifiers after a shock | 2 | -1.34% | +0.64% | -0.72% | -0.72% | 89% |
 | B3.0 steady 1.25x (borrowing a quarter) | 2 | -2.49% | -0.51% | -1.12% | -1.39% | 122% |
-| C1.0 the live book with 5% in Bitcoin (held) | 2 | -2.00% | -0.02% | -0.84% | -1.17% | 95% stocks, 5% Bitcoin |
+| C1.0 the live book with 5% in Bitcoin (held) | 2 | -1.95% | +0.03% | -0.79% | -1.17% | 95% stocks, 5% Bitcoin |
 
 A few weeks of this say almost nothing: the candidates differ from the live book only after shocks. Their record on the past is in VERSIONS.md.
 
