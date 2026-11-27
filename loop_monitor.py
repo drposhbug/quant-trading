@@ -13,6 +13,15 @@ import time
 import monitor
 
 DEADLINE = time.time() + 5 * 3600 + 40 * 60  # stay under the 6 h job limit with time to save state
+# Wait for the open only when it is near. 2026-11-27 (13:00 half day): a pre-market trigger started the loop at 04:06 ET,
+# it spent its whole 5h40 budget waiting, hit DEADLINE at 09:51 ET and no later trigger fired before the close: session
+# missed. An hourly trigger always comes within this window of the open, so an earlier start just does one pass and exits.
+PREOPEN_WAIT_MIN = 75
+
+
+def wait_for_open(clock, now):
+    """Pre-open: keep looping only if the open is within PREOPEN_WAIT_MIN minutes."""
+    return (dt.datetime.fromisoformat(clock["next_open"]) - now).total_seconds() / 60 <= PREOPEN_WAIT_MIN
 
 
 def sh(*cmd):
@@ -45,6 +54,10 @@ def main():
             if dt.datetime.fromisoformat(clock["next_open"]).date() != now.date():
                 print("market closed for the day")
                 one_pass()  # lets after-close bookkeeping (alerts, state) run once
+                return
+            if not wait_for_open(clock, now):
+                sh(sys.executable, "monitor.py")  # far from the open: one pre-open snapshot, then leave the job budget
+                save_state()                      # to a trigger nearer the open (see PREOPEN_WAIT_MIN)
                 return
             sh(sys.executable, "monitor.py")  # before the open: monitor only snapshots prediction markets + posts, then
             save_state()                      # exits ("market closed") — gives a pre-open odds record for IPO days

@@ -152,3 +152,11 @@ open(monitor.CONFIG, "w").write("{not json")
 assert monitor.live_weights(_px).equals(monitor.tilted(_px))
 monitor.CONFIG = _keep
 print("live config checks passed")
+
+# loop_monitor: a pre-market start must not burn the job budget waiting for the open (missed 2026-11-27 half day).
+import datetime as _dt
+import loop_monitor
+_now = _dt.datetime(2026, 11, 27, 4, 6, tzinfo=monitor.NY)
+assert not loop_monitor.wait_for_open({"next_open": "2026-11-27T09:30:00-05:00"}, _now)
+assert loop_monitor.wait_for_open({"next_open": "2026-11-27T09:30:00-05:00"}, _now.replace(hour=8, minute=17))
+print("loop_monitor pre-open check passed")
