@@ -1,16 +1,16 @@
 # Candidate versions of the bot, in shadow
 
-Updated after the close on 2026-11-25. Counting from 2026-11-24. Computed from the rules and daily prices, not from the account's fills. Nothing here trades.
+Updated after the close on 2026-11-27. Counting from 2026-11-24. Computed from the rules and daily prices, not from the account's fills. Nothing here trades.
 
-**In shock mode today: yes.** The latest market shock was 2026-11-23 (+7.0%); the candidates hold less for 19 more sessions. The names that fall hardest when the market falls, as measured today: AVGO, TSM, AMD, ORCL.
+**In shock mode today: yes.** The latest market shock was 2026-11-23 (+7.0%); the candidates hold less for 18 more sessions. The names that fall hardest when the market falls, as measured today: AVGO, TSM, AMD, ORCL.
 
 | Version | Sessions | Return since the start | Against the live book | Worst fall | Worst session | Share invested today |
 |---|---|---|---|---|---|---|
-| B2.1 live book (trend tilt, fully invested) | 2 | -1.98% | +0.00% | -0.88% | -1.11% | 97% |
-| B2.2 half after a shock | 2 | -0.97% | +1.01% | -0.43% | -0.55% | 49% |
-| B2.3 trim amplifiers after a shock | 2 | -1.34% | +0.64% | -0.72% | -0.72% | 89% |
-| B3.0 steady 1.25x (borrowing a quarter) | 2 | -2.49% | -0.51% | -1.12% | -1.39% | 122% |
-| C1.0 the live book with 5% in Bitcoin (held) | 2 | -1.95% | +0.03% | -0.79% | -1.17% | 95% stocks, 5% Bitcoin |
+| B2.1 live book (trend tilt, fully invested) | 3 | +0.15% | +0.00% | -0.88% | -1.11% | 96% |
+| B2.2 half after a shock | 3 | +0.12% | -0.03% | -0.43% | -0.55% | 48% |
+| B2.3 trim amplifiers after a shock | 3 | +0.50% | +0.36% | -0.72% | -0.72% | 87% |
+| B3.0 steady 1.25x (borrowing a quarter) | 3 | +0.15% | +0.00% | -1.12% | -1.39% | 120% |
+| C1.0 the live book with 5% in Bitcoin (held) | 3 | +0.08% | -0.06% | -0.79% | -1.17% | 95% stocks, 5% Bitcoin |
 
 A few weeks of this say almost nothing: the candidates differ from the live book only after shocks. Their record on the past is in VERSIONS.md.
 
@@ -20,10 +20,10 @@ Separate small books, not part of the bot. On the past, meme and crypto stocks m
 
 | Sleeve | Sessions | Return since the start | Worst session |
 |---|---|---|---|
-| S1.0 crypto stocks, nights only (after 10 bp a night) | 2 | -8.53% | -5.73% |
-| S2.0 meme stocks, nights only (after 10 bp a night) | 2 | -3.89% | -2.81% |
-| for comparison: crypto stocks held day and night | 2 | -6.96% | -7.54% |
-| for comparison: meme stocks held day and night | 2 | +3.00% | -0.74% |
+| S1.0 crypto stocks, nights only (after 10 bp a night) | 3 | -4.11% | -5.73% |
+| S2.0 meme stocks, nights only (after 10 bp a night) | 3 | -1.33% | -2.81% |
+| for comparison: crypto stocks held day and night | 3 | -3.86% | -7.54% |
+| for comparison: meme stocks held day and night | 3 | +6.11% | -0.74% |
 
 ## How a candidate becomes the bot's rule
 
